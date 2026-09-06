@@ -401,346 +401,410 @@ body{
     white-space:nowrap;
 }
 
-/* ========= Backpack背包弹窗（Manage Items打开）TF2背包界面 参考截图样式 ========= */
+/* ========= TF2背包弹窗 严格复刻截图 ========= */
 .backpack-overlay{
     position:fixed;
     inset:0;
-    background:#221e1a;
+    background:#231f1b;
     z-index:102;
     display:none;
-    padding:24px;
+    padding:18px;
 }
-.backpack-header{
+/* 顶部标签 LOADOUT / STATS →背包 /统计 */
+.bp-tab-wrap{
     display:flex;
     gap:4px;
-    margin-bottom:16px;
-}
-.bp-tab{
-    background:#443e34;
-    color:#f8f0dc;
-    font-size:32px;
-    font-weight:bold;
-    padding:8px 32px;
-    border-radius:8px 8px 0 0;
-}
-.bp-tab.active{
-    background:#2c2821;
-}
-.backpack-top-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
     margin-bottom:12px;
 }
-.bp-title{
-    color:#ff4444;
-    font-size:28px;
+.bp-tab{
+    background:#423c32;
+    color:#f7f1e3;
+    font-size:26px;
     font-weight:bold;
+    padding:6px 28px;
+    border-radius:6px 6px 0 0;
+    cursor:pointer;
 }
-.bp-right-group{
-    display:flex;
-    gap:16px;
-    align-items:center;
+.bp-tab.active{
+    background:#231f1b;
 }
-.checkbox-wrap{
-    color:#f0e9dc;
-    font-size:18px;
-}
-.bp-select{
-    background:#3b362e;
-    color:#fff;
-    font-size:17px;
-    padding:4px 8px;
-}
-/* 物品格子网格 */
-.bp-grid{
-    display:grid;
-    grid-template-columns:repeat(9, 110px);
-    gap:8px;
-    margin-bottom:20px;
-}
-.bp-slot{
-    width:110px;
-    height:110px;
-    border:3px solid #9c8c22;
-    background:#4a442c;
-    border-radius:4px;
-}
-.bp-slot.empty{
-    border-color:#444;
-    background:#2e2a22;
-}
-.backpack-bottom-bar{
+.bp-top-bar{
     display:flex;
     justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
 }
-.bp-bottom-btn{
-    background:#c9bea6;
-    color:#222;
-    font-size:18px;
-    padding:10px 30px;
-    border-style:solid;
-    border-color:#e2d9c3 #807662 #807662 #e2d9c3;
+.bp-title-text{
+    color:#ff4646;
+    font-size:24px;
+    font-weight:bold;
+}
+.bp-top-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+.bp-checkbox-line{
+    color:#f0e9dc;
+    font-size:16px;
+}
+.bp-sort-select{
+    background:#3b362e;
+    color:#fff;
+    font-size:16px;
+    padding:5px 10px;
+    border:2px solid #645c4f;
+}
+/* 物品格子：has‑item=金色边框；empty=暗色普通边框 */
+.bp-grid{
+    display:grid;
+    grid-template-columns:repeat(9, 102px);
+    gap:6px;
+    margin-bottom:18px;
+}
+.bp-slot{
+    width:102px;
+    height:102px;
+    background:#38332b;
+    border:2px solid #544e42;
+    border-radius:3px;
+}
+.bp-slot.has-item{
+    border‑color:#d4b028; /*有物品才显示黄色金色边框 */
+    background:#443e2e;
+}
+/* 底部按钮栏，和截图顺序完全一致 */
+.bp‑bottom‑bar{
+    display:flex;
+    justify‑content:space‑between;
+    align‑items:center;
+}
+.bp‑btn{
+    background:#b8ad94;
+    color:#1c1c1c;
+    font‑size:16px;
+    font‑weight:bold;
+    padding:9px 24px;
+    border‑style:solid;
+    border‑color:#e2d9c3 #7c705e #7c705e #e2d9c3;
     cursor:pointer;
 }
 
 /* ----语言切换---- */
-.lang-zh{ display:inline-block; }
-.lang-en{ display:none; }
+.lang‑zh{ display:inline‑block; }
+.lang‑en{ display:none; }
 </style>
 </head>
 <body>
 <div class="wrapper">
-    <div class="logo-overlay">
-        <div class="logo-img"></div>
+    <div class="logo‑overlay">
+        <div class="logo‑img"></div>
     </div>
 
-    <div class="top-header">
-        <div class="avatar-box"></div>
-        <div class="welcome-text">
+    <div class="top‑header">
+        <div class="avatar‑box"></div>
+        <div class="welcome‑text">
             <h1>
-                <span class="lang-zh">欢迎回来，玩家</span>
-                <span class="lang-en">WELCOME BACK, PLAYER</span>
+                <span class="lang‑zh">欢迎回来，玩家</span>
+                <span class="lang‑en">WELCOME BACK, PLAYER</span>
             </h1>
             <p>
-                <span class="lang-zh">你的成就</span>
-                <span class="lang-en">Your Achievements</span>
+                <span class="lang‑zh">你的成就</span>
+                <span class="lang‑en">Your Achievements</span>
             </p>
         </div>
-        <div class="top-right-area">
-            <div class="achievement-slots">
-                <div class="achv-slot" style="background-image:url('photos/achv_01.png');"></div>
-                <div class="achv-slot" style="background-image:url('photos/achv_02.png');"></div>
-                <div class="achv-slot" style="background-image:url('photos/achv_03.png');"></div>
-                <div class="achv-slot" style="background-image:url('photos/achv_04.png');"></div>
-                <div class="achv-slot" style="background-image:url('photos/achv_05.png');"></div>
+        <div class="top‑right‑area">
+            <div class="achievement‑slots">
+                <div class="achv‑slot" style="background‑image:url('photos/achv_01.png');"></div>
+                <div class="achv‑slot" style="background‑image:url('photos/achv_02.png');"></div>
+                <div class="achv‑slot" style="background‑image:url('photos/achv_03.png');"></div>
+                <div class="achv‑slot" style="background‑image:url('photos/achv_04.png');"></div>
+                <div class="achv‑slot" style="background‑image:url('photos/achv_05.png');"></div>
             </div>
-            <button class="btn-viewall btn-click-sound" id="btnViewAll">
-                <span class="lang-zh">查看全部</span>
-                <span class="lang-en">VIEW ALL</span>
+            <button class="btn‑viewall btn‑click‑sound" id="btnViewAll">
+                <span class="lang‑zh">查看全部</span>
+                <span class="lang‑en">VIEW ALL</span>
             </button>
         </div>
     </div>
 
-    <div class="tab-bar">
-        <div class="tab btn-click-sound">
-            <span class="lang-zh">新闻</span>
-            <span class="lang-en">NEWS</span>
+    <div class="tab‑bar">
+        <div class="tab btn‑click‑sound">
+            <span class="lang‑zh">新闻</span>
+            <span class="lang‑en">NEWS</span>
         </div>
-        <div class="tab btn-click-sound">
-            <span class="lang-zh">提醒 (1)</span>
-            <span class="lang-en">ALERTS (1)</span>
+        <div class="tab btn‑click‑sound">
+            <span class="lang‑zh">提醒 (1)</span>
+            <span class="lang‑en">ALERTS (1)</span>
         </div>
-        <div class="tab btn-click-sound">
-            <span class="lang-zh">消息</span>
-            <span class="lang-en">MESSAGES</span>
+        <div class="tab btn‑click‑sound">
+            <span class="lang‑zh">消息</span>
+            <span class="lang‑en">MESSAGES</span>
         </div>
     </div>
 
-    <div class="main-content">
-        <div class="left-panel">
-            <button class="vgui-button btn-click-sound" id="btnStartPlaying">
-                <span><span class="lang-zh">开始游戏</span><span class="lang-en">START PLAYING</span></span>
+    <div class="main‑content">
+        <div class="left‑panel">
+            <button class="vgui‑button btn‑click‑sound" id="btnStartPlaying">
+                <span><span class="lang‑zh">开始游戏</span><span class="lang‑en">START PLAYING</span></span>
                 <span>⦿ +</span>
             </button>
-            <button class="vgui-button btn-click-sound" id="btnManageItems">
-                <span class="lang-zh">管理物品</span>
-                <span class="lang-en">MANAGE ITEMS</span>
+            <button class="vgui‑button btn‑click‑sound" id="btnManageItems">
+                <span class="lang‑zh">管理物品</span>
+                <span class="lang‑en">MANAGE ITEMS</span>
             </button>
 
-            <div class="vgui-panel">
-                <button class="vgui-button btn-click-sound">
-                    <span class="lang-zh">商店</span>
-                    <span class="lang-en">SHOP FOR ITEMS</span>
+            <div class="vgui‑panel">
+                <button class="vgui‑button btn‑click‑sound">
+                    <span class="lang‑zh">商店</span>
+                    <span class="lang‑en">SHOP FOR ITEMS</span>
                 </button>
-                <div class="storage-list">
-                    <div class="storage-item">
-                        <span class="lang-zh">物品储存槽 1</span>
-                        <span class="lang-en">Item Storage 1</span>
+                <div class="storage‑list">
+                    <div class="storage‑item">
+                        <span class="lang‑zh">物品储存槽 1</span>
+                        <span class="lang‑en">Item Storage 1</span>
                     </div>
-                    <div class="storage-item">
-                        <span class="lang-zh">物品储存槽 2</span>
-                        <span class="lang-en">Item Storage 2</span>
+                    <div class="storage‑item">
+                        <span class="lang‑zh">物品储存槽 2</span>
+                        <span class="lang‑en">Item Storage 2</span>
                     </div>
-                    <div class="storage-item">
-                        <span class="lang-zh">物品储存槽 3</span>
-                        <span class="lang-en">Item Storage 3</span>
+                    <div class="storage‑item">
+                        <span class="lang‑zh">物品储存槽 3</span>
+                        <span class="lang‑en">Item Storage 3</span>
                     </div>
                 </div>
-                <div class="new-feature-row">
+                <div class="new‑feature‑row">
                     <div>
-                        <div><span class="lang-zh">新功能！</span><span class="lang-en">NEW FEATURE!</span></div>
-                        <div class="text-red-big">
-                            <span class="lang-zh">查看</span>
-                            <span class="lang-en">VIEW</span>
+                        <div><span class="lang‑zh">新功能！</span><span class="lang‑en">NEW FEATURE!</span></div>
+                        <div class="text‑red‑big">
+                            <span class="lang‑zh">查看</span>
+                            <span class="lang‑en">VIEW</span>
                         </div>
                     </div>
-                    <button class="vgui-button btn-click-sound">
-                        <span class="lang-zh">回放</span>
-                        <span class="lang-en">REPLAYS</span>
+                    <button class="vgui‑button btn‑click‑sound">
+                        <span class="lang‑zh">回放</span>
+                        <span class="lang‑en">REPLAYS</span>
                     </button>
                 </div>
             </div>
-            <button class="vgui-button btn-click-sound">
-                <span class="lang-zh">查看促销码</span>
-                <span class="lang-en">VIEW PROMOTIONAL CODES</span>
+            <button class="vgui‑button btn‑click‑sound">
+                <span class="lang‑zh">查看促销码</span>
+                <span class="lang‑en">VIEW PROMOTIONAL CODES</span>
             </button>
         </div>
     </div>
 
-    <div class="bottom-bar">
-        <button class="btn-quit btn-click-sound">
-            <span class="lang-zh">退出</span>
-            <span class="lang-en">QUIT</span>
+    <div class="bottom‑bar">
+        <button class="btn‑quit btn‑click‑sound">
+            <span class="lang‑zh">退出</span>
+            <span class="lang‑en">QUIT</span>
         </button>
-        <div class="bottom-icon-group">
-            <div class="bottom-icon btn-click-sound"></div>
-            <div class="bottom-icon btn-click-sound"></div>
-            <div class="bottom-icon btn-click-sound" id="btnLang">🌐</div>
-            <div class="bottom-icon btn-click-sound"></div>
-            <div class="bottom-icon btn-click-sound"></div>
+        <div class="bottom‑icon‑group">
+            <div class="bottom‑icon btn‑click‑sound"></div>
+            <div class="bottom‑icon btn‑click‑sound"></div>
+            <div class="bottom‑icon btn‑click‑sound" id="btnLang">🌐</div>
+            <div class="bottom‑icon btn‑click‑sound"></div>
+            <div class="bottom‑icon btn‑click‑sound"></div>
         </div>
-        <button class="btn-options btn-click-sound">
-            <span class="lang-zh">选项</span>
-            <span class="lang-en">OPTIONS</span>
+        <button class="btn‑options btn‑click‑sound">
+            <span class="lang‑zh">选项</span>
+            <span class="lang‑en">OPTIONS</span>
         </button>
     </div>
 </div>
 
 <!--成就弹窗-->
-<div class="achievement-window" id="achvWin">
-    <div class="achv-titlebar" id="achvDragHandle">
+<div class="achievement‑window" id="achvWin">
+    <div class="achv‑titlebar" id="achvDragHandle">
         <div>
-            <span class="lang-zh">成就</span>
-            <span class="lang-en">Achievements</span>
+            <span class="lang‑zh">成就</span>
+            <span class="lang‑en">Achievements</span>
         </div>
-        <div class="achv-close btn-click-sound" id="closeAchv">✕</div>
+        <div class="achv‑close btn‑click‑sound" id="closeAchv">✕</div>
     </div>
-    <div class="achv-body">
-        <div class="achv-item">
-            <div class="achv-icon"></div>
+    <div class="achv‑body">
+        <div class="achv‑item">
+            <div class="achv‑icon"></div>
             <div>
-                <h4><span class="lang-zh">初次启动</span><span class="lang-en">First Launch</span></h4>
-                <p><span class="lang-zh">首次打开大厅</span><span class="lang-en">First open lobby</span></p>
+                <h4><span class="lang‑zh">初次启动</span><span class="lang‑en">First Launch</span></h4>
+                <p><span class="lang‑zh">首次打开大厅</span><span class="lang‑en">First open lobby</span></p>
             </div>
         </div>
     </div>
 </div>
 
 <!--服务器浏览器弹窗-->
-<div class="popup-overlay" id="serverPopup">
-    <div class="server-browser">
-        <div class="browser-tabs">
-            <div class="browser-tab active btn-click-sound">
-                <span class="lang-zh">互联网</span>
-                <span class="lang-en">INTERNET</span>
+<div class="popup‑overlay" id="serverPopup">
+    <div class="server‑browser">
+        <div class="browser‑tabs">
+            <div class="browser‑tab active btn‑click‑sound">
+                <span class="lang‑zh">互联网</span>
+                <span class="lang‑en">INTERNET</span>
             </div>
-            <div class="browser-tab btn-click-sound">
-                <span class="lang-zh">收藏</span>
-                <span class="lang-en">FAVORITES</span>
+            <div class="browser‑tab btn‑click‑sound">
+                <span class="lang‑zh">收藏</span>
+                <span class="lang‑en">FAVORITES</span>
             </div>
-            <div class="browser-tab btn-click-sound">
-                <span class="lang-zh">历史</span>
-                <span class="lang-en">HISTORY</span>
+            <div class="browser‑tab btn‑click‑sound">
+                <span class="lang‑zh">历史</span>
+                <span class="lang‑en">HISTORY</span>
             </div>
-            <div class="browser-tab btn-click-sound">
-                <span class="lang-zh">观战</span>
-                <span class="lang-en">SPECTATE</span>
+            <div class="browser‑tab btn‑click‑sound">
+                <span class="lang‑zh">观战</span>
+                <span class="lang‑en">SPECTATE</span>
             </div>
-            <div class="browser-tab btn-click-sound">
-                <span class="lang-zh">局域网</span>
-                <span class="lang-en">LAN</span>
+            <div class="browser‑tab btn‑click‑sound">
+                <span class="lang‑zh">局域网</span>
+                <span class="lang‑en">LAN</span>
             </div>
-            <div class="browser-tab btn-click-sound">
-                <span class="lang-zh">好友</span>
-                <span class="lang-en">FRIENDS</span>
+            <div class="browser‑tab btn‑click‑sound">
+                <span class="lang‑zh">好友</span>
+                <span class="lang‑en">FRIENDS</span>
             </div>
-            <div class="browser-tab btn-click-sound">
-                <span class="lang-zh">黑名单</span>
-                <span class="lang-en">BLACKLISTED</span>
+            <div class="browser‑tab btn‑click‑sound">
+                <span class="lang‑zh">黑名单</span>
+                <span class="lang‑en">BLACKLISTED</span>
             </div>
-            <div class="browser-close btn-click-sound" id="closePopup">✕</div>
+            <div class="browser‑close btn‑click‑sound" id="closePopup">✕</div>
         </div>
-        <div class="table-header">
-            <div><span class="lang-zh">游戏名称</span><span class="lang-en">Game Name</span></div>
-            <div><span class="lang-zh">类型</span><span class="lang-en">Type</span></div>
-            <div><span class="lang-zh">人数</span><span class="lang-en">Players</span></div>
-            <div><span class="lang-zh">年份</span><span class="lang-en">Year</span></div>
-            <div><span class="lang-zh">作者</span><span class="lang-en">Creator</span></div>
+        <div class="table‑header">
+            <div><span class="lang‑zh">游戏名称</span><span class="lang‑en">Game Name</span></div>
+            <div><span class="lang‑zh">类型</span><span class="lang‑en">Type</span></div>
+            <div><span class="lang‑zh">人数</span><span class="lang‑en">Players</span></div>
+            <div><span class="lang‑zh">年份</span><span class="lang‑en">Year</span></div>
+            <div><span class="lang‑zh">作者</span><span class="lang‑en">Creator</span></div>
         </div>
-        <div class="scroll-table" id="gameTableBody"></div>
-        <div class="filter-area">
-            <div class="filter-row">
-                <div class="filter-item">
-                    <label><span class="lang-zh">起始年份</span><span class="lang-en">Start Year</span></label>
+        <div class="scroll‑table" id="gameTableBody"></div>
+        <div class="filter‑area">
+            <div class="filter‑row">
+                <div class="filter‑item">
+                    <label><span class="lang‑zh">起始年份</span><span class="lang‑en">Start Year</span></label>
                     <input type="number" id="filterYearStart">
                 </div>
-                <div class="filter-item">
-                    <label><span class="lang-zh">结束年份</span><span class="lang-en">End Year</span></label>
+                <div class="filter‑item">
+                    <label><span class="lang‑zh">结束年份</span><span class="lang‑en">End Year</span></label>
                     <input type="number" id="filterYearEnd">
                 </div>
-                <div class="filter-item">
-                    <label><span class="lang-zh">游戏类型</span><span class="lang-en">Game Type</span></label>
+                <div class="filter‑item">
+                    <label><span class="lang‑zh">游戏类型</span><span class="lang‑en">Game Type</span></label>
                     <select id="filterGametype">
-                        <option value="all"><span class="lang-zh">全部</span><span class="lang-en">All</span></option>
-                        <option value="pvp"><span class="lang-zh">PVP</span><span class="lang-en">PVP</span></option>
-                        <option value="nonpvp"><span class="lang-zh">非PVP</span><span class="lang-en">Non‑PVP</span></option>
-                        <option value="tycoon"><span class="lang-zh">大亨</span><span class="lang-en">Tycoon</span></option>
-                        <option value="parkour"><span class="lang-zh">跑酷类</span><span class="lang-en">Parkour</span></option>
+                        <option value="all"><span class="lang‑zh">全部</span><span class="lang‑en">All</span></option>
+                        <option value="pvp"><span class="lang‑zh">PVP</span><span class="lang‑en">PVP</span></option>
+                        <option value="nonpvp"><span class="lang‑zh">非PVP</span><span class="lang‑en">Non‑PVP</span></option>
+                        <option value="tycoon"><span class="lang‑zh">大亨</span><span class="lang‑en">Tycoon</span></option>
+                        <option value="parkour"><span class="lang‑zh">跑酷类</span><span class="lang‑en">Parkour</span></option>
                     </select>
                 </div>
-                <div class="filter-item">
-                    <label><span class="lang-zh">作者类型</span><span class="lang-en">Creator Type</span></label>
+                <div class="filter‑item">
+                    <label><span class="lang‑zh">作者类型</span><span class="lang‑en">Creator Type</span></label>
                     <select id="filterCreator">
-                        <option value="all"><span class="lang-zh">全部</span><span class="lang-en">All</span></option>
-                        <option value="famous"><span class="lang-zh">知名用户</span><span class="lang-en">Famous</span></option>
-                        <option value="normal"><span class="lang-zh">普通用户</span><span class="lang-en">Normal</span></option>
+                        <option value="all"><span class="lang‑zh">全部</span><span class="lang‑en">All</span></option>
+                        <option value="famous"><span class="lang‑zh">知名用户</span><span class="lang‑en">Famous</span></option>
+                        <option value="normal"><span class="lang‑zh">普通用户</span><span class="lang‑en">Normal</span></option>
                     </select>
                 </div>
             </div>
-            <div class="filter-btn-row">
-                <button id="btnFilter" class="btn-click-sound"><span class="lang-zh">筛选</span><span class="lang-en">FILTERS</span></button>
-                <button id="btnQuickRefresh" class="btn-click-sound"><span class="lang-zh">快速刷新</span><span class="lang-en">QUICK REFRESH</span></button>
-                <button id="btnRefreshAll" class="btn-click-sound"><span class="lang-zh">全部刷新</span><span class="lang-en">REFRESH ALL</span></button>
-                <button id="btnConnect" class="btn-click-sound"><span class="lang-zh">连接</span><span class="lang-en">CONNECT</span></button>
+            <div class="filter‑btn‑row">
+                <button id="btnFilter" class="btn‑click‑sound"><span class="lang‑zh">筛选</span><span class="lang‑en">FILTERS</span></button>
+                <button id="btnQuickRefresh" class="btn‑click‑sound"><span class="lang‑zh">快速刷新</span><span class="lang‑en">QUICK REFRESH</span></button>
+                <button id="btnRefreshAll" class="btn‑click‑sound"><span class="lang‑zh">全部刷新</span><span class="lang‑en">REFRESH ALL</span></button>
+                <button id="btnConnect" class="btn‑click‑sound"><span class="lang‑zh">连接</span><span class="lang‑en">CONNECT</span></button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- TF2背包弹窗 Manage Items打开 -->
-<div class="backpack-overlay" id="backpackWin">
-    <div class="backpack-header">
-        <div class="bp-tab active">LOADOUT</div>
-        <div class="bp-tab">STATS</div>
+<!-- TF2背包弹窗，修正排版、标签翻译、边框逻辑、全套按钮 -->
+<div class="backpack‑overlay" id="backpackWin">
+    <div class="bp‑tab‑wrap">
+        <div class="bp‑tab active btn‑click‑sound">
+            <span class="lang‑zh">背包</span>
+            <span class="lang‑en">LOADOUT</span>
+        </div>
+        <div class="bp‑tab btn‑click‑sound">
+            <span class="lang‑zh">统计</span>
+            <span class="lang‑en">STATS</span>
+        </div>
     </div>
-    <div class="backpack-top-row">
-        <div class="bp-title">>> BACKPACK</div>
-        <div class="bp-right-group">
-            <div class="checkbox-wrap">
-                <input type="checkbox"> SHOW STOCK ITEMS
-            </div>
-            <select class="bp-select">
-                <option>SORT BACKPACK</option>
+    <div class="bp‑top‑bar">
+        <div class="bp‑title‑text">>> BACKPACK</div>
+        <div class="bp‑top‑right">
+            <label class="bp‑checkbox‑line">
+                <input type="checkbox">
+                <span class="lang‑zh">显示基础物品</span>
+                <span class="lang‑en">SHOW STOCK ITEMS</span>
+            </label>
+            <select class="bp‑sort‑select">
+                <option>
+                    <span class="lang‑zh">排序背包</span>
+                    <span class="lang‑en">SORT BACKPACK</span>
+                </option>
             </select>
         </div>
     </div>
-    <!--物品格子网格，和截图布局9列 -->
-    <div class="bp-grid">
-        <div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div>
-        <div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div>
-        <div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div>
-        <div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div>
+
+    <!-- 物品格子：has‑item =金色边框，空格子普通暗色 -->
+    <div class="bp‑grid">
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot has‑item"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
+        <div class="bp‑slot"></div>
     </div>
-    <div class="backpack-bottom-bar">
-        <button class="bp-bottom-btn btn-click-sound" id="bpBackBtn"><< BACK</button>
+
+    <!--底部按钮顺序和截图完全一致：<<BACK | X‑DELETE NO‑ACTION DETAILS | CLOSE -->
+    <div class="bp‑bottom‑bar">
+        <button class="bp‑btn btn‑click‑sound" id="bpBackBtn"><< BACK</button>
         <div>
-            <button class="bp-bottom-btn btn-click-sound">X DELETE</button>
-            <button class="bp-bottom-btn btn-click-sound">NO ACTION</button>
-            <button class="bp-bottom-btn btn-click-sound">DETAILS</button>
+            <button class="bp‑btn btn‑click‑sound">X DELETE</button>
+            <button class="bp‑btn btn‑click‑sound">NO ACTION</button>
+            <button class="bp‑btn btn‑click‑sound">DETAILS</button>
         </div>
-        <button class="bp-bottom-btn btn-click-sound">CLOSE</button>
+        <button class="bp‑btn btn‑click‑sound" id="bpCloseBtn">CLOSE</button>
     </div>
 </div>
 
@@ -751,7 +815,7 @@ function playBtnSound(){
     snd.volume = 0.6;
     snd.play().catch(e=>console.log("按钮音效播放失败",e));
 }
-document.querySelectorAll(".btn-click-sound").forEach(el=>{
+document.querySelectorAll(".btn‑click‑sound").forEach(el=>{
     el.addEventListener("click", ()=> playBtnSound());
 });
 
@@ -777,7 +841,7 @@ document.body.addEventListener("click",()=>{
     playStartupSound();
 },{once:true});
 
-// ========= 背包弹窗管理物品按钮 =========
+// ========= 背包弹窗：管理物品打开，BACK / CLOSE关闭 =========
 const backpackWin = document.getElementById("backpackWin");
 document.getElementById("btnManageItems").onclick = ()=>{
     backpackWin.style.display = "block";
@@ -785,12 +849,15 @@ document.getElementById("btnManageItems").onclick = ()=>{
 document.getElementById("bpBackBtn").onclick = ()=>{
     backpackWin.style.display = "none";
 };
+document.getElementById("bpCloseBtn").onclick = ()=>{
+    backpackWin.style.display = "none";
+};
 
 // ========= 语言切换 =========
 let isZh = true;
 function applyLang(){
-    document.querySelectorAll(".lang-zh").forEach(el=> el.style.display = isZh ? "inline-block":"none");
-    document.querySelectorAll(".lang-en").forEach(el=> el.style.display = isZh ? "none":"inline-block");
+    document.querySelectorAll(".lang‑zh").forEach(el=> el.style.display = isZh ? "inline‑block":"none");
+    document.querySelectorAll(".lang‑en").forEach(el=> el.style.display = isZh ? "none":"inline‑block");
 }
 document.getElementById("btnLang").addEventListener("click",()=>{
     isZh = !isZh;
@@ -804,12 +871,12 @@ const dragHandle = document.getElementById("achvDragHandle");
 let drag=false,dx,dy;
 dragHandle.onmousedown=e=>{
     drag=true;
-    dx=e.clientX-achvWin.offsetLeft;
-    dy=e.clientY-achvWin.offsetTop;
+    dx=e.clientX‑achvWin.offsetLeft;
+    dy=e.clientY‑achvWin.offsetTop;
     document.onmousemove=ev=>{
         if(!drag) return;
-        achvWin.style.left=(ev.clientX-dx)+"px";
-        achvWin.style.top=(ev.clientY-dy)+"px";
+        achvWin.style.left=(ev.clientX‑dx)+"px";
+        achvWin.style.top=(ev.clientY‑dy)+"px";
     }
     document.onmouseup=()=> drag=false;
 }
@@ -838,7 +905,7 @@ function renderGameTable(list){
     wrap.innerHTML="";
     list.forEach(g=>{
         const div=document.createElement("div");
-        div.className="table-row";
+        div.className="table‑row";
         div.innerHTML=`<div>${g.title}</div><div>${g.gametype}</div><div>${g.players}</div><div>${g.year}</div><div>${g.creator}</div>`;
         wrap.appendChild(div);
     });
