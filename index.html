@@ -25,8 +25,9 @@ body{
     display:flex;
     flex-direction:column;
 }
-/* ========= 顶部欢迎栏 TF2原版VGUI ========= */
-.top‑header{
+
+/* ========= 顶部欢迎栏 TF2 VGUI ========= */
+.top-header{
     background:#3b362e;
     padding:20px 24px;
     display:flex;
@@ -34,394 +35,400 @@ body{
     gap:16px;
     border-bottom:2px solid #27231d;
 }
-.avatar‑box{
+.avatar-box{
     width:74px;
     height:74px;
     border:4px solid #645c4f;
     border-radius:4px;
     background:#4a443a;
-    background-image:url('');/*头像占位*/
-    background‑size:cover;
-    flex‑shrink:0;
+    background-image:url('');
+    background-size:cover;
+    flex-shrink:0;
 }
-.welcome‑text h1{
-    font‑size:24px;
+.welcome-text h1{
+    font-size:24px;
     color:#f0e9dc;
-    letter‑spacing:0.4px;
+    letter-spacing:0.4px;
 }
-.welcome‑text p{
-    font‑size:14px;
+.welcome-text p{
+    font-size:14px;
     color:#b2aa9b;
-    margin‑top:4px;
+    margin-top:4px;
 }
-.top‑right‑area{
-    margin‑left:auto;
+.top-right-area{
+    margin-left:auto;
     display:flex;
-    flex‑direction:column;
-    align‑items:flex‑end;
+    flex-direction:column;
+    align-items:flex-end;
     gap:10px;
 }
-.achievement‑slots{
+.achievement-slots{
     display:flex;
     gap:8px;
 }
-.achv‑slot{
+.achv-slot{
     width:42px;
     height:42px;
     background:#4a443a;
     border:2px solid #645c4f;
-    border‑radius:3px;
-    background‑image:url('');/*成就头像占位*/
-    background‑size:cover;
+    border-radius:3px;
+    background-image:url('');
+    background-size:cover;
 }
-.btn‑viewall{
+.btn-viewall{
     background:#7c7362;
-    border‑style:solid;
-    border‑color:#9c927e #4e483d #4e483d #9c927e;
+    border-style:solid;
+    border-color:#9c927e #4e483d #4e483d #9c927e;
     color:#fff;
-    font‑size:16px;
+    font-size:16px;
     padding:6px 26px;
     cursor:pointer;
 }
+
 /* 顶部标签栏 NEWS ALERTS MESSAGES */
-.tab‑bar{
+.tab-bar{
     display:flex;
-    justify‑content:flex‑end;
+    justify-content:flex-end;
     gap:6px;
     padding:0 24px 12px;
     background:#2c2821;
 }
 .tab{
     background:#7c7362;
-    border‑style:solid;
-    border‑color:#9c927e #4e483d #4e483d #9c927e;
+    border-style:solid;
+    border-color:#9c927e #4e483d #4e483d #9c927e;
     padding:7px 24px;
-    font‑size:16px;
+    font-size:16px;
     cursor:default;
 }
+
 /* ========= 主内容区 ========= */
-.main‑content{
+.main-content{
     flex:1;
     display:flex;
     padding:22px 24px;
     gap:24px;
-    background‑image:url('');/*TF2角色海报背景占位*/
-    background‑size:contain;
-    background‑position:right bottom;
-    background‑repeat:no‑repeat;
+    background-image:url('');
+    background-size:contain;
+    background-position:right bottom;
+    background-repeat:no-repeat;
 }
-.left‑panel{
+.left-panel{
     width:390px;
     display:flex;
-    flex‑direction:column;
+    flex-direction:column;
     gap:14px;
 }
-.vgui‑button{
+.vgui-button{
     width:100%;
     background:#c9bea6;
     color:#222222;
-    font‑size:20px;
-    font‑weight:bold;
-    text‑align:left;
+    font-size:20px;
+    font-weight:bold;
+    text-align:left;
     padding:10px 16px;
-    border‑style:solid;
-    border‑color:#e2d9c3 #807662 #807662 #e2d9c3;
+    border-style:solid;
+    border-color:#e2d9c3 #807662 #807662 #e2d9c3;
     display:flex;
-    justify‑content:space‑between;
+    justify-content:space-between;
     cursor:pointer;
 }
-.vgui‑panel{
+.vgui-panel{
     background:#3b362e;
-    border‑style:solid;
-    border‑color:#645c4f #27231d #27231d #645c4f;
+    border-style:solid;
+    border-color:#645c4f #27231d #27231d #645c4f;
     padding:12px;
 }
-.storage‑list{
+.storage-list{
     background:#2c2821;
-    border‑1px solid #50493e;
+    border:1px solid #50493e;
     padding:8px;
-    margin‑bottom:10px;
+    margin-bottom:10px;
 }
-.storage‑item{
+.storage-item{
     padding:5px 4px;
-    font‑size:14px;
+    font-size:14px;
     color:#b8b09f;
 }
-.new‑feature‑row{
+.new-feature-row{
     display:flex;
-    align‑items:center;
+    align-items:center;
     gap:14px;
-    margin‑bottom:10px;
+    margin-bottom:10px;
 }
-.text‑red‑big{
+.text-red-big{
     color:#dd4444;
-    font‑size:28px;
-    font‑weight:bold;
+    font-size:28px;
+    font-weight:bold;
 }
-/* ========= 底部栏 完全复刻截图 ========= */
-.bottom‑bar{
+
+/* ========= 底部栏 ========= */
+.bottom-bar{
     background:#3b362e;
     padding:18px 24px;
     display:flex;
-    align‑items:center;
-    justify‑content:space‑between;
-    border‑top:2px solid #27231d;
+    align-items:center;
+    justify-content:space-between;
+    border-top:2px solid #27231d;
 }
-.btn‑quit{
+.btn-quit{
     background:#7c7362;
-    border‑style:solid;
-    border‑color:#9c927e #4e483d #4e483d #9c927e;
-    font‑size:18px;
+    border-style:solid;
+    border-color:#9c927e #4e483d #4e483d #9c927e;
+    font-size:18px;
     padding:10px 40px;
     cursor:pointer;
 }
-.bottom‑icon‑group{
+.bottom-icon-group{
     display:flex;
     gap:8px;
 }
-.bottom‑icon{
+.bottom-icon{
     width:46px;
     height:46px;
     background:#4a443a;
-    border‑style:solid;
-    border‑color:#645c4f #27231d #27231d #645c4f;
+    border-style:solid;
+    border-color:#645c4f #27231d #27231d #645c4f;
     display:flex;
-    align‑items:center;
-    justify‑content:center;
-    font‑size:22px;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
     cursor:pointer;
 }
-.btn‑options{
+.btn-options{
     background:#7c7362;
-    border‑style:solid;
-    border‑color:#9c927e #4e483d #4e483d #9c927e;
-    font‑size:18px;
+    border-style:solid;
+    border-color:#9c927e #4e483d #4e483d #9c927e;
+    font-size:18px;
     padding:10px 40px;
     cursor:pointer;
 }
+
 /* ========= 可拖拽成就窗口 ========= */
-.achievement‑window{
+.achievement-window{
     position:fixed;
     top:12vh;
     left:14vw;
     width:700px;
-    max‑height:80vh;
+    max-height:80vh;
     background:#3b362e;
-    border‑style:solid;
-    border‑color:#7c7362 #27231d #27231d #7c7362;
-    z‑index:100;
+    border-style:solid;
+    border-color:#7c7362 #27231d #27231d #7c7362;
+    z-index:100;
     display:none;
-    flex‑direction:column;
+    flex-direction:column;
     overflow:hidden;
 }
-.achv‑titlebar{
+.achv-titlebar{
     background:#524c41;
     padding:10px 16px;
     display:flex;
-    justify‑content:space‑between;
-    align‑items:center;
+    justify-content:space-between;
+    align-items:center;
     cursor:move;
 }
-.achv‑close{
+.achv-close{
     width:30px;
     height:30px;
     background:#4a443a;
-    text‑align:center;
-    line‑height:30px;
+    text-align:center;
+    line-height:30px;
     cursor:pointer;
 }
-.achv‑body{
+.achv-body{
     padding:16px;
-    overflow‑y:auto;
+    overflow-y:auto;
     background:#2c2821;
     flex:1;
 }
-.achv‑item{
+.achv-item{
     display:flex;
     gap:12px;
     padding:10px;
     background:#343028;
     border:1px solid #484237;
-    margin‑bottom:8px;
+    margin-bottom:8px;
 }
-.achv‑icon{
+.achv-icon{
     width:44px;
     height:44px;
     background:#4a443a;
     border:2px solid #645c4f;
-    flex‑shrink:0;
+    flex-shrink:0;
 }
+
 /* ========= 服务器浏览器弹窗 ========= */
-.popup‑overlay{
+.popup-overlay{
     position:fixed;
     inset:0;
     background:rgba(0,0,0,0.75);
     display:none;
-    align‑items:center;
-    justify‑content:center;
-    z‑index:99;
+    align-items:center;
+    justify-content:center;
+    z-index:99;
 }
-.server‑browser{
+.server-browser{
     width:90vw;
-    max‑width:1350px;
+    max-width:1350px;
     height:85vh;
     background:#3b362e;
-    border‑style:solid;
-    border‑color:#7c7362 #27231d #27231d #7c7362;
+    border-style:solid;
+    border-color:#7c7362 #27231d #27231d #7c7362;
     display:flex;
-    flex‑direction:column;
+    flex-direction:column;
     overflow:hidden;
 }
-.browser‑tabs{
+.browser-tabs{
     display:flex;
     background:#524c41;
 }
-.browser‑tab{
+.browser-tab{
     padding:10px 18px;
     background:#7c7362;
     cursor:default;
 }
-.browser‑tab.active{
+.browser-tab.active{
     background:#a89e88;
     color:#111;
 }
-.browser‑close{
-    margin‑left:auto;
+.browser-close{
+    margin-left:auto;
     padding:10px 16px;
     background:#4a443a;
     cursor:pointer;
 }
-.table‑header{
+.table-header{
     display:grid;
-    grid‑template‑columns:320px 140px 120px 120px 180px;
+    grid-template-columns:320px 140px 120px 120px 180px;
     background:#4a443a;
     padding:8px 12px;
-    font‑weight:bold;
+    font-weight:bold;
 }
-.scroll‑table{
+.scroll-table{
     flex:1;
-    overflow‑y:auto;
+    overflow-y:auto;
     background:#2c2821;
 }
-.table‑row{
+.table-row{
     display:grid;
-    grid‑template‑columns:320px 140px 120px 120px 180px;
+    grid-template-columns:320px 140px 120px 120px 180px;
     padding:7px 12px;
-    border‑bottom:1px solid #3a352c;
+    border-bottom:1px solid #3a352c;
 }
-.table‑row:hover{
+.table-row:hover{
     background:#484237;
 }
-.filter‑area{
+.filter-area{
     padding:14px;
     background:#343028;
 }
-.filter‑row{
+.filter-row{
     display:grid;
-    grid‑template‑columns:200px 200px 200px 200px;
+    grid-template-columns:200px 200px 200px 200px;
     gap:12px;
-    margin‑bottom:14px;
+    margin-bottom:14px;
 }
-.filter‑item label{
+.filter-item label{
     display:block;
-    margin‑bottom:5px;
+    margin-bottom:5px;
 }
-.filter‑item input,.filter‑item select{
+.filter-item input,.filter-item select{
     width:100%;
     background:#4a443a;
     border:1px solid #645c4f;
     padding:7px;
     color:#fff;
 }
-.filter‑btn‑row button{
+.filter-btn-row button{
     padding:8px 16px;
     background:#7c7362;
-    border‑style:solid;
-    border‑color:#9c927e #4e483d #4e483d #9c927e;
+    border-style:solid;
+    border-color:#9c927e #4e483d #4e483d #9c927e;
     color:#111;
-    font‑weight:bold;
+    font-weight:bold;
     cursor:pointer;
 }
-/* 多语言控制 */
+
+/*多语言显示 */
 .en{display:none;}
 </style>
 </head>
 <body>
 <div class="wrapper">
     <!-- 顶部欢迎区域 -->
-    <div class="top‑header">
-        <div class="avatar‑box"></div>
-        <div class="welcome‑text">
+    <div class="top-header">
+        <div class="avatar-box"></div>
+        <div class="welcome-text">
             <h1><span class="zh">欢迎回来，LLAMACLAPPED</span><span class="en">WELCOME BACK, LLAMACLAPPED</span></h1>
             <p><span class="zh">你的大厅与成就：</span><span class="en">Your lobby and achievements:</span></p>
         </div>
-        <div class="top‑right‑area">
-            <div class="achievement‑slots">
-                <div class="achv‑slot"></div>
-                <div class="achv‑slot"></div>
-                <div class="achv‑slot"></div>
-                <div class="achv‑slot"></div>
-                <div class="achv‑slot"></div>
+        <div class="top-right-area">
+            <div class="achievement-slots">
+                <div class="achv-slot"></div>
+                <div class="achv-slot"></div>
+                <div class="achv-slot"></div>
+                <div class="achv-slot"></div>
+                <div class="achv-slot"></div>
             </div>
-            <button class="btn‑viewall" id="btnViewAll">VIEW ALL</button>
+            <button class="btn-viewall" id="btnViewAll">VIEW ALL</button>
         </div>
     </div>
     <!-- NEWS / ALERTS / MESSAGES -->
-    <div class="tab‑bar">
+    <div class="tab-bar">
         <div class="tab">NEWS</div>
         <div class="tab">ALERTS (1)</div>
         <div class="tab">MESSAGES</div>
     </div>
     <!-- 主内容 -->
-    <div class="main‑content">
-        <div class="left‑panel">
-            <button class="vgui‑button" id="btnStartPlaying">
+    <div class="main-content">
+        <div class="left-panel">
+            <button class="vgui-button" id="btnStartPlaying">
                 <span>START PLAYING</span>
                 <span>⦿ +</span>
             </button>
-            <button class="vgui‑button">MANAGE ITEMS</button>
+            <button class="vgui-button">MANAGE ITEMS</button>
 
-            <div class="vgui‑panel">
-                <button class="vgui‑button">SHOP FOR ITEMS</button>
-                <div class="storage‑list">
-                    <div class="storage‑item">Item Storage 1</div>
-                    <div class="storage‑item">Item Storage 2</div>
-                    <div class="storage‑item">Item Storage 3</div>
+            <div class="vgui-panel">
+                <button class="vgui-button">SHOP FOR ITEMS</button>
+                <div class="storage-list">
+                    <div class="storage-item">Item Storage 1</div>
+                    <div class="storage-item">Item Storage 2</div>
+                    <div class="storage-item">Item Storage 3</div>
                 </div>
-                <div class="new‑feature‑row">
+                <div class="new-feature-row">
                     <div>
                         <div><span class="zh">新功能！</span><span class="en">NEW FEATURE!</span></div>
-                        <div class="text‑red‑big">VIEW</div>
+                        <div class="text-red-big">VIEW</div>
                     </div>
-                    <button class="vgui‑button">REPLAYS</button>
+                    <button class="vgui-button">REPLAYS</button>
                 </div>
             </div>
-            <button class="vgui‑button">VIEW PROMOTIONAL CODES</button>
+            <button class="vgui-button">VIEW PROMOTIONAL CODES</button>
         </div>
     </div>
     <!-- 底部栏 -->
-    <div class="bottom‑bar">
-        <button class="btn‑quit">QUIT</button>
-        <div class="bottom‑icon‑group">
-            <div class="bottom‑icon"></div>
-            <div class="bottom‑icon"></div>
-            <div class="bottom‑icon" id="btnLang">🌐</div>
-            <div class="bottom‑icon"></div>
-            <div class="bottom‑icon"></div>
+    <div class="bottom-bar">
+        <button class="btn-quit">QUIT</button>
+        <div class="bottom-icon-group">
+            <div class="bottom-icon"></div>
+            <div class="bottom-icon"></div>
+            <div class="bottom-icon" id="btnLang">🌐</div>
+            <div class="bottom-icon"></div>
+            <div class="bottom-icon"></div>
         </div>
-        <button class="btn‑options">OPTIONS</button>
+        <button class="btn-options">OPTIONS</button>
     </div>
 </div>
 
 <!--成就弹窗-->
-<div class="achievement‑window" id="achvWin">
-    <div class="achv‑titlebar" id="achvDragHandle">
+<div class="achievement-window" id="achvWin">
+    <div class="achv-titlebar" id="achvDragHandle">
         <div><span class="zh">成就</span><span class="en">Achievements</span></div>
-        <div class="achv‑close" id="closeAchv">✕</div>
+        <div class="achv-close" id="closeAchv">✕</div>
     </div>
-    <div class="achv‑body">
-        <div class="achv‑item">
-            <div class="achv‑icon"></div>
+    <div class="achv-body">
+        <div class="achv-item">
+            <div class="achv-icon"></div>
             <div>
                 <h4><span class="zh">初次启动</span><span class="en">First Launch</span></h4>
                 <p><span class="zh">首次打开大厅</span><span class="en">First open lobby</span></p>
@@ -431,37 +438,37 @@ body{
 </div>
 
 <!--服务器浏览器弹窗-->
-<div class="popup‑overlay" id="serverPopup">
-    <div class="server‑browser">
-        <div class="browser‑tabs">
-            <div class="browser‑tab active">INTERNET</div>
-            <div class="browser‑tab">FAVORITES</div>
-            <div class="browser‑tab">HISTORY</div>
-            <div class="browser‑tab">SPECTATE</div>
-            <div class="browser‑tab">LAN</div>
-            <div class="browser‑tab">FRIENDS</div>
-            <div class="browser‑tab">BLACKLISTED</div>
-            <div class="browser‑close" id="closePopup">✕</div>
+<div class="popup-overlay" id="serverPopup">
+    <div class="server-browser">
+        <div class="browser-tabs">
+            <div class="browser-tab active">INTERNET</div>
+            <div class="browser-tab">FAVORITES</div>
+            <div class="browser-tab">HISTORY</div>
+            <div class="browser-tab">SPECTATE</div>
+            <div class="browser-tab">LAN</div>
+            <div class="browser-tab">FRIENDS</div>
+            <div class="browser-tab">BLACKLISTED</div>
+            <div class="browser-close" id="closePopup">✕</div>
         </div>
-        <div class="table‑header">
+        <div class="table-header">
             <div><span class="zh">游戏名称</span><span class="en">Game Name</span></div>
             <div><span class="zh">类型</span><span class="en">Type</span></div>
             <div><span class="zh">人数</span><span class="en">Players</span></div>
             <div><span class="zh">年份</span><span class="en">Year</span></div>
             <div><span class="zh">作者</span><span class="en">Creator</span></div>
         </div>
-        <div class="scroll‑table" id="gameTableBody"></div>
-        <div class="filter‑area">
-            <div class="filter‑row">
-                <div class="filter‑item">
+        <div class="scroll-table" id="gameTableBody"></div>
+        <div class="filter-area">
+            <div class="filter-row">
+                <div class="filter-item">
                     <label><span class="zh">起始年份</span><span class="en">Start Year</span></label>
                     <input type="number" id="filterYearStart">
                 </div>
-                <div class="filter‑item">
+                <div class="filter-item">
                     <label><span class="zh">结束年份</span><span class="en">End Year</span></label>
                     <input type="number" id="filterYearEnd">
                 </div>
-                <div class="filter‑item">
+                <div class="filter-item">
                     <label><span class="zh">游戏类型</span><span class="en">Game Type</span></label>
                     <select id="filterGametype">
                         <option value="all">All</option>
@@ -471,7 +478,7 @@ body{
                         <option value="parkour">Parkour</option>
                     </select>
                 </div>
-                <div class="filter‑item">
+                <div class="filter-item">
                     <label><span class="zh">作者类型</span><span class="en">Creator Type</span></label>
                     <select id="filterCreator">
                         <option value="all">All</option>
@@ -480,7 +487,7 @@ body{
                     </select>
                 </div>
             </div>
-            <div class="filter‑btn‑row">
+            <div class="filter-btn-row">
                 <button id="btnFilter">FILTERS</button>
                 <button id="btnQuickRefresh">QUICK REFRESH</button>
                 <button id="btnRefreshAll">REFRESH ALL</button>
@@ -508,17 +515,17 @@ const dragHandle = document.getElementById("achvDragHandle");
 let drag=false,dx,dy;
 dragHandle.onmousedown=e=>{
     drag=true;
-    dx=e.clientX‑achvWin.offsetLeft;
-    dy=e.clientY‑achvWin.offsetTop;
+    dx=e.clientX-achvWin.offsetLeft;
+    dy=e.clientY-achvWin.offsetTop;
     document.onmousemove=ev=>{
         if(!drag) return;
-        achvWin.style.left=(ev.clientX‑dx)+"px";
-        achvWin.style.top=(ev.clientY‑dy)+"px";
+        achvWin.style.left=(ev.clientX-dx)+"px";
+        achvWin.style.top=(ev.clientY-dy)+"px";
     }
-    document.onmouseup=()=>drag=false;
+    document.onmouseup=()=> drag=false;
 }
-document.getElementById("btnViewAll").onclick=()=>achvWin.style.display="flex";
-document.getElementById("closeAchv").onclick=()=>achvWin.style.display="none";
+document.getElementById("btnViewAll").onclick=()=> achvWin.style.display="flex";
+document.getElementById("closeAchv").onclick=()=> achvWin.style.display="none";
 
 //服务器弹窗
 const popup = document.getElementById("serverPopup");
@@ -528,7 +535,7 @@ document.getElementById("btnStartPlaying").onclick=()=>{
 };
 document.getElementById("closePopup").onclick=()=>popup.style.display="none";
 
-//Roblox模拟游戏库
+//模拟游戏库
 const gameDatabase = [
     {title:"Retro Blocky Racing",gametype:"pvp",players:"18/40",year:2018,creator:"Famous_Builder",creatorClass:"famous"},
     {title:"Old City Survival",gametype:"pvp",players:"7/32",year:2017,creator:"CityDev99",creatorClass:"normal"},
@@ -542,27 +549,27 @@ function renderGameTable(list){
     wrap.innerHTML="";
     list.forEach(g=>{
         const div=document.createElement("div");
-        div.className="table‑row";
+        div.className="table-row";
         div.innerHTML=`<div>${g.title}</div><div>${g.gametype}</div><div>${g.players}</div><div>${g.year}</div><div>${g.creator}</div>`;
         wrap.appendChild(div);
     });
 }
 
-document.getElementById("btnFilter").onclick=()=>{
-    const ys=Number(document.getElementById("filterYearStart").value)||0;
-    const ye=Number(document.getElementById("filterYearEnd").value)||9999;
-    const gtSel=document.getElementById("filterGametype").value;
-    const crSel=document.getElementById("filterCreator").value;
-    const filtered=gameDatabase.filter(g=>{
-        const okY=g.year>=ys&&g.year<=ye;
-        const okT=gtSel==="all"||g.gametype===gtSel;
-        const okC=crSel==="all"||g.creatorClass===crSel;
+document.getElementById("btnFilter").onclick = function(){
+    const ys = Number(document.getElementById("filterYearStart").value)||0;
+    const ye = Number(document.getElementById("filterYearEnd").value)||9999;
+    const gtSel = document.getElementById("filterGametype").value;
+    const crSel = document.getElementById("filterCreator").value;
+    const filtered = gameDatabase.filter(g=>{
+        const okY = g.year >= ys && g.year <= ye;
+        const okT = gtSel === "all" || g.gametype === gtSel;
+        const okC = crSel === "all" || g.creatorClass === crSel;
         return okY&&okT&&okC;
     });
     renderGameTable(filtered);
-};
-document.getElementById("btnQuickRefresh").onclick=()=>renderGameTable(gameDatabase);
-document.getElementById("btnRefreshAll").onclick=()=>renderGameTable(gameDatabase);
+}
+document.getElementById("btnQuickRefresh").onclick = ()=> renderGameTable(gameDatabase);
+document.getElementById("btnRefreshAll").onclick = ()=> renderGameTable(gameDatabase);
 </script>
 </body>
 </html>
