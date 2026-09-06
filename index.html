@@ -18,12 +18,38 @@ body{
     overflow:hidden;
     background:#000000;
     color:#e8e2d5;
+    /* 背景图 photos/eMkDUBQg.png */
+    background-image:url('photos/eMkDUBQg.png');
+    background-size:contain;
+    background-position:right bottom;
+    background-repeat:no-repeat;
 }
 .wrapper{
     width:100%;
     height:100%;
     display:flex;
     flex-direction:column;
+    position:relative;
+}
+/* 页面中间LOGO叠加层 */
+.logo-overlay{
+    position:absolute;
+    inset:0;
+    pointer-events:none;/*不拦截鼠标点击交互*/
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.logo-img{
+    width:420px;
+    height:auto;
+    opacity:0.85;
+    /* logo图片放在photos文件夹，替换为你的logo文件名 */
+    background-image:url('photos/logo.png');
+    background-size:contain;
+    background-position:center;
+    background-repeat:no-repeat;
+    aspect-ratio: 16 /5;
 }
 
 /* ========= 顶部欢迎栏 TF2 VGUI 原版布局 ========= */
@@ -33,6 +59,8 @@ body{
     display:flex;
     align-items:center;
     gap:14px;
+    position:relative;
+    z-index:2;
 }
 .avatar-box{
     width:64px;
@@ -40,7 +68,7 @@ body{
     border:3px solid #645c4f;
     border-radius:4px;
     background:#4a443a;
-    background-image:url('assets/icons/avatar.png');
+    background-image:url('photos/avatar.png');
     background-size:cover;
     flex-shrink:0;
 }
@@ -89,6 +117,8 @@ body{
     gap:4px;
     padding:6px 20px 8px;
     background:#2c2821;
+    position:relative;
+    z-index:2;
 }
 .tab{
     background:#7c7362;
@@ -100,17 +130,14 @@ body{
     cursor:default;
 }
 
-/* ========= 主内容区 截图原版布局 ========= */
+/* ========= 主内容区 ========= */
 .main-content{
     flex:1;
     display:flex;
     padding:20px;
     gap:20px;
-    /* 右侧角色海报背景，只填充右侧区域 */
-    background-image:url('photos/eMkDUBQg.png');
-    background-size:contain;
-    background-position:right bottom;
-    background-repeat:no-repeat;
+    position:relative;
+    z-index:2;
 }
 .left-panel{
     width:380px;
@@ -170,6 +197,8 @@ body{
     align-items:center;
     justify-content:space-between;
     border-top:2px solid #27231d;
+    position:relative;
+    z-index:2;
 }
 .btn-quit{
     background:#7c7362;
@@ -256,7 +285,7 @@ body{
     width:44px;
     height:44px;
     background:#4a443a;
-    background-image:url('assets/icons/achv_popup_icon.png');
+    background-image:url('photos/achv_popup_icon.png');
     background-size:cover;
     border:2px solid #645c4f;
     flex-shrink:0;
@@ -270,7 +299,7 @@ body{
     display:none;
     align-items:center;
     justify-content:center;
-    z-index:99;
+    z-index:101;
 }
 .server-browser{
     width:90vw;
@@ -361,60 +390,110 @@ body{
 </head>
 <body>
 <div class="wrapper">
+    <!-- 页面中间LOGO，不干扰鼠标交互 -->
+    <div class="logo-overlay">
+        <div class="logo-img"></div>
+    </div>
+
     <!-- 顶部欢迎区域 -->
     <div class="top-header">
         <div class="avatar-box"></div>
         <div class="welcome-text">
-            <h1><span class="zh">欢迎回来，玩家</span><span class="en">WELCOME BACK, Player</span></h1>
-            <p><span class="zh">你的成就：</span><span class="en">Your achievements:</span></p>
+            <h1>
+                <span class="zh">欢迎回来，玩家</span>
+                <span class="en">WELCOME BACK, PLAYER</span>
+            </h1>
+            <p>
+                <span class="zh">你的成就</span>
+                <span class="en">Your Achievements</span>
+            </p>
         </div>
         <div class="top-right-area">
             <div class="achievement-slots">
-                <div class="achv-slot" style="background-image:url('assets/icons/achv_01.png');"></div>
-                <div class="achv-slot" style="background-image:url('assets/icons/achv_02.png');"></div>
-                <div class="achv-slot" style="background-image:url('assets/icons/achv_03.png');"></div>
-                <div class="achv-slot" style="background-image:url('assets/icons/achv_04.png');"></div>
-                <div class="achv-slot" style="background-image:url('assets/icons/achv_05.png');"></div>
+                <div class="achv-slot" style="background-image:url('photos/achv_01.png');"></div>
+                <div class="achv-slot" style="background-image:url('photos/achv_02.png');"></div>
+                <div class="achv-slot" style="background-image:url('photos/achv_03.png');"></div>
+                <div class="achv-slot" style="background-image:url('photos/achv_04.png');"></div>
+                <div class="achv-slot" style="background-image:url('photos/achv_05.png');"></div>
             </div>
-            <button class="btn-viewall" id="btnViewAll">VIEW ALL</button>
+            <button class="btn-viewall" id="btnViewAll">
+                <span class="zh">查看全部</span>
+                <span class="en">VIEW ALL</span>
+            </button>
         </div>
     </div>
-    <!-- NEWS / ALERTS / MESSAGES 标签栏，在header下方靠右 -->
+    <!-- NEWS / ALERTS / MESSAGES -->
     <div class="tab-bar">
-        <div class="tab">NEWS</div>
-        <div class="tab">ALERTS (1)</div>
-        <div class="tab">MESSAGES</div>
+        <div class="tab">
+            <span class="zh">新闻</span>
+            <span class="en">NEWS</span>
+        </div>
+        <div class="tab">
+            <span class="zh">提醒 (1)</span>
+            <span class="en">ALERTS (1)</span>
+        </div>
+        <div class="tab">
+            <span class="zh">消息</span>
+            <span class="en">MESSAGES</span>
+        </div>
     </div>
     <!-- 主内容 -->
     <div class="main-content">
         <div class="left-panel">
             <button class="vgui-button" id="btnStartPlaying">
-                <span>START PLAYING</span>
+                <span><span class="zh">开始游戏</span><span class="en">START PLAYING</span></span>
                 <span>⦿ +</span>
             </button>
-            <button class="vgui-button">MANAGE ITEMS</button>
+            <button class="vgui-button">
+                <span class="zh">管理物品</span>
+                <span class="en">MANAGE ITEMS</span>
+            </button>
 
             <div class="vgui-panel">
-                <button class="vgui-button">SHOP FOR ITEMS</button>
+                <button class="vgui-button">
+                    <span class="zh">商店</span>
+                    <span class="en">SHOP FOR ITEMS</span>
+                </button>
                 <div class="storage-list">
-                    <div class="storage-item">Item Storage 1</div>
-                    <div class="storage-item">Item Storage 2</div>
-                    <div class="storage-item">Item Storage 3</div>
+                    <div class="storage-item">
+                        <span class="zh">物品储存槽 1</span>
+                        <span class="en">Item Storage 1</span>
+                    </div>
+                    <div class="storage-item">
+                        <span class="zh">物品储存槽 2</span>
+                        <span class="en">Item Storage 2</span>
+                    </div>
+                    <div class="storage-item">
+                        <span class="zh">物品储存槽 3</span>
+                        <span class="en">Item Storage 3</span>
+                    </div>
                 </div>
                 <div class="new-feature-row">
                     <div>
                         <div><span class="zh">新功能！</span><span class="en">NEW FEATURE!</span></div>
-                        <div class="text-red-big">VIEW</div>
+                        <div class="text-red-big">
+                            <span class="zh">查看</span>
+                            <span class="en">VIEW</span>
+                        </div>
                     </div>
-                    <button class="vgui-button">REPLAYS</button>
+                    <button class="vgui-button">
+                        <span class="zh">回放</span>
+                        <span class="en">REPLAYS</span>
+                    </button>
                 </div>
             </div>
-            <button class="vgui-button">VIEW PROMOTIONAL CODES</button>
+            <button class="vgui-button">
+                <span class="zh">查看促销码</span>
+                <span class="en">VIEW PROMOTIONAL CODES</span>
+            </button>
         </div>
     </div>
     <!-- 底部栏 -->
     <div class="bottom-bar">
-        <button class="btn-quit">QUIT</button>
+        <button class="btn-quit">
+            <span class="zh">退出</span>
+            <span class="en">QUIT</span>
+        </button>
         <div class="bottom-icon-group">
             <div class="bottom-icon"></div>
             <div class="bottom-icon"></div>
@@ -422,14 +501,20 @@ body{
             <div class="bottom-icon"></div>
             <div class="bottom-icon"></div>
         </div>
-        <button class="btn-options">OPTIONS</button>
+        <button class="btn-options">
+            <span class="zh">选项</span>
+            <span class="en">OPTIONS</span>
+        </button>
     </div>
 </div>
 
 <!--成就弹窗-->
 <div class="achievement-window" id="achvWin">
     <div class="achv-titlebar" id="achvDragHandle">
-        <div><span class="zh">成就</span><span class="en">Achievements</span></div>
+        <div>
+            <span class="zh">成就</span>
+            <span class="en">Achievements</span>
+        </div>
         <div class="achv-close" id="closeAchv">✕</div>
     </div>
     <div class="achv-body">
@@ -443,17 +528,38 @@ body{
     </div>
 </div>
 
-<!--服务器浏览器弹窗-->
+<!--服务器浏览器弹窗【全部增加中文】-->
 <div class="popup-overlay" id="serverPopup">
     <div class="server-browser">
         <div class="browser-tabs">
-            <div class="browser-tab active">INTERNET</div>
-            <div class="browser-tab">FAVORITES</div>
-            <div class="browser-tab">HISTORY</div>
-            <div class="browser-tab">SPECTATE</div>
-            <div class="browser-tab">LAN</div>
-            <div class="browser-tab">FRIENDS</div>
-            <div class="browser-tab">BLACKLISTED</div>
+            <div class="browser-tab active">
+                <span class="zh">互联网</span>
+                <span class="en">INTERNET</span>
+            </div>
+            <div class="browser-tab">
+                <span class="zh">收藏</span>
+                <span class="en">FAVORITES</span>
+            </div>
+            <div class="browser-tab">
+                <span class="zh">历史</span>
+                <span class="en">HISTORY</span>
+            </div>
+            <div class="browser-tab">
+                <span class="zh">观战</span>
+                <span class="en">SPECTATE</span>
+            </div>
+            <div class="browser-tab">
+                <span class="zh">局域网</span>
+                <span class="en">LAN</span>
+            </div>
+            <div class="browser-tab">
+                <span class="zh">好友</span>
+                <span class="en">FRIENDS</span>
+            </div>
+            <div class="browser-tab">
+                <span class="zh">黑名单</span>
+                <span class="en">BLACKLISTED</span>
+            </div>
             <div class="browser-close" id="closePopup">✕</div>
         </div>
         <div class="table-header">
@@ -477,27 +583,27 @@ body{
                 <div class="filter-item">
                     <label><span class="zh">游戏类型</span><span class="en">Game Type</span></label>
                     <select id="filterGametype">
-                        <option value="all">All</option>
-                        <option value="pvp">PVP</option>
-                        <option value="nonpvp">Non‑PVP</option>
-                        <option value="tycoon">Tycoon</option>
-                        <option value="parkour">Parkour</option>
+                        <option value="all"><span class="zh">全部</span><span class="en">All</span></option>
+                        <option value="pvp"><span class="zh">PVP</span><span class="en">PVP</span></option>
+                        <option value="nonpvp"><span class="zh">非PVP</span><span class="en">Non‑PVP</span></option>
+                        <option value="tycoon"><span class="zh">大亨</span><span class="en">Tycoon</span></option>
+                        <option value="parkour"><span class="zh">跑酷类</span><span class="en">Parkour</span></option>
                     </select>
                 </div>
                 <div class="filter-item">
                     <label><span class="zh">作者类型</span><span class="en">Creator Type</span></label>
                     <select id="filterCreator">
-                        <option value="all">All</option>
-                        <option value="famous">Famous</option>
-                        <option value="normal">Normal</option>
+                        <option value="all"><span class="zh">全部</span><span class="en">All</span></option>
+                        <option value="famous"><span class="zh">知名用户</span><span class="en">Famous</span></option>
+                        <option value="normal"><span class="zh">普通用户</span><span class="en">Normal</span></option>
                     </select>
                 </div>
             </div>
             <div class="filter-btn-row">
-                <button id="btnFilter">FILTERS</button>
-                <button id="btnQuickRefresh">QUICK REFRESH</button>
-                <button id="btnRefreshAll">REFRESH ALL</button>
-                <button id="btnConnect">CONNECT</button>
+                <button id="btnFilter"><span class="zh">筛选</span><span class="en">FILTERS</span></button>
+                <button id="btnQuickRefresh"><span class="zh">快速刷新</span><span class="en">QUICK REFRESH</span></button>
+                <button id="btnRefreshAll"><span class="zh">全部刷新</span><span class="en">REFRESH ALL</span></button>
+                <button id="btnConnect"><span class="zh">连接</span><span class="en">CONNECT</span></button>
             </div>
         </div>
     </div>
