@@ -806,26 +806,51 @@ function playBtnSound(){
 document.querySelectorAll(".btn-click-sound").forEach(el=>{
     el.addEventListener("click", ()=> playBtnSound());
 });
-// ========= 音频逻辑：启动gamestartup =========
-let audioPlayed = false;
-function playStartupSound(){
-    if(audioPlayed) return;
-    audioPlayed = true;
-    const randNum = Math.floor(Math.random()*9)+1;
-    const fallbackSrc = "audio/gamestartup1.m4a";
-    const trySrc = `audio/gamestartup${randNum}.m4a`;
-    const audio = new Audio();
-    audio.src = trySrc;
-    audio.play().catch(()=>{
-        audio.src = fallbackSrc;
-        audio.play().catch(e=>{
-            console.log("启动音频无法播放，浏览器策略限制",e);
-        })
-    })
+
+// ========= 背景音乐：gamestartup1-6.m4a 随机循环播放 =========
+const bgMusicFiles = [
+    "audio/gamestartup1.m4a",
+    "audio/gamestartup2.m4a",
+    "audio/gamestartup3.m4a",
+    "audio/gamestartup4.m4a",
+    "audio/gamestartup5.m4a",
+    "audio/gamestartup6.m4a"
+];
+const bgMusic = new Audio();
+let bgMusicStarted = false;
+let currentBgIndex = -1;
+
+// 随机选一首，不与当前重复
+function getRandomBgIndex(){
+    let idx;
+    do {
+        idx = Math.floor(Math.random() * bgMusicFiles.length);
+    } while(idx === currentBgIndex && bgMusicFiles.length > 1);
+    return idx;
 }
-document.body.addEventListener("click",()=>{
-    playStartupSound();
-},{once:true});
+
+function playRandomBgMusic(){
+    currentBgIndex = getRandomBgIndex();
+    bgMusic.src = bgMusicFiles[currentBgIndex];
+    bgMusic.volume = 0.7;
+    bgMusic.play().catch(e=>{
+        console.log("背景音乐播放失败（可能被浏览器策略拦截）", e);
+    });
+}
+
+// 一首播完自动随机切下一首
+bgMusic.addEventListener("ended", ()=>{
+    playRandomBgMusic();
+});
+
+// 首次点击页面任意位置启动背景音乐（浏览器自动播放策略要求）
+document.body.addEventListener("click", function startBgOnce(){
+    if(!bgMusicStarted){
+        bgMusicStarted = true;
+        playRandomBgMusic();
+    }
+}, {once:true});
+
 // ========= 背包弹窗管理物品按钮 =========
 const backpackWin = document.getElementById("backpackWin");
 document.getElementById("btnManageItems").onclick = ()=>{
