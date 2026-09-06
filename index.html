@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roblox 游戏大厅</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif;color:#e2ddcf;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif;color:#e2ddcf;user-select:none;}
 body{
     background:#191919;
+    background-image:url('');/*全局背景占位*/
+    background-size:cover;
+    background-position:center;
 }
 .wrapper{
     width:100vw;
@@ -31,6 +34,8 @@ body{
     border:3px solid #706859;
     border-radius:4px;
     flex-shrink:0;
+    background-image:url('');/*头像占位*/
+    background-size:cover;
 }
 .welcome-text h1{
     font-size:24px;
@@ -56,15 +61,20 @@ body{
     border-radius:2px;
     cursor:pointer;
 }
-/*语言切换按钮*/
-.btn-lang{
-    background:#706859;
-    border:2px solid #918675;
-    color:#fff;
-    padding:8px 12px;
-    font-size:20px;
+/*左上角5个成就图标，删除第6个齿轮*/
+.achievement-group{
+    display:flex;
+    gap:10px;
+    margin-left:20px;
+}
+.achv-slot{
+    width:48px;
+    height:48px;
+    background:#544e42;
+    border:2px solid #706859;
     border-radius:4px;
-    cursor:pointer;
+    background-image:url('');/*成就图标占位*/
+    background-size:cover;
 }
 /*标签栏 新闻 提醒 消息*/
 .tab-row{
@@ -84,7 +94,7 @@ body{
 .tab.active{
     background:#827864;
 }
-/*主体区域，左右布局*/
+/*主体区域，左右布局，右侧移除随机游戏卡片*/
 .main-area{
     flex:1;
     display:flex;
@@ -148,50 +158,17 @@ body{
     border-radius:2px;
     cursor:pointer;
 }
-/*右侧游戏展示区域*/
+/*右侧空白展示区，移除原来的random游戏卡片*/
 .right-display{
     flex:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-.game-card{
-    background:#3c372f;
     border:3px solid #635c4e;
-    width:90%;
-    max-width:700px;
-    padding:30px;
     border-radius:6px;
+    background:#222;
+    background-image:url('');/*右侧背景占位*/
+    background-size:cover;
+    background-position:center;
 }
-.game-card h2{
-    font-size:32px;
-    margin-bottom:14px;
-    color:#f7f1e3;
-}
-.game-desc{
-    color:#d4cdbc;
-    font-size:17px;
-    line-height:1.6;
-    margin-bottom:20px;
-}
-.random-game-info{
-    font-size:15px;
-    color:#b8b09f;
-    margin-bottom:24px;
-}
-.btn-launch{
-    width:100%;
-    background:#b8ad94;
-    color:#111;
-    font-size:22px;
-    font-weight:bold;
-    padding:14px;
-    border:2px solid #7e7460;
-    border-radius:4px;
-    cursor:pointer;
-}
-/*底部栏*/
+/*底部栏：五个图标槽，第三个是🌐语言切换*/
 .bottom-bar{
     background:#3c372f;
     padding:18px 32px;
@@ -224,6 +201,13 @@ body{
     background:#544e42;
     border:2px solid #706859;
     border-radius:3px;
+    background-image:url('');/*底部图标占位*/
+    background-size:cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    cursor:pointer;
 }
 .bottom-btn-group-right button{
     background:#706859;
@@ -235,7 +219,76 @@ body{
     cursor:pointer;
 }
 
-/* ========== TF2 游戏浏览器弹窗 ========== */
+/*========可拖拽成就窗口========*/
+.achievement-window{
+    position:fixed;
+    top:12vh;
+    left:15vw;
+    width:720px;
+    max-height:82vh;
+    background:#3c372f;
+    border:3px solid #635c4e;
+    border-radius:4px;
+    z-index:101;
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+    box-shadow:0 0 30px #000;
+}
+.achv-titlebar{
+    background:#524c41;
+    padding:11px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:move;
+}
+.achv-title{
+    font-size:20px;
+    font-weight:bold;
+}
+.achv-close{
+    width:30px;
+    height:30px;
+    background:#635c4e;
+    text-align:center;
+    line-height:30px;
+    cursor:pointer;
+    border-radius:3px;
+}
+.achv-body{
+    padding:16px;
+    overflow-y:auto;
+    flex:1;
+    background:#28251f;
+}
+.achv-item{
+    display:flex;
+    gap:12px;
+    padding:12px;
+    background:#343028;
+    border:1px solid #484237;
+    border-radius:4px;
+    margin-bottom:10px;
+}
+.achv-icon{
+    width:46px;
+    height:46px;
+    background:#544e42;
+    border:2px solid #706859;
+    border-radius:4px;
+    flex-shrink:0;
+    background-image:url('');/*成就条目图标占位*/
+    background-size:cover;
+}
+.achv-text h4{
+    margin-bottom:4px;
+}
+.achv-text p{
+    font-size:14px;
+    color:#b8b09f;
+}
+/*========游戏浏览器弹窗========*/
 .popup-overlay{
     position:fixed;
     inset:0;
@@ -276,7 +329,6 @@ body{
     cursor:pointer;
     background:#635c4e;
 }
-/*表格头部*/
 .table-header-row{
     display:grid;
     grid-template-columns: 320px 140px 120px 120px 180px;
@@ -298,7 +350,6 @@ body{
 .table-row:hover{
     background:#484237;
 }
-/*筛选区域*/
 .filter-area{
     padding:16px;
     background:#343028;
@@ -334,32 +385,28 @@ body{
     font-weight:bold;
     cursor:pointer;
 }
-
-/* 隐藏英文文本，用于切换 */
-.en {
-    display: none;
-}
+/*多语言显示控制*/
+.en{display:none;}
 </style>
 </head>
 <body>
 <div class="wrapper">
-    <!--顶部欢迎区域-->
+    <!--顶部欢迎栏：5个成就图标，删除齿轮；view all按钮打开成就窗口 -->
     <div class="top-bar">
-        <div class="avatar-box">
-        </div>
+        <div class="avatar-box"></div>
         <div class="welcome-text">
-            <h1>
-                <span class="zh">欢迎回来，Roblox玩家</span>
-                <span class="en">WELCOME BACK, RobloxPlayer</span>
-            </h1>
-            <p>
-                <span class="zh">你的大厅与游戏会话：</span>
-                <span class="en">Your lobby and game sessions:</span>
-            </p>
+            <h1><span class="zh">欢迎回来，Roblox玩家</span><span class="en">WELCOME BACK, RobloxPlayer</span></h1>
+            <p><span class="zh">你的大厅与游戏会话：</span><span class="en">Your lobby and game sessions:</span></p>
+        </div>
+        <div class="achievement-group">
+            <div class="achv-slot"></div>
+            <div class="achv-slot"></div>
+            <div class="achv-slot"></div>
+            <div class="achv-slot"></div>
+            <div class="achv-slot"></div>
         </div>
         <div class="top-right">
-            <button class="btn-lang" id="btnLang" title="切换语言">🌐</button>
-            <button class="btn-viewall">
+            <button class="btn-viewall" id="btnViewAll">
                 <span class="zh">查看全部</span>
                 <span class="en">VIEW ALL</span>
             </button>
@@ -368,21 +415,12 @@ body{
 
     <!--标签页-->
     <div class="tab-row">
-        <div class="tab active">
-            <span class="zh">新闻</span>
-            <span class="en">NEWS</span>
-        </div>
-        <div class="tab">
-            <span class="zh">提醒 (2)</span>
-            <span class="en">ALERTS (2)</span>
-        </div>
-        <div class="tab">
-            <span class="zh">消息</span>
-            <span class="en">MESSAGES</span>
-        </div>
+        <div class="tab active"><span class="zh">新闻</span><span class="en">NEWS</span></div>
+        <div class="tab"><span class="zh">提醒 (2)</span><span class="en">ALERTS (2)</span></div>
+        <div class="tab"><span class="zh">消息</span><span class="en">MESSAGES</span></div>
     </div>
 
-    <!--主体内容-->
+    <!--主体区域，右侧已移除随机游戏卡片-->
     <div class="main-area">
         <div class="left-panel">
             <div class="ui-block">
@@ -396,285 +434,158 @@ body{
                     <span class="en">MANAGE GAMES</span>
                 </button>
             </div>
-
             <div class="ui-block">
                 <div class="small-block-header">
-                    <h3>
-                        <span class="zh">浏览游戏</span>
-                        <span class="en">BROWSE FOR GAMES</span>
-                    </h3>
+                    <h3><span class="zh">浏览游戏</span><span class="en">BROWSE FOR GAMES</span></h3>
                     <div>
-                        <span class="text-red">
-                            <span class="zh">查看</span>
-                            <span class="en">VIEW</span>
-                        </span>
-                        <p style="font-size:13px;">
-                            <span class="zh">新功能！</span>
-                            <span class="en">NEW FEATURE!</span>
-                        </p>
+                        <span class="text-red"><span class="zh">查看</span><span class="en">VIEW</span></span>
+                        <p style="font-size:13px;"><span class="zh">新功能！</span><span class="en">NEW FEATURE!</span></p>
                     </div>
                 </div>
-                <div class="game-list-item">
-                    <span class="zh">🎮 已保存游戏槽位 1</span>
-                    <span class="en">🎮 Saved Game Slot 1</span>
-                </div>
-                <div class="game-list-item">
-                    <span class="zh">🎮 已保存游戏槽位 2</span>
-                    <span class="en">🎮 Saved Game Slot 2</span>
-                </div>
-                <div class="game-list-item">
-                    <span class="zh">🎮 已保存游戏槽位 3</span>
-                    <span class="en">🎮 Saved Game Slot 3</span>
-                </div>
-                <button class="btn-small">
-                    <span class="zh">随机游戏</span>
-                    <span class="en">RANDOM GAME</span>
-                </button>
+                <div class="game-list-item"><span class="zh">🎮 已保存游戏槽位 1</span><span class="en">🎮 Saved Game Slot 1</span></div>
+                <div class="game-list-item"><span class="zh">🎮 已保存游戏槽位 2</span><span class="en">🎮 Saved Game Slot 2</span></div>
+                <div class="game-list-item"><span class="zh">🎮 已保存游戏槽位 3</span><span class="en">🎮 Saved Game Slot 3</span></div>
+                <button class="btn-small"><span class="zh">随机游戏</span><span class="en">RANDOM GAME</span></button>
             </div>
-
-            <button class="big-button">
-                <span class="zh">查看促销码</span>
-                <span class="en">VIEW PROMO CODES</span>
-            </button>
+            <button class="big-button"><span class="zh">查看促销码</span><span class="en">VIEW PROMO CODES</span></button>
         </div>
-
-        <!--右侧随机游戏卡片-->
-        <div class="right-display">
-            <div class="game-card">
-                <h2 id="gameTitle">
-                    <span class="zh">随机 Roblox 游戏</span>
-                    <span class="en">Random Roblox Game</span>
-                </h2>
-                <div class="random-game-info">
-                    <span class="zh">游玩量：</span>
-                    <span class="en">Visits: </span>
-                    <span id="visitCount">0</span>
-                    <span class="zh"> • 创建时间：</span>
-                    <span class="en"> • Created: </span>
-                    <span id="createDate">----</span>
-                </div>
-                <p class="game-desc" id="gameDesc">
-                    <span class="zh">点击左侧“随机游戏”按钮，加载一个随机 Roblox 体验。</span>
-                    <span class="en">Click "RANDOM GAME" button on the left to load a random Roblox experience.</span>
-                </p>
-                <button class="btn-launch">
-                    <span class="zh">启动体验</span>
-                    <span class="en">LAUNCH EXPERIENCE</span>
-                </button>
-            </div>
-        </div>
+        <div class="right-display"></div>
     </div>
 
-    <!--底部栏-->
+    <!--底部栏：5个图标槽，第三个地球仪语言切换-->
     <div class="bottom-bar">
         <div class="bottom-btn-group-left">
-            <button>
-                <span class="zh">退出</span>
-                <span class="en">QUIT</span>
-            </button>
+            <button><span class="zh">退出</span><span class="en">QUIT</span></button>
         </div>
         <div class="icon-bar">
             <div class="icon-slot"></div>
             <div class="icon-slot"></div>
-            <div class="icon-slot"></div>
+            <div class="icon-slot" id="btnLang">🌐</div>
             <div class="icon-slot"></div>
             <div class="icon-slot"></div>
         </div>
         <div class="bottom-btn-group-right">
-            <button>
-                <span class="zh">选项</span>
-                <span class="en">OPTIONS</span>
-            </button>
+            <button><span class="zh">选项</span><span class="en">OPTIONS</span></button>
         </div>
     </div>
 </div>
 
-<!-- ========== 游戏浏览器弹窗（点击开始游戏打开） ========== -->
+<!--可拖拽成就窗口-->
+<div class="achievement-window" id="achvWin">
+    <div class="achv-titlebar" id="achvDragHandle">
+        <div class="achv-title"><span class="zh">成就</span><span class="en">Achievements</span></div>
+        <div class="achv-close" id="closeAchv">✕</div>
+    </div>
+    <div class="achv-body">
+        <div class="achv-item">
+            <div class="achv-icon"></div>
+            <div class="achv-text">
+                <h4><span class="zh">初次启动</span><span class="en">First Launch</span></h4>
+                <p><span class="zh">第一次启动游戏大厅</span><span class="en">First time launching game lobby</span></p>
+            </div>
+        </div>
+        <div class="achv-item">
+            <div class="achv-icon"></div>
+            <div class="achv-text">
+                <h4><span class="zh">复古探索者</span><span class="en">Retro Explorer</span></h4>
+                <p><span class="zh">浏览旧Roblox游戏列表</span><span class="en">Browse old Roblox game list</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--游戏浏览器弹窗-->
 <div class="popup-overlay" id="serverPopup">
     <div class="server-browser">
         <div class="browser-tabs">
-            <div class="browser-tab active">
-                <span class="zh">互联网</span>
-                <span class="en">Internet</span>
-            </div>
-            <div class="browser-tab">
-                <span class="zh">收藏</span>
-                <span class="en">Favorites</span>
-            </div>
-            <div class="browser-tab">
-                <span class="zh">历史</span>
-                <span class="en">History</span>
-            </div>
-            <div class="browser-tab">
-                <span class="zh">观战</span>
-                <span class="en">Spectate</span>
-            </div>
-            <div class="browser-tab">
-                <span class="zh">局域网</span>
-                <span class="en">Lan</span>
-            </div>
-            <div class="browser-tab">
-                <span class="zh">好友</span>
-                <span class="en">Friends</span>
-            </div>
-            <div class="browser-tab">
-                <span class="zh">黑名单服务器</span>
-                <span class="en">Blacklisted Servers</span>
-            </div>
+            <div class="browser-tab active"><span class="zh">互联网</span><span class="en">Internet</span></div>
+            <div class="browser-tab"><span class="zh">收藏</span><span class="en">Favorites</span></div>
+            <div class="browser-tab"><span class="zh">历史</span><span class="en">History</span></div>
+            <div class="browser-tab"><span class="zh">观战</span><span class="en">Spectate</span></div>
+            <div class="browser-tab"><span class="zh">局域网</span><span class="en">Lan</span></div>
+            <div class="browser-tab"><span class="zh">好友</span><span class="en">Friends</span></div>
+            <div class="browser-tab"><span class="zh">黑名单服务器</span><span class="en">Blacklisted Servers</span></div>
             <div class="browser-close" id="closePopup">✕</div>
         </div>
-        <!--表头：游戏名称｜游戏类型｜游玩人数｜发布年份｜作者-->
         <div class="table-header-row">
-            <div>
-                <span class="zh">游戏名称</span>
-                <span class="en">Game Name</span>
-            </div>
-            <div>
-                <span class="zh">游戏类型</span>
-                <span class="en">Game Type</span>
-            </div>
-            <div>
-                <span class="zh">游玩人数</span>
-                <span class="en">Players</span>
-            </div>
-            <div>
-                <span class="zh">发布年份</span>
-                <span class="en">Release Year</span>
-            </div>
-            <div>
-                <span class="zh">作者</span>
-                <span class="en">Creator</span>
-            </div>
+            <div><span class="zh">游戏名称</span><span class="en">Game Name</span></div>
+            <div><span class="zh">游戏类型</span><span class="en">Game Type</span></div>
+            <div><span class="zh">游玩人数</span><span class="en">Players</span></div>
+            <div><span class="zh">发布年份</span><span class="en">Release Year</span></div>
+            <div><span class="zh">作者</span><span class="en">Creator</span></div>
         </div>
-        <div class="scroll-table-wrap" id="gameTableBody">
-            <!--JS渲染游戏列表-->
-        </div>
-        <!--筛选区域-->
+        <div class="scroll-table-wrap" id="gameTableBody"></div>
         <div class="filter-area">
             <div class="filter-row">
                 <div class="filter-item">
-                    <label>
-                        <span class="zh">起始年份</span>
-                        <span class="en">Start Year</span>
-                    </label>
+                    <label><span class="zh">起始年份</span><span class="en">Start Year</span></label>
                     <input type="number" id="filterYearStart" placeholder="2000">
                 </div>
                 <div class="filter-item">
-                    <label>
-                        <span class="zh">结尾年份</span>
-                        <span class="en">End Year</span>
-                    </label>
+                    <label><span class="zh">结尾年份</span><span class="en">End Year</span></label>
                     <input type="number" id="filterYearEnd" placeholder="2025">
                 </div>
                 <div class="filter-item">
-                    <label>
-                        <span class="zh">游戏类型</span>
-                        <span class="en">Game Type</span>
-                    </label>
+                    <label><span class="zh">游戏类型</span><span class="en">Game Type</span></label>
                     <select id="filterGametype">
-                        <option value="all">
-                            <span class="zh">全部</span>
-                            <span class="en">All</span>
-                        </option>
-                        <option value="nonpvp">
-                            <span class="zh">非PVP</span>
-                            <span class="en">Non-PVP</span>
-                        </option>
-                        <option value="pvp">
-                            <span class="zh">PVP</span>
-                            <span class="en">PVP</span>
-                        </option>
-                        <option value="tycoon">
-                            <span class="zh">大亨</span>
-                            <span class="en">Tycoon</span>
-                        </option>
-                        <option value="parkour">
-                            <span class="zh">跑酷类</span>
-                            <span class="en">Parkour</span>
-                        </option>
+                        <option value="all"><span class="zh">全部</span><span class="en">All</span></option>
+                        <option value="nonpvp"><span class="zh">非PVP</span><span class="en">Non‑PVP</span></option>
+                        <option value="pvp"><span class="zh">PVP</span><span class="en">PVP</span></option>
+                        <option value="tycoon"><span class="zh">大亨</span><span class="en">Tycoon</span></option>
+                        <option value="parkour"><span class="zh">跑酷类</span><span class="en">Parkour</span></option>
                     </select>
                 </div>
                 <div class="filter-item">
-                    <label>
-                        <span class="zh">用户</span>
-                        <span class="en">User</span>
-                    </label>
+                    <label><span class="zh">用户</span><span class="en">User</span></label>
                     <select id="filterCreatorType">
-                        <option value="all">
-                            <span class="zh">全部</span>
-                            <span class="en">All</span>
-                        </option>
-                        <option value="famous">
-                            <span class="zh">知名用户</span>
-                            <span class="en">Famous Creator</span>
-                        </option>
-                        <option value="normal">
-                            <span class="zh">普通用户</span>
-                            <span class="en">Normal User</span>
-                        </option>
+                        <option value="all"><span class="zh">全部</span><span class="en">All</span></option>
+                        <option value="famous"><span class="zh">知名用户</span><span class="en">Famous Creator</span></option>
+                        <option value="normal"><span class="zh">普通用户</span><span class="en">Normal User</span></option>
                     </select>
                 </div>
             </div>
             <div class="bottom-filter-bar">
-                <button id="btnFilter">
-                    <span class="zh">筛选</span>
-                    <span class="en">Filters</span>
-                </button>
-                <button id="btnQuickRefresh">
-                    <span class="zh">快速刷新</span>
-                    <span class="en">Quick Refresh</span>
-                </button>
-                <button id="btnRefreshAll">
-                    <span class="zh">刷新全部</span>
-                    <span class="en">Refresh All</span>
-                </button>
-                <button id="btnConnect">
-                    <span class="zh">连接</span>
-                    <span class="en">Connect</span>
-                </button>
+                <button id="btnFilter"><span class="zh">筛选</span><span class="en">Filters</span></button>
+                <button id="btnQuickRefresh"><span class="zh">快速刷新</span><span class="en">Quick Refresh</span></button>
+                <button id="btnRefreshAll"><span class="zh">刷新全部</span><span class="en">Refresh All</span></button>
+                <button id="btnConnect"><span class="zh">连接</span><span class="en">Connect</span></button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// 语言切换逻辑：默认中文
+//========多语言切换========
 let currentLang = "zh";
-
 function switchLang(lang){
     currentLang = lang;
-    document.querySelectorAll(".zh, .en").forEach(el=>{
-        el.style.display = "none";
-    });
-    document.querySelectorAll("." + lang).forEach(el=>{
-        el.style.display = "inline";
-    });
-    document.querySelectorAll(".table-row div, .browser-tab, .tab, .ui-block, .game-card h2, .game-desc, .random-game-info").forEach(el=>{
-        el.style.display = "";
-    });
+    document.querySelectorAll(".zh,.en").forEach(el=>el.style.display="none");
+    document.querySelectorAll("."+lang).forEach(el=>el.style.display="inline");
 }
-
 document.getElementById("btnLang").addEventListener("click",()=>{
-    if(currentLang === "zh"){
-        switchLang("en");
-    }else{
-        switchLang("zh");
-    }
+    currentLang === "zh" ? switchLang("en") : switchLang("zh");
 });
 
-// 模拟游戏数据集
-const gameDatabase = [
-    {title:"复古方块赛车",titleEn:"Retro Blocky Racing",gametype:"pvp",gametypeEn:"PVP",players:"18/40",year:2018,creator:"知名建造者",creatorEn:"Famous_Builder",creatorClass:"famous"},
-    {title:"旧城生存",titleEn:"Old City Survival",gametype:"pvp",gametypeEn:"PVP",players:"7/32",year:2017,creator:"城市开发者99",creatorEn:"CityDev99",creatorClass:"normal"},
-    {title:"像素跑酷天堂",titleEn:"Pixel Parkour Paradise",gametype:"parkour",gametypeEn:"Parkour",players:"24/50",year:2019,creator:"跳跃大师",creatorEn:"JumpMaster",creatorClass:"famous"},
-    {title:"方块角色扮演世界",titleEn:"Blocky Roleplay World",gametype:"nonpvp",gametypeEn:"Non-PVP",players:"31/60",year:2016,creator:"RP大师",creatorEn:"RP_Guru",creatorClass:"famous"},
-    {title:"僵尸方块围城",titleEn:"Zombie Block Siege",gametype:"pvp",gametypeEn:"PVP",players:"12/36",year:2018,creator:"亡灵工作室",creatorEn:"UndeadStudio",creatorClass:"normal"},
-    {title:"亿万富翁大亨",titleEn:"Billionaire Tycoon",gametype:"tycoon",gametypeEn:"Tycoon",players:"22/45",year:2015,creator:"现金之王",creatorEn:"CashKing",creatorClass:"famous"},
-    {title:"Obby地狱挑战",titleEn:"Obby Hell Challenge",gametype:"parkour",gametypeEn:"Parkour",players:"9/28",year:2020,creator:"跑酷狂人",creatorEn:"ObbyNerd",creatorClass:"normal"},
-    {title:"宁静农场生活",titleEn:"Peaceful Farm Life",gametype:"nonpvp",gametypeEn:"Non-PVP",players:"14/30",year:2017,creator:"农场开发者",creatorEn:"FarmDev",creatorClass:"normal"}
-];
+//========成就窗口拖拽逻辑========
+const achvWin = document.getElementById("achvWin");
+const dragHandle = document.getElementById("achvDragHandle");
+let drag = false, dx, dy;
+dragHandle.onmousedown = function(e){
+    drag = true;
+    dx = e.clientX - achvWin.offsetLeft;
+    dy = e.clientY - achvWin.offsetTop;
+    document.onmousemove = function(ev){
+        if(!drag) return;
+        achvWin.style.left = (ev.clientX - dx) + "px";
+        achvWin.style.top = (ev.clientY - dy) + "px";
+    }
+    document.onmouseup = ()=> drag = false;
+}
+//打开/关闭成就窗口（VIEW ALL按钮）
+document.getElementById("btnViewAll").onclick = ()=> achvWin.style.display = "flex";
+document.getElementById("closeAchv").onclick = ()=> achvWin.style.display = "none";
 
-//弹窗开关
+//========游戏浏览器弹窗逻辑========
 const popup = document.getElementById("serverPopup");
 document.getElementById("btnStartPlaying").addEventListener("click",()=>{
     popup.style.display="flex";
@@ -682,67 +593,45 @@ document.getElementById("btnStartPlaying").addEventListener("click",()=>{
 });
 document.getElementById("closePopup").addEventListener("click",()=>popup.style.display="none");
 
-//渲染表格
+//模拟游戏库
+const gameDatabase = [
+    {title:"复古方块赛车",titleEn:"Retro Blocky Racing",gametype:"pvp",gametypeEn:"PVP",players:"18/40",year:2018,creator:"知名建造者",creatorEn:"Famous_Builder",creatorClass:"famous"},
+    {title:"旧城生存",titleEn:"Old City Survival",gametype:"pvp",gametypeEn:"PVP",players:"7/32",year:2017,creator:"城市开发者99",creatorEn:"CityDev99",creatorClass:"normal"},
+    {title:"像素跑酷天堂",titleEn:"Pixel Parkour Paradise",gametype:"parkour",gametypeEn:"Parkour",players:"24/50",year:2019,creator:"跳跃大师",creatorEn:"JumpMaster",creatorClass:"famous"},
+    {title:"方块角色扮演世界",titleEn:"Blocky Roleplay World",gametype:"nonpvp",gametypeEn:"Non‑PVP",players:"31/60",year:2016,creator:"RP大师",creatorEn:"RP_Guru",creatorClass:"famous"},
+    {title:"亿万富翁大亨",titleEn:"Billionaire Tycoon",gametype:"tycoon",gametypeEn:"Tycoon",players:"22/45",year:2015,creator:"现金之王",creatorEn:"CashKing",creatorClass:"famous"}
+];
+
 function renderGameTable(list){
     const wrap = document.getElementById("gameTableBody");
     wrap.innerHTML = "";
     list.forEach(g=>{
         const div = document.createElement("div");
         div.className="table-row";
-
-        const gameTypeName = currentLang === "zh" ? g.gametype : g.gametypeEn;
-        const gameTitle = currentLang === "zh" ? g.title : g.titleEn;
-        const creatorName = currentLang === "zh" ? g.creator : g.creatorEn;
-
-        div.innerHTML = `
-            <div>${gameTitle}</div>
-            <div>${gameTypeName}</div>
-            <div>${g.players}</div>
-            <div>${g.year}</div>
-            <div>${creatorName}</div>
-        `;
+        const t = currentLang === "zh" ? g.title : g.titleEn;
+        const gt = currentLang === "zh" ? g.gametype : g.gametypeEn;
+        const cr = currentLang === "zh" ? g.creator : g.creatorEn;
+        div.innerHTML = `<div>${t}</div><div>${gt}</div><div>${g.players}</div><div>${g.year}</div><div>${cr}</div>`;
         wrap.appendChild(div);
     })
 }
 
-//筛选逻辑
-document.getElementById("btnFilter").addEventListener("click",()=>{
-    const yStart = Number(document.getElementById("filterYearStart").value) || 0;
-    const yEnd = Number(document.getElementById("filterYearEnd").value) || 9999;
-    const gType = document.getElementById("filterGametype").value;
-    const cType = document.getElementById("filterCreatorType").value;
-
-    let filtered = gameDatabase.filter(g=>{
-        const yearOk = g.year >= yStart && g.year <= yEnd;
-        const typeOk = (gType === "all") || (g.gametype === gType);
-        const creatorOk = (cType === "all") || (g.creatorClass === cType);
-        return yearOk && typeOk && creatorOk;
-    })
+//筛选
+document.getElementById("btnFilter").onclick = function(){
+    const ys = Number(document.getElementById("filterYearStart").value)||0;
+    const ye = Number(document.getElementById("filterYearEnd").value)||9999;
+    const gtSel = document.getElementById("filterGametype").value;
+    const crSel = document.getElementById("filterCreatorType").value;
+    const filtered = gameDatabase.filter(g=>{
+        const okY = g.year >= ys && g.year <= ye;
+        const okT = gtSel === "all" || g.gametype === gtSel;
+        const okC = crSel === "all" || g.creatorClass === crSel;
+        return okY&&okT&&okC;
+    });
     renderGameTable(filtered);
-})
-
-document.getElementById("btnQuickRefresh").addEventListener("click",()=>renderGameTable(gameDatabase));
-document.getElementById("btnRefreshAll").addEventListener("click",()=>renderGameTable(gameDatabase));
-
-//旧随机游戏逻辑保留
-const gameData = [
-    {title:"复古方块赛车",titleEn:"Retro Blocky Racing",visits:"1,240,000",date:"2018-03-12",desc:"一款快节奏的复古卡丁车赛车游戏。",descEn:"A fast-paced retro kart racing game."},
-    {title:"旧城生存",titleEn:"Old City Survival",visits:"890,500",date:"2017-11-04",desc:"在腐朽的旧Roblox城市中生存并击退敌人。",descEn:"Survive and fight enemies inside a decaying old Roblox city."}
-];
-
-document.querySelector('.btn-small').addEventListener('click',()=>{
-    const rand = gameData[Math.floor(Math.random()*gameData.length)];
-
-    const gameTitle = currentLang === "zh" ? rand.title : rand.titleEn;
-    const gameDesc = currentLang === "zh" ? rand.desc : rand.descEn;
-
-    document.getElementById("gameTitle").querySelector(".zh").textContent = rand.title;
-    document.getElementById("gameTitle").querySelector(".en").textContent = rand.titleEn;
-    document.getElementById("visitCount").textContent = rand.visits;
-    document.getElementById("createDate").textContent = rand.date;
-    document.getElementById("gameDesc").querySelector(".zh").textContent = rand.desc;
-    document.getElementById("gameDesc").querySelector(".en").textContent = rand.descEn;
-})
+}
+document.getElementById("btnQuickRefresh").onclick = ()=> renderGameTable(gameDatabase);
+document.getElementById("btnRefreshAll").onclick = ()=> renderGameTable(gameDatabase);
 </script>
 </body>
 </html>
