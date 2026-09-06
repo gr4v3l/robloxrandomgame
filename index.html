@@ -106,6 +106,7 @@ body{
     font-size:15px;
     padding:5px 22px;
     cursor:pointer;
+    white-space:nowrap;
 }
 
 .tab-bar{
@@ -125,6 +126,7 @@ body{
     font-size:15px;
     color:#222;
     cursor:default;
+    white-space:nowrap;
 }
 
 /* ========= 主内容 ========= */
@@ -144,17 +146,26 @@ body{
 }
 .vgui-button{
     width:100%;
+    min-height:46px;
     background:#c9bea6;
     color:#222222;
-    font-size:18px;
+    font-size:15px;
     font-weight:bold;
     text-align:left;
-    padding:9px 14px;
+    padding:0 14px;
     border-style:solid;
     border-color:#e2d9c3 #807662 #807662 #e2d9c3;
     display:flex;
+    align-items:center;
     justify-content:space-between;
     cursor:pointer;
+    white-space:nowrap;
+    overflow:hidden;
+}
+.vgui-button > span:first-child{
+    flex:1;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 .vgui-panel{
     background:#3b362e;
@@ -172,6 +183,7 @@ body{
     padding:4px 4px;
     font-size:14px;
     color:#b8b09f;
+    white-space:nowrap;
 }
 .new-feature-row{
     display:flex;
@@ -183,6 +195,7 @@ body{
     color:#dd4444;
     font-size:26px;
     font-weight:bold;
+    white-space:nowrap;
 }
 
 /* ========= 底部栏 ========= */
@@ -204,6 +217,7 @@ body{
     padding:8px 36px;
     cursor:pointer;
     color:#222;
+    white-space:nowrap;
 }
 .bottom-icon-group{
     display:flex;
@@ -230,6 +244,7 @@ body{
     padding:8px 36px;
     cursor:pointer;
     color:#222;
+    white-space:nowrap;
 }
 
 /* ========= 成就弹窗 ========= */
@@ -254,6 +269,7 @@ body{
     justify-content:space-between;
     align-items:center;
     cursor:move;
+    white-space:nowrap;
 }
 .achv-close{
     width:30px;
@@ -317,6 +333,7 @@ body{
     background:#7c7362;
     color:#222;
     cursor:default;
+    white-space:nowrap;
 }
 .browser-tab.active{
     background:#a89e88;
@@ -334,6 +351,7 @@ body{
     background:#4a443a;
     padding:8px 12px;
     font-weight:bold;
+    white-space:nowrap;
 }
 .scroll-table{
     flex:1;
@@ -345,6 +363,7 @@ body{
     grid-template-columns:320px 140px 120px 120px 180px;
     padding:7px 12px;
     border-bottom:1px solid #3a352c;
+    white-space:nowrap;
 }
 .table-row:hover{
     background:#484237;
@@ -362,6 +381,7 @@ body{
 .filter-item label{
     display:block;
     margin-bottom:5px;
+    white-space:nowrap;
 }
 .filter-item input,.filter-item select{
     width:100%;
@@ -378,10 +398,11 @@ body{
     color:#111;
     font-weight:bold;
     cursor:pointer;
+    white-space:nowrap;
 }
 
-/* ----语言切换核心修复：使用block，禁止inline造成中文错乱---- */
-.lang-zh{ display:block; }
+/* ----语言切换---- */
+.lang-zh{ display:inline-block; }
 .lang-en{ display:none; }
 </style>
 </head>
@@ -395,12 +416,12 @@ body{
         <div class="avatar-box"></div>
         <div class="welcome-text">
             <h1>
-                <div class="lang-zh">欢迎回来，玩家</div>
-                <div class="lang-en">WELCOME BACK, PLAYER</div>
+                <span class="lang-zh">欢迎回来，玩家</span>
+                <span class="lang-en">WELCOME BACK, PLAYER</span>
             </h1>
             <p>
-                <div class="lang-zh">你的成就</div>
-                <div class="lang-en">Your Achievements</div>
+                <span class="lang-zh">你的成就</span>
+                <span class="lang-en">Your Achievements</span>
             </p>
         </div>
         <div class="top-right-area">
@@ -420,16 +441,16 @@ body{
 
     <div class="tab-bar">
         <div class="tab">
-            <div class="lang-zh">新闻</div>
-            <div class="lang-en">NEWS</div>
+            <span class="lang-zh">新闻</span>
+            <span class="lang-en">NEWS</span>
         </div>
         <div class="tab">
-            <div class="lang-zh">提醒 (1)</div>
-            <div class="lang-en">ALERTS (1)</div>
+            <span class="lang-zh">提醒 (1)</span>
+            <span class="lang-en">ALERTS (1)</span>
         </div>
         <div class="tab">
-            <div class="lang-zh">消息</div>
-            <div class="lang-en">MESSAGES</div>
+            <span class="lang-zh">消息</span>
+            <span class="lang-en">MESSAGES</span>
         </div>
     </div>
 
@@ -605,11 +626,35 @@ body{
 </div>
 
 <script>
-//语言切换修复：使用block，禁止inline导致中文排版崩坏
+// ========= 音频逻辑 =========
+let audioPlayed = false;
+function playStartupSound(){
+    if(audioPlayed) return;
+    audioPlayed = true;
+    const randNum = Math.floor(Math.random()*9)+1;
+    const fallbackSrc = "audio/gamestartup1.m4a";
+    const trySrc = `audio/gamestartup${randNum}.m4a`;
+
+    const audio = new Audio();
+    audio.src = trySrc;
+    audio.play().catch(()=>{
+        //随机那一号文件失败，降级播放 gamestartup1
+        audio.src = fallbackSrc;
+        audio.play().catch(e=>{
+            console.log("启动音频无法播放，浏览器策略限制",e);
+        })
+    })
+}
+//浏览器自动播放限制：第一次点击页面任意位置触发播放
+document.body.addEventListener("click",()=>{
+    playStartupSound();
+},{once:true});
+
+// ========= 语言切换 =========
 let isZh = true;
 function applyLang(){
-    document.querySelectorAll(".lang-zh").forEach(el=> el.style.display = isZh ? "block":"none");
-    document.querySelectorAll(".lang-en").forEach(el=> el.style.display = isZh ? "none":"block");
+    document.querySelectorAll(".lang-zh").forEach(el=> el.style.display = isZh ? "inline-block":"none");
+    document.querySelectorAll(".lang-en").forEach(el=> el.style.display = isZh ? "none":"inline-block");
 }
 document.getElementById("btnLang").addEventListener("click",()=>{
     isZh = !isZh;
