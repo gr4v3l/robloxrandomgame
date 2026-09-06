@@ -1,284 +1,531 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TF2‑Style Roblox Game Randomizer</title>
+<title>Roblox Lobby - TF2 Style</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Arial Black",Arial,sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif;color:#e2ddcf;}
 body{
-  width:100vw;height:100vh;overflow:hidden;
-  color:#e8e2d5;
-  background:rgba(30,28,25,0.85);
+    background:#191919;
 }
-#root{position:relative;width:100%;height:100%;}
+.wrapper{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+/*顶部欢迎栏*/
+.top-bar{
+    background:#3c372f;
+    padding:18px 24px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    border-bottom:2px solid #2b2720;
+}
+.avatar-box{
+    width:72px;
+    height:72px;
+    background:#544e42;
+    border:3px solid #706859;
+    border-radius:4px;
+    flex-shrink:0;
+}
+.welcome-text h1{
+    font-size:24px;
+    color:#f0e9d8;
+}
+.welcome-text p{
+    color:#b8b09f;
+    font-size:14px;
+    margin-top:4px;
+}
+.top-right{
+    margin-left:auto;
+}
+.btn-viewall{
+    background:#8c826e;
+    border:none;
+    color:#fff;
+    padding:8px 28px;
+    font-size:16px;
+    border-radius:2px;
+}
+/*标签栏 News Alerts Messages*/
+.tab-row{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    padding:12px 0;
+    background:#27241e;
+}
+.tab{
+    background:#635c4e;
+    padding:7px 32px;
+    font-size:17px;
+    border-radius:3px 3px 0 0;
+}
+.tab.active{
+    background:#827864;
+}
+/*主体区域，左右布局*/
+.main-area{
+    flex:1;
+    display:flex;
+    padding:24px;
+    gap:24px;
+}
+.left-panel{
+    width:380px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+.ui-block{
+    background:#3c372f;
+    border:2px solid #5c5446;
+    border-radius:4px;
+    padding:12px;
+}
+.big-button{
+    width:100%;
+    background:#b8ad94;
+    color:#222;
+    border:2px solid #7e7460;
+    font-size:20px;
+    text-align:left;
+    padding:12px 16px;
+    margin-bottom:10px;
+    border-radius:3px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+    cursor:pointer;
+}
+.small-block-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+.small-block-header h3{
+    font-size:18px;
+}
+.text-red{
+    color:#ff4c4c;
+    font-weight:bold;
+    font-size:26px;
+}
+.game-list-item{
+    padding:6px 4px;
+    font-size:14px;
+    color:#c9c1af;
+}
+.btn-small{
+    width:100%;
+    background:#8c826e;
+    border:none;
+    color:#fff;
+    padding:9px;
+    font-size:16px;
+    margin-top:8px;
+    border-radius:2px;
+}
+/*右侧游戏展示区域*/
+.right-display{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+.game-card{
+    background:#3c372f;
+    border:3px solid #635c4e;
+    width:90%;
+    max-width:700px;
+    padding:30px;
+    border-radius:6px;
+}
+.game-card h2{
+    font-size:32px;
+    margin-bottom:14px;
+    color:#f7f1e3;
+}
+.game-desc{
+    color:#d4cdbc;
+    font-size:17px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+.random-game-info{
+    font-size:15px;
+    color:#b8b09f;
+    margin-bottom:24px;
+}
+.btn-launch{
+    width:100%;
+    background:#b8ad94;
+    color:#111;
+    font-size:22px;
+    font-weight:bold;
+    padding:14px;
+    border:2px solid #7e7460;
+    border-radius:4px;
+}
+/*底部栏*/
+.bottom-bar{
+    background:#3c372f;
+    padding:18px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:2px solid #2b2720;
+}
+.bottom-btn-group-left button{
+    background:#706859;
+    color:white;
+    border:none;
+    font-size:18px;
+    padding:12px 42px;
+    border-radius:4px;
+}
+.bottom-btn-group-right{
+    display:flex;
+    gap:14px;
+    align-items:center;
+}
+.icon-bar{
+    display:flex;
+    gap:8px;
+}
+.icon-slot{
+    width:44px;
+    height:44px;
+    background:#544e42;
+    border:2px solid #706859;
+    border-radius:3px;
+}
+.bottom-btn-group-right button{
+    background:#706859;
+    color:white;
+    border:none;
+    font-size:18px;
+    padding:12px 42px;
+    border-radius:4px;
+}
 
-/* ========== 主菜单UI ========== */
-.logo{
-  position:absolute;top:18px;left:18px;z-index:5;
+/* ========== TF2 SERVER BROWSER POPUP ========== */
+.popup-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:99;
 }
-.logo h1{
-  font-size:58px;color:#fff;
-  text-shadow:3px 3px 0 #b86016;
+.server-browser{
+    width:92vw;
+    max-width:1400px;
+    height:88vh;
+    background:#3c372f;
+    border:3px solid #635c4e;
+    border-radius:4px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
 }
-.left-menu{
-  position:absolute;left:18px;top:140px;width:370px;
-  display:flex;flex-direction:column;gap:18px;z-index:5;
+.browser-tabs{
+    display:flex;
+    background:#524c41;
 }
-.menu-panel{
-  background:rgba(24,22,20,0.82);
-  border:2px solid #504942;border-radius:4px;padding:12px;
+.browser-tab{
+    padding:10px 18px;
+    background:#7c7362;
+    font-size:16px;
+    cursor:default;
 }
-.panel-title{
-  font-size:19px;color:#e6c89c;margin-bottom:10px;text-transform:uppercase;
+.browser-tab.active{
+    background:#a89e88;
+    color:#1a1a1a;
 }
-.btn-list{display:flex;flex-direction:column;gap:8px;}
-.tf2-btn{
-  width:100%;background:#c9bc9f;color:#222;
-  border:2px solid #746b5b;border-radius:3px;padding:10px 14px;
-  font-size:16px;text-align:left;cursor:pointer;
-  display:flex;align-items:center;gap:8px;transition:0.12s;
+.browser-close{
+    margin-left:auto;
+    padding:10px 16px;
+    cursor:pointer;
+    background:#635c4e;
 }
-.tf2-btn:hover{background:#e2d7bf;border-color:#b86016;}
-
-/* ========== Quickplay弹窗（核心） ========== */
-.overlay{
-  position:absolute;inset:0;background:rgba(0,0,0,0.65);
-  display:none;align-items:center;justify-content:center;
-  z-index:99;
+/*表格头部*/
+.table-header-row{
+    display:grid;
+    grid-template-columns: 320px 140px 120px 120px 180px;
+    background:#544e42;
+    padding:8px 12px;
+    font-weight:bold;
 }
-.overlay.show{display:flex;}
-.quickplay-modal{
-  width:720px;background:#282622;border:3px solid #44413c;border-radius:6px;
-  overflow:hidden;
+.scroll-table-wrap{
+    flex:1;
+    overflow-y:auto;
+    background:#28251f;
 }
-.modal-header{
-  text-align:center;padding:16px 0;
+.table-row{
+    display:grid;
+    grid-template-columns: 320px 140px 120px 120px 180px;
+    padding:7px 12px;
+    border-bottom:1px solid #3a352c;
 }
-.modal-header h2{
-  font-size:36px;color:#f0e9d8;letter-spacing:2px;
+.table-row:hover{
+    background:#484237;
 }
-.modal-body{
-  padding:0 24px 20px;
+/*筛选区域*/
+.filter-area{
+    padding:16px;
+    background:#343028;
 }
-.mode-card-wrap{
-  position:relative;display:flex;align-items:center;
+.filter-row{
+    display:grid;
+    grid-template-columns: 220px 220px 220px 220px;
+    gap:14px;
+    margin-bottom:16px;
 }
-.arrow-btn{
-  width:44px;height:140px;background:#5a544b;border:2px solid #443e38;
-  color:#ddd;font-size:24px;cursor:pointer;border-radius:4px;
+.filter-item label{
+    display:block;
+    margin-bottom:6px;
+    color:#c5beaf;
 }
-.arrow-btn:hover{background:#70695c;}
-.mode-card{
-  flex:1;margin:0 12px;
-  background:#f8f2e0;border:2px solid #b8b09c;border-radius:4px;
-  padding:16px;min-height:340px;color:#333;
+.filter-item select,.filter-item input{
+    width:100%;
+    background:#4c473b;
+    border:1px solid #706859;
+    padding:8px;
+    font-size:15px;
 }
-mode‑header-row{
-  display:flex;align-items:center;gap:12px;margin-bottom:12px;
+.bottom-filter-bar{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
-.mode-index{font-size:24px;color:#666;}
-.mode-name{font-size:34px;font-weight:bold;text-transform:uppercase;}
-/* Roblox游戏缩略图容器 */
-.roblox‑thumb‑box{
-  width:100%;height:200px;background:#ddd;
-  border-radius:3px;overflow:hidden;margin:10px 0;
-  display:flex;align-items:center;justify-content:center;
+.bottom-filter-bar button{
+    padding:9px 18px;
+    background:#7c7362;
+    border:none;
+    color:#111;
+    font-weight:bold;
 }
-.roblox‑thumb‑box img{width:100%;height:100%;object-fit:cover;}
-.loading-text{color:#555;}
-.mode‑desc{text-align:center;font-size:15px;color:#444;margin-top:8px;}
-.mode‑tip{text-align:center;font-size:14px;color:#b03020;margin-top:6px;}
-
-.modal‑btn‑row{
-  display:flex;gap:14px;margin-top:22px;
-}
-.modal‑btn‑row button{
-  flex:1;padding:14px 0;font-size:18px;cursor:pointer;
-  background:#d9ceb2;color:#222;border:2px solid #887e68;border-radius:4px;
-}
-.modal‑btn‑row button:hover{background:#e9dfc8;}
-.modal‑bottom‑row{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-top:16px;
-}
-.bottom‑left{display:flex;align-items:center;gap:8px;color:#ccc;font-size:15px;}
-.cancel‑btn{
-  padding:10px 36px;font-size:17px;background:#777167;color:#eee;
-  border:2px solid #555048;border-radius:4px;cursor:pointer;
-}
-
-/* 底部主菜单栏 */
-.bottom‑bar{
-  position:absolute;bottom:0;left:0;width:100%;height:70px;
-  background:rgba(24,22,20,0.9);border-top:2px solid #504942;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 18px;z-index:5;
-}
-.bottom‑btn{
-  background:#60584e;color:#e8e2d5;border:2px solid #443e38;
-  padding:10px 18px;font-size:15px;border-radius:4px;cursor:pointer;
-}
-.bottom‑btn:hover{background:#70675b;}
 </style>
 </head>
 <body>
-<div id="root">
-  <div class="logo"><h1>TEAM FORTRESS 2</h1></div>
-  <div class="left-menu">
-    <div class="menu-panel">
-      <div class="panel-title">PLAY</div>
-      <div class="btn-list">
-        <button class="tf2-btn" id="openQuickplay">🌐 开始游玩</button>
-        <button class="tf2-btn">🔍 浏览服务器</button>
-        <button class="tf2-btn">🎯 训练</button>
-      </div>
+<div class="wrapper">
+    <!--顶部欢迎区域-->
+    <div class="top-bar">
+        <div class="avatar-box">
+        </div>
+        <div class="welcome-text">
+            <h1>WELCOME BACK, RobloxPlayer</h1>
+            <p>Your lobby and game sessions:</p>
+        </div>
+        <div class="top-right">
+            <button class="btn-viewall">VIEW ALL</button>
+        </div>
     </div>
-    <div class="menu-panel">
-      <div class="panel-title">CUSTOMIZE</div>
-      <div class="btn-list">
-        <button class="tf2-btn">📦 物品</button>
-        <button class="tf2-btn">🔖 商店 <span style="margin-left:auto;background:#b96417;color:#fff;padding:2px 6px;font-size:11px;border-radius:2px">NEW</span></button>
-      </div>
-    </div>
-    <div class="menu-panel">
-      <div class="panel-title">CREATE</div>
-      <div class="btn-list">
-        <button class="tf2-btn">📺 回放</button>
-        <button class="tf2-btn">🔧 STEAM WORKSHOP</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Quickplay弹窗 -->
-  <div class="overlay" id="overlay">
-    <div class="quickplay-modal">
-      <div class="modal-header"><h2>QUICKPLAY</h2></div>
-      <div class="modal-body">
-        <div class="mode-card-wrap">
-          <button class="arrow-btn" id="btnLeft">&lt;</button>
-          <div class="mode-card">
-            <div class="mode‑header-row">
-              <span class="mode-index" id="modeIndex">1/5</span>
-              <h3 class="mode-name" id="modeName">大亨</h3>
-            </div>
-            <!-- Roblox游戏缩略图 -->
-            <div class="roblox‑thumb‑box">
-              <img id="robloxThumb" alt="Game Preview" style="display:none;">
-              <div id="thumbLoading" class="loading-text">加载中...</div>
-            </div>
-            <div class="mode‑desc" id="modeDesc">随机抽取一款大亨类Roblox游戏</div>
-            <div class="mode‑tip" id="modeTip">适合所有水平玩家</div>
-          </div>
-          <button class="arrow-btn" id="btnRight">&gt;</button>
-        </div>
-        <div class="modal‑btn‑row">
-          <button id="btnPlayNow">PLAY NOW!</button>
-          <button id="btnShowServers">SHOW SERVERS</button>
-        </div>
-        <div class="modal‑bottom‑row">
-          <div class="bottom‑left">
-            <span>⚙ Server Settings</span>
-            <span>(PROVIDED BY MASTERCOMS) ❓</span>
-          </div>
-          <button class="cancel‑btn" id="btnCancel">CANCEL</button>
-        </div>
-      </div>
+    <!--标签页-->
+    <div class="tab-row">
+        <div class="tab active">NEWS</div>
+        <div class="tab">ALERTS (2)</div>
+        <div class="tab">MESSAGES</div>
     </div>
-  </div>
 
-  <div class="bottom‑bar">
-    <button class="bottom‑btn">❄ QUIT</button>
-    <div></div>
-    <div>
-      <button class="bottom‑btn">OPTIONS</button>
-      <button class="bottom‑btn">ADV. OPTIONS</button>
+    <!--主体内容-->
+    <div class="main-area">
+        <div class="left-panel">
+            <div class="ui-block">
+                <button class="big-button" id="btnStartPlaying">START PLAYING <span>⊕⦿</span></button>
+                <button class="big-button">MANAGE GAMES</button>
+            </div>
+
+            <div class="ui-block">
+                <div class="small-block-header">
+                    <h3>BROWSE FOR GAMES</h3>
+                    <div>
+                        <span class="text-red">VIEW</span>
+                        <p style="font-size:13px;">NEW FEATURE!</p>
+                    </div>
+                </div>
+                <div class="game-list-item">🎮 Saved Game Slot 1</div>
+                <div class="game-list-item">🎮 Saved Game Slot 2</div>
+                <div class="game-list-item">🎮 Saved Game Slot 3</div>
+                <button class="btn-small">RANDOM GAME</button>
+            </div>
+
+            <button class="big-button">VIEW PROMO CODES</button>
+        </div>
+
+        <!--右侧随机游戏卡片-->
+        <div class="right-display">
+            <div class="game-card">
+                <h2 id="gameTitle">Random Roblox Game</h2>
+                <div class="random-game-info">Visits: <span id="visitCount">0</span> • Created: <span id="createDate">----</span></div>
+                <p class="game-desc" id="gameDesc">Click "RANDOM GAME" button on the left to load a random Roblox experience.</p>
+                <button class="btn-launch">LAUNCH EXPERIENCE</button>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <!--底部栏-->
+    <div class="bottom-bar">
+        <div class="bottom-btn-group-left">
+            <button>QUIT</button>
+        </div>
+        <div class="icon-bar">
+            <div class="icon-slot"></div>
+            <div class="icon-slot"></div>
+            <div class="icon-slot"></div>
+            <div class="icon-slot"></div>
+            <div class="icon-slot"></div>
+        </div>
+        <div class="bottom-btn-group-right">
+            <button>OPTIONS</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== 游戏浏览器弹窗（点击START PLAYING打开） ========== -->
+<div class="popup-overlay" id="serverPopup">
+    <div class="server-browser">
+        <div class="browser-tabs">
+            <div class="browser-tab active">Internet</div>
+            <div class="browser-tab">Favorites</div>
+            <div class="browser-tab">History</div>
+            <div class="browser-tab">Spectate</div>
+            <div class="browser-tab">Lan</div>
+            <div class="browser-tab">Friends</div>
+            <div class="browser-tab">Blacklisted Servers</div>
+            <div class="browser-close" id="closePopup">✕</div>
+        </div>
+        <!--表头：游戏名称｜游戏类型｜游玩人数｜发布年份｜作者-->
+        <div class="table-header-row">
+            <div>Game Name</div>
+            <div>Game Type</div>
+            <div>Players</div>
+            <div>Release Year</div>
+            <div>Creator</div>
+        </div>
+        <div class="scroll-table-wrap" id="gameTableBody">
+            <!--JS渲染游戏列表-->
+        </div>
+        <!--筛选区域，按你的要求修改字段-->
+        <div class="filter-area">
+            <div class="filter-row">
+                <div class="filter-item">
+                    <label>起始年份</label>
+                    <input type="number" id="filterYearStart" placeholder="Start Year">
+                </div>
+                <div class="filter-item">
+                    <label>结尾年份</label>
+                    <input type="number" id="filterYearEnd" placeholder="End Year">
+                </div>
+                <div class="filter-item">
+                    <label>游戏类型</label>
+                    <select id="filterGametype">
+                        <option value="all">全部</option>
+                        <option value="nonpvp">非PVP</option>
+                        <option value="pvp">PVP</option>
+                        <option value="tycoon">大亨</option>
+                        <option value="parkour">跑酷类</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>用户</label>
+                    <select id="filterCreatorType">
+                        <option value="all">全部</option>
+                        <option value="famous">知名用户</option>
+                        <option value="normal">普通用户</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bottom-filter-bar">
+                <button id="btnFilter">Filters</button>
+                <button id="btnQuickRefresh">Quick refresh</button>
+                <button id="btnRefreshAll">Refresh all</button>
+                <button id="btnConnect">Connect</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-// ---------------------- 模式列表（已删除夺旗，名称去掉“模式”） ----------------------
-const modeList = [
-  {name:"大亨",desc:"随机抽取一款大亨类Roblox游戏",tip:"适合所有水平玩家",universeIds:[14282329,156120794]},
-  {name:"非PVP",desc:"随机抽取一款非对抗休闲Roblox游戏",tip:"适合所有水平玩家",universeIds:[189707,28688062]},
-  {name:"PVP",desc:"随机抽取一款玩家对抗Roblox游戏",tip:"适合喜欢对战的玩家",universeIds:[15871179,12411474]},
-  {name:"跑酷",desc:"随机抽取一款Obby跑酷Roblox游戏",tip:"适合所有水平玩家",universeIds:[52111554,133531180]},
-  {name:"随机",desc:"完全随机抽取Roblox游戏",tip:"适合所有水平玩家",universeIds:[14282329,189707,15871179,52111554,28688062]}
+// 模拟游戏数据集
+const gameDatabase = [
+    {title:"Retro Blocky Racing",gametype:"pvp",players:"18/40",year:2018,creator:"Famous_Builder",creatorClass:"famous"},
+    {title:"Old‑City Survival",gametype:"pvp",players:"7/32",year:2017,creator:"CityDev99",creatorClass:"normal"},
+    {title:"Pixel Parkour Paradise",gametype:"parkour",players:"24/50",year:2019,creator:"JumpMaster",creatorClass:"famous"},
+    {title:"Blocky Roleplay World",gametype:"nonpvp",players:"31/60",year:2016,creator:"RP_Guru",creatorClass:"famous"},
+    {title:"Zombie Block Siege",gametype:"pvp",players:"12/36",year:2018,creator:"UndeadStudio",creatorClass:"normal"},
+    {title:"Billionaire Tycoon",gametype:"tycoon",players:"22/45",year:2015,creator:"CashKing",creatorClass:"famous"},
+    {title:"Obby Hell Challenge",gametype:"parkour",players:"9/28",year:2020,creator:"ObbyNerd",creatorClass:"normal"},
+    {title:"Peaceful Farm Life",gametype:"nonpvp",players:"14/30",year:2017,creator:"FarmDev",creatorClass:"normal"},
 ];
-let currentIndex = 0;
 
-// DOM
-const overlay = document.getElementById("overlay");
-const openQuickplayBtn = document.getElementById("openQuickplay");
-const btnCancel = document.getElementById("btnCancel");
-const btnLeft = document.getElementById("btnLeft");
-const btnRight = document.getElementById("btnRight");
-const modeIndexEl = document.getElementById("modeIndex");
-const modeNameEl = document.getElementById("modeName");
-const modeDescEl = document.getElementById("modeDesc");
-const modeTipEl = document.getElementById("modeTip");
-const robloxThumbImg = document.getElementById("robloxThumb");
-const thumbLoading = document.getElementById("thumbLoading");
-
-// 打开关闭弹窗
-openQuickplayBtn.addEventListener("click",()=>{
-  overlay.classList.add("show");
-  renderCurrentMode();
+//弹窗开关
+const popup = document.getElementById("serverPopup");
+document.getElementById("btnStartPlaying").addEventListener("click",()=>{
+    popup.style.display="flex";
+    renderGameTable(gameDatabase);
 });
-btnCancel.addEventListener("click",()=>overlay.classList.remove("show"));
+document.getElementById("closePopup").addEventListener("click",()=>popup.style.display="none");
 
-// 左右切换
-btnLeft.addEventListener("click",()=>{
-  currentIndex = (currentIndex -1 + modeList.length) % modeList.length;
-  renderCurrentMode();
-});
-btnRight.addEventListener("click",()=>{
-  currentIndex = (currentIndex +1) % modeList.length;
-  renderCurrentMode();
-});
-
-// 根据universeId调用Roblox缩略图API，适配你给出的返回JSON结构
-async function loadRobloxThumb(universeId){
-  robloxThumbImg.style.display = "none";
-  thumbLoading.style.display = "block";
-  thumbLoading.textContent = "加载中...";
-  try{
-    const resp = await fetch(`https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=${universeId}&countPerUniverse=1&size=768x432&format=Png`);
-    const json = await resp.json();
-    // 匹配你给的返回结构 data[0].thumbnails[0].imageUrl
-    const thumbItem = json.data?.[0]?.thumbnails?.[0];
-    if(thumbItem && thumbItem.state === "Completed" && thumbItem.imageUrl){
-      robloxThumbImg.src = thumbItem.imageUrl;
-      robloxThumbImg.style.display = "block";
-      thumbLoading.style.display = "none";
-    }else{
-      thumbLoading.textContent = "暂无缩略图";
-    }
-  }catch(err){
-    thumbLoading.textContent = "图片加载失败（跨域）";
-    console.warn("Roblox缩略图接口错误，本地直接打开会跨域，部署服务器正常",err);
-  }
+//渲染表格
+function renderGameTable(list){
+    const wrap = document.getElementById("gameTableBody");
+    wrap.innerHTML = "";
+    list.forEach(g=>{
+        const div = document.createElement("div");
+        div.className="table-row";
+        div.innerHTML = `
+            <div>${g.title}</div>
+            <div>${g.gametype}</div>
+            <div>${g.players}</div>
+            <div>${g.year}</div>
+            <div>${g.creator}</div>
+        `;
+        wrap.appendChild(div);
+    })
 }
 
-// 渲染当前模式
-function renderCurrentMode(){
-  const m = modeList[currentIndex];
-  modeIndexEl.textContent = `${currentIndex+1}/${modeList.length}`;
-  modeNameEl.textContent = m.name;
-  modeDescEl.textContent = m.desc;
-  modeTipEl.textContent = m.tip;
-  // 在该模式的universeId列表随机选一个拉取缩略图
-  const randId = m.universeIds[Math.floor(Math.random()*m.universeIds.length)];
-  loadRobloxThumb(randId);
-}
+//筛选逻辑
+document.getElementById("btnFilter").addEventListener("click",()=>{
+    const yStart = Number(document.getElementById("filterYearStart").value) || 0;
+    const yEnd = Number(document.getElementById("filterYearEnd").value) || 9999;
+    const gType = document.getElementById("filterGametype").value;
+    const cType = document.getElementById("filterCreatorType").value;
 
-// 立即游玩按钮：随机选一个该分类下的universeId
-document.getElementById("btnPlayNow").addEventListener("click",()=>{
-  const m = modeList[currentIndex];
-  const randId = m.universeIds[Math.floor(Math.random()*m.universeIds.length)];
-  alert(`已随机选中 UniverseID:${randId}\n打开：https://www.roblox.com/games?universeId=${randId}`);
-});
+    let filtered = gameDatabase.filter(g=>{
+        const yearOk = g.year >= yStart && g.year <= yEnd;
+        const typeOk = (gType === "all") || (g.gametype === gType);
+        const creatorOk = (cType === "all") || (g.creatorClass === cType);
+        return yearOk && typeOk && creatorOk;
+    })
+    renderGameTable(filtered);
+})
+
+document.getElementById("btnQuickRefresh").addEventListener("click",()=>renderGameTable(gameDatabase));
+document.getElementById("btnRefreshAll").addEventListener("click",()=>renderGameTable(gameDatabase));
+
+//旧随机游戏逻辑保留
+const gameData = [
+    {title:"Retro Blocky Racing",visits:"1,240,000",date:"2018‑03‑12",desc:"Fast‑paced retro kart racing game."},
+    {title:"Old‑City Survival",visits:"890,500",date:"2017‑11‑04",desc:"Survive waves of enemies inside decaying old‑Roblox city."},
+];
+document.querySelector('.btn-small').addEventListener('click',()=>{
+    const rand = gameData[Math.floor(Math.random()*gameData.length)];
+    document.getElementById("gameTitle").innerText = rand.title;
+    document.getElementById("visitCount").innerText = rand.visits;
+    document.getElementById("createDate").innerText = rand.date;
+    document.getElementById("gameDesc").innerText = rand.desc;
+})
 </script>
 </body>
 </html>
