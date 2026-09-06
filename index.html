@@ -464,10 +464,12 @@ body{
     background-repeat:no-repeat;
     background-position:center;
     position:relative;
+    cursor:pointer;
 }
 .bp-slot.empty{
     border-color:#38342b;
     background:#2e2a22;
+    cursor:default;
 }
 /* Equipped标记 */
 .bp-slot .eq-tag{
@@ -478,6 +480,38 @@ body{
     color:#ff4444;
     font-weight:bold;
     pointer-events:none;
+}
+/* -------- TF2物品Tooltip悬浮提示框 -------- */
+.item-tooltip{
+    position:fixed;
+    width:520px;
+    background:#1c1a18;
+    border:3px solid #b89428;
+    border-radius:12px;
+    padding:24px;
+    z-index:9999;
+    pointer-events:none;
+    display:none;
+}
+.tt-title{
+    font-size:42px;
+    color:#ffdd00;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+.tt-level{
+    font-size:30px;
+    color:#888888;
+    margin-bottom:20px;
+}
+.tt-desc{
+    font-size:28px;
+    color:#e8e8e8;
+    margin-bottom:24px;
+}
+.tt-limited{
+    font-size:28px;
+    color:#33dd33;
 }
 /* 底部控制栏 */
 .backpack-bottom-bar{
@@ -734,30 +768,30 @@ body{
     </div>
     <div class="bp-grid">
         <!-- row 1 -->
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Aqua_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/Backpack_Aqua_Summer_2013_Cooler.png')"></div>
         <div class="bp-slot empty"></div>
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Aqua_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/Backpack_Aqua_Summer_2013_Cooler_Key.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Green_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/Backpack_Green_Summer_2013_Cooler.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
 
         <!-- row 2 -->
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Green_Summer_2013_Cooler_Key.png')"></div>
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Orange_Summer_2013_Cooler.png')"></div>
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Orange_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/Backpack_Green_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="yellow_key" style="background-image:url('photos/Backpack_Orange_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="yellow_key" style="background-image:url('photos/Backpack_Orange_Summer_2013_Cooler_Key.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler.png')"></div>
         <div class="bp-slot empty"></div>
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler_Key.png')"></div>
         <div class="bp-slot empty"></div>
 
         <!-- row 3 -->
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler.png')"></div>
-        <div class="bp-slot" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="blue_key" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="blue_key" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler_Key.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
@@ -798,6 +832,13 @@ body{
         </div>
         <button class="bp-bottom-btn btn-click-sound">CLOSE</button>
     </div>
+</div>
+<!--物品悬浮Tooltip-->
+<div class="item-tooltip" id="itemTooltip">
+    <div class="tt-title" id="ttTitle"></div>
+    <div class="tt-level">Level 5 Tool</div>
+    <div class="tt-desc" id="ttDesc"></div>
+    <div class="tt-limited">This is a limited use item. Uses: 1</div>
 </div>
 <script>
 // ========= 全局按钮点击音效 audio/btn.mp3 =========
@@ -862,6 +903,52 @@ document.getElementById("btnManageItems").onclick = ()=>{
 document.getElementById("bpBackBtn").onclick = ()=>{
     backpackWin.style.display = "none";
 };
+
+// ========= 钥匙Tooltip数据定义 =========
+const keyTooltipData = {
+    yellow_key:{
+        title:"YELLOW CRATE KEY",
+        desc:"Used to open locked Tycoon supply crates."
+    },
+    green_key:{
+        title:"GREEN CRATE KEY",
+        desc:"Used to open locked Non‑PVP supply crates."
+    },
+    blue_key:{
+        title:"BLUE CRATE KEY",
+        desc:"Used to open locked Parkour supply crates."
+    },
+    red_key:{
+        title:"RED CRATE KEY",
+        desc:"Used to open locked PVP supply crates."
+    },
+    aqua_key:{
+        title:"AQUA CRATE KEY",
+        desc:"Used to open locked Obby supply crates."
+    }
+};
+const tooltipEl = document.getElementById("itemTooltip");
+const ttTitle = document.getElementById("ttTitle");
+const ttDesc = document.getElementById("ttDesc");
+
+// 绑定格子悬浮事件
+document.querySelectorAll(".bp-slot:not(.empty)").forEach(slot=>{
+    const itemId = slot.dataset.item;
+    const data = keyTooltipData[itemId];
+    slot.addEventListener("mouseenter",(e)=>{
+        ttTitle.innerText = data.title;
+        ttDesc.innerText = data.desc;
+        tooltipEl.style.display = "block";
+    });
+    slot.addEventListener("mousemove",(e)=>{
+        tooltipEl.style.left = (e.clientX + 20)+"px";
+        tooltipEl.style.top = (e.clientY + 20)+"px";
+    });
+    slot.addEventListener("mouseleave",()=>{
+        tooltipEl.style.display = "none";
+    });
+});
+
 // ========= 语言切换 =========
 let isZh = true;
 function applyLang(){
