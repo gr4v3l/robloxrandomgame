@@ -401,6 +401,89 @@ body{
     white-space:nowrap;
 }
 
+/* ========= Backpack背包弹窗（Manage Items打开）TF2背包界面 参考截图样式 ========= */
+.backpack-overlay{
+    position:fixed;
+    inset:0;
+    background:#221e1a;
+    z-index:102;
+    display:none;
+    padding:24px;
+}
+.backpack-header{
+    display:flex;
+    gap:4px;
+    margin-bottom:16px;
+}
+.bp-tab{
+    background:#443e34;
+    color:#f8f0dc;
+    font-size:32px;
+    font-weight:bold;
+    padding:8px 32px;
+    border-radius:8px 8px 0 0;
+}
+.bp-tab.active{
+    background:#2c2821;
+}
+.backpack-top-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+.bp-title{
+    color:#ff4444;
+    font-size:28px;
+    font-weight:bold;
+}
+.bp-right-group{
+    display:flex;
+    gap:16px;
+    align-items:center;
+}
+.checkbox-wrap{
+    color:#f0e9dc;
+    font-size:18px;
+}
+.bp-select{
+    background:#3b362e;
+    color:#fff;
+    font-size:17px;
+    padding:4px 8px;
+}
+/* 物品格子网格 */
+.bp-grid{
+    display:grid;
+    grid-template-columns:repeat(9, 110px);
+    gap:8px;
+    margin-bottom:20px;
+}
+.bp-slot{
+    width:110px;
+    height:110px;
+    border:3px solid #9c8c22;
+    background:#4a442c;
+    border-radius:4px;
+}
+.bp-slot.empty{
+    border-color:#444;
+    background:#2e2a22;
+}
+.backpack-bottom-bar{
+    display:flex;
+    justify-content:space-between;
+}
+.bp-bottom-btn{
+    background:#c9bea6;
+    color:#222;
+    font-size:18px;
+    padding:10px 30px;
+    border-style:solid;
+    border-color:#e2d9c3 #807662 #807662 #e2d9c3;
+    cursor:pointer;
+}
+
 /* ----语言切换---- */
 .lang-zh{ display:inline-block; }
 .lang-en{ display:none; }
@@ -432,7 +515,7 @@ body{
                 <div class="achv-slot" style="background-image:url('photos/achv_04.png');"></div>
                 <div class="achv-slot" style="background-image:url('photos/achv_05.png');"></div>
             </div>
-            <button class="btn-viewall" id="btnViewAll">
+            <button class="btn-viewall btn-click-sound" id="btnViewAll">
                 <span class="lang-zh">查看全部</span>
                 <span class="lang-en">VIEW ALL</span>
             </button>
@@ -440,15 +523,15 @@ body{
     </div>
 
     <div class="tab-bar">
-        <div class="tab">
+        <div class="tab btn-click-sound">
             <span class="lang-zh">新闻</span>
             <span class="lang-en">NEWS</span>
         </div>
-        <div class="tab">
+        <div class="tab btn-click-sound">
             <span class="lang-zh">提醒 (1)</span>
             <span class="lang-en">ALERTS (1)</span>
         </div>
-        <div class="tab">
+        <div class="tab btn-click-sound">
             <span class="lang-zh">消息</span>
             <span class="lang-en">MESSAGES</span>
         </div>
@@ -456,17 +539,17 @@ body{
 
     <div class="main-content">
         <div class="left-panel">
-            <button class="vgui-button" id="btnStartPlaying">
+            <button class="vgui-button btn-click-sound" id="btnStartPlaying">
                 <span><span class="lang-zh">开始游戏</span><span class="lang-en">START PLAYING</span></span>
                 <span>⦿ +</span>
             </button>
-            <button class="vgui-button">
+            <button class="vgui-button btn-click-sound" id="btnManageItems">
                 <span class="lang-zh">管理物品</span>
                 <span class="lang-en">MANAGE ITEMS</span>
             </button>
 
             <div class="vgui-panel">
-                <button class="vgui-button">
+                <button class="vgui-button btn-click-sound">
                     <span class="lang-zh">商店</span>
                     <span class="lang-en">SHOP FOR ITEMS</span>
                 </button>
@@ -492,13 +575,13 @@ body{
                             <span class="lang-en">VIEW</span>
                         </div>
                     </div>
-                    <button class="vgui-button">
+                    <button class="vgui-button btn-click-sound">
                         <span class="lang-zh">回放</span>
                         <span class="lang-en">REPLAYS</span>
                     </button>
                 </div>
             </div>
-            <button class="vgui-button">
+            <button class="vgui-button btn-click-sound">
                 <span class="lang-zh">查看促销码</span>
                 <span class="lang-en">VIEW PROMOTIONAL CODES</span>
             </button>
@@ -506,18 +589,18 @@ body{
     </div>
 
     <div class="bottom-bar">
-        <button class="btn-quit">
+        <button class="btn-quit btn-click-sound">
             <span class="lang-zh">退出</span>
             <span class="lang-en">QUIT</span>
         </button>
         <div class="bottom-icon-group">
-            <div class="bottom-icon"></div>
-            <div class="bottom-icon"></div>
-            <div class="bottom-icon" id="btnLang">🌐</div>
-            <div class="bottom-icon"></div>
-            <div class="bottom-icon"></div>
+            <div class="bottom-icon btn-click-sound"></div>
+            <div class="bottom-icon btn-click-sound"></div>
+            <div class="bottom-icon btn-click-sound" id="btnLang">🌐</div>
+            <div class="bottom-icon btn-click-sound"></div>
+            <div class="bottom-icon btn-click-sound"></div>
         </div>
-        <button class="btn-options">
+        <button class="btn-options btn-click-sound">
             <span class="lang-zh">选项</span>
             <span class="lang-en">OPTIONS</span>
         </button>
@@ -531,7 +614,7 @@ body{
             <span class="lang-zh">成就</span>
             <span class="lang-en">Achievements</span>
         </div>
-        <div class="achv-close" id="closeAchv">✕</div>
+        <div class="achv-close btn-click-sound" id="closeAchv">✕</div>
     </div>
     <div class="achv-body">
         <div class="achv-item">
@@ -548,35 +631,35 @@ body{
 <div class="popup-overlay" id="serverPopup">
     <div class="server-browser">
         <div class="browser-tabs">
-            <div class="browser-tab active">
+            <div class="browser-tab active btn-click-sound">
                 <span class="lang-zh">互联网</span>
                 <span class="lang-en">INTERNET</span>
             </div>
-            <div class="browser-tab">
+            <div class="browser-tab btn-click-sound">
                 <span class="lang-zh">收藏</span>
                 <span class="lang-en">FAVORITES</span>
             </div>
-            <div class="browser-tab">
+            <div class="browser-tab btn-click-sound">
                 <span class="lang-zh">历史</span>
                 <span class="lang-en">HISTORY</span>
             </div>
-            <div class="browser-tab">
+            <div class="browser-tab btn-click-sound">
                 <span class="lang-zh">观战</span>
                 <span class="lang-en">SPECTATE</span>
             </div>
-            <div class="browser-tab">
+            <div class="browser-tab btn-click-sound">
                 <span class="lang-zh">局域网</span>
                 <span class="lang-en">LAN</span>
             </div>
-            <div class="browser-tab">
+            <div class="browser-tab btn-click-sound">
                 <span class="lang-zh">好友</span>
                 <span class="lang-en">FRIENDS</span>
             </div>
-            <div class="browser-tab">
+            <div class="browser-tab btn-click-sound">
                 <span class="lang-zh">黑名单</span>
                 <span class="lang-en">BLACKLISTED</span>
             </div>
-            <div class="browser-close" id="closePopup">✕</div>
+            <div class="browser-close btn-click-sound" id="closePopup">✕</div>
         </div>
         <div class="table-header">
             <div><span class="lang-zh">游戏名称</span><span class="lang-en">Game Name</span></div>
@@ -616,17 +699,63 @@ body{
                 </div>
             </div>
             <div class="filter-btn-row">
-                <button id="btnFilter"><span class="lang-zh">筛选</span><span class="lang-en">FILTERS</span></button>
-                <button id="btnQuickRefresh"><span class="lang-zh">快速刷新</span><span class="lang-en">QUICK REFRESH</span></button>
-                <button id="btnRefreshAll"><span class="lang-zh">全部刷新</span><span class="lang-en">REFRESH ALL</span></button>
-                <button id="btnConnect"><span class="lang-zh">连接</span><span class="lang-en">CONNECT</span></button>
+                <button id="btnFilter" class="btn-click-sound"><span class="lang-zh">筛选</span><span class="lang-en">FILTERS</span></button>
+                <button id="btnQuickRefresh" class="btn-click-sound"><span class="lang-zh">快速刷新</span><span class="lang-en">QUICK REFRESH</span></button>
+                <button id="btnRefreshAll" class="btn-click-sound"><span class="lang-zh">全部刷新</span><span class="lang-en">REFRESH ALL</span></button>
+                <button id="btnConnect" class="btn-click-sound"><span class="lang-zh">连接</span><span class="lang-en">CONNECT</span></button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- TF2背包弹窗 Manage Items打开 -->
+<div class="backpack-overlay" id="backpackWin">
+    <div class="backpack-header">
+        <div class="bp-tab active">LOADOUT</div>
+        <div class="bp-tab">STATS</div>
+    </div>
+    <div class="backpack-top-row">
+        <div class="bp-title">>> BACKPACK</div>
+        <div class="bp-right-group">
+            <div class="checkbox-wrap">
+                <input type="checkbox"> SHOW STOCK ITEMS
+            </div>
+            <select class="bp-select">
+                <option>SORT BACKPACK</option>
+            </select>
+        </div>
+    </div>
+    <!--物品格子网格，和截图布局9列 -->
+    <div class="bp-grid">
+        <div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div>
+        <div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div>
+        <div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot"></div><div class="bp-slot empty"></div>
+        <div class="bp-slot"></div><div class="bp-slot"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div><div class="bp-slot empty"></div>
+    </div>
+    <div class="backpack-bottom-bar">
+        <button class="bp-bottom-btn btn-click-sound" id="bpBackBtn"><< BACK</button>
+        <div>
+            <button class="bp-bottom-btn btn-click-sound">X DELETE</button>
+            <button class="bp-bottom-btn btn-click-sound">NO ACTION</button>
+            <button class="bp-bottom-btn btn-click-sound">DETAILS</button>
+        </div>
+        <button class="bp-bottom-btn btn-click-sound">CLOSE</button>
+    </div>
+</div>
+
 <script>
-// ========= 音频逻辑 =========
+// ========= 全局按钮点击音效 audio/btn.mp3 =========
+function playBtnSound(){
+    const snd = new Audio("audio/btn.mp3");
+    snd.volume = 0.6;
+    snd.play().catch(e=>console.log("按钮音效播放失败",e));
+}
+document.querySelectorAll(".btn-click-sound").forEach(el=>{
+    el.addEventListener("click", ()=> playBtnSound());
+});
+
+// ========= 音频逻辑：启动gamestartup =========
 let audioPlayed = false;
 function playStartupSound(){
     if(audioPlayed) return;
@@ -638,17 +767,24 @@ function playStartupSound(){
     const audio = new Audio();
     audio.src = trySrc;
     audio.play().catch(()=>{
-        //随机那一号文件失败，降级播放 gamestartup1
         audio.src = fallbackSrc;
         audio.play().catch(e=>{
             console.log("启动音频无法播放，浏览器策略限制",e);
         })
     })
 }
-//浏览器自动播放限制：第一次点击页面任意位置触发播放
 document.body.addEventListener("click",()=>{
     playStartupSound();
 },{once:true});
+
+// ========= 背包弹窗管理物品按钮 =========
+const backpackWin = document.getElementById("backpackWin");
+document.getElementById("btnManageItems").onclick = ()=>{
+    backpackWin.style.display = "block";
+};
+document.getElementById("bpBackBtn").onclick = ()=>{
+    backpackWin.style.display = "none";
+};
 
 // ========= 语言切换 =========
 let isZh = true;
