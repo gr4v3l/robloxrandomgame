@@ -471,46 +471,52 @@ body{
     background:#2e2a22;
     cursor:default;
 }
-/* Equipped标记 */
-.bp-slot .eq-tag{
-    position:absolute;
-    bottom:2px;
-    left:2px;
-    font-size:11px;
-    color:#ff4444;
-    font-weight:bold;
-    pointer-events:none;
-}
 /* -------- TF2物品Tooltip悬浮提示框 -------- */
 .item-tooltip{
     position:fixed;
-    width:520px;
+    width:540px;
     background:#1c1a18;
     border:3px solid #b89428;
     border-radius:12px;
-    padding:24px;
+    padding:20px;
     z-index:9999;
     pointer-events:none;
     display:none;
 }
-.tt-title{
-    font-size:42px;
-    color:#ffdd00;
-    font-weight:bold;
+.tt-header-row{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
     margin-bottom:12px;
 }
-.tt-level{
+.tt-icon{
+    width:88px;
+    height:88px;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+    flex-shrink:0;
+}
+.tt-title-wrap{
+    flex:1;
+}
+.tt-title{
     font-size:30px;
+    color:#ffdd00;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+.tt-level{
+    font-size:22px;
     color:#888888;
-    margin-bottom:20px;
 }
 .tt-desc{
-    font-size:28px;
+    font-size:22px;
     color:#e8e8e8;
-    margin-bottom:24px;
+    margin-bottom:16px;
 }
 .tt-limited{
-    font-size:28px;
+    font-size:22px;
     color:#33dd33;
 }
 /* 底部控制栏 */
@@ -749,7 +755,7 @@ body{
         </div>
     </div>
 </div>
-<!-- TF2背包弹窗，红圈区域填充物品，移除Equipped标签 -->
+<!-- TF2背包弹窗 -->
 <div class="backpack-overlay" id="backpackWin">
     <div class="bp-tab-row">
         <div class="bp-tab">LOADOUT</div>
@@ -768,31 +774,31 @@ body{
     </div>
     <div class="bp-grid">
         <!-- row 1 -->
-        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/Backpack_Aqua_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/aqua_key.png')"></div>
+        <div class="bp-slot" data-item="aqua_crate" style="background-image:url('photos/aqua_crate.png')"></div>
+        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/aqua_key.png')"></div>
         <div class="bp-slot empty"></div>
-        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/Backpack_Aqua_Summer_2013_Cooler_Key.png')"></div>
         <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/Backpack_Green_Summer_2013_Cooler.png')"></div>
-        <div class="bp-slot empty"></div>
+        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/green_key.png')"></div>
+        <div class="bp-slot" data-item="green_crate" style="background-image:url('photos/green_crate.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
 
         <!-- row 2 -->
-        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/Backpack_Green_Summer_2013_Cooler_Key.png')"></div>
-        <div class="bp-slot" data-item="yellow_key" style="background-image:url('photos/Backpack_Orange_Summer_2013_Cooler.png')"></div>
-        <div class="bp-slot" data-item="yellow_key" style="background-image:url('photos/Backpack_Orange_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/green_key.png')"></div>
+        <div class="bp-slot" data-item="yellow_key" style="background-image:url('photos/yellow_key.png')"></div>
+        <div class="bp-slot" data-item="yellow_crate" style="background-image:url('photos/yellow_crate.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
-        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler.png')"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/red_key.png')"></div>
+        <div class="bp-slot" data-item="red_crate" style="background-image:url('photos/red_crate.png')"></div>
+        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/red_key.png')"></div>
         <div class="bp-slot empty"></div>
 
         <!-- row 3 -->
-        <div class="bp-slot" data-item="blue_key" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler.png')"></div>
-        <div class="bp-slot" data-item="blue_key" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler_Key.png')"></div>
-        <div class="bp-slot empty"></div>
+        <div class="bp-slot" data-item="blue_key" style="background-image:url('photos/blue_key.png')"></div>
+        <div class="bp-slot" data-item="blue_crate" style="background-image:url('photos/blue_crate.png')"></div>
+        <div class="bp-slot" data-item="blue_key" style="background-image:url('photos/blue_key.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
@@ -835,10 +841,15 @@ body{
 </div>
 <!--物品悬浮Tooltip-->
 <div class="item-tooltip" id="itemTooltip">
-    <div class="tt-title" id="ttTitle"></div>
-    <div class="tt-level">Level 5 Tool</div>
+    <div class="tt-header-row">
+        <div class="tt-icon" id="ttIcon"></div>
+        <div class="tt-title-wrap">
+            <div class="tt-title" id="ttTitle"></div>
+            <div class="tt-level" id="ttLevel"></div>
+        </div>
+    </div>
     <div class="tt-desc" id="ttDesc"></div>
-    <div class="tt-limited">This is a limited use item. Uses: 1</div>
+    <div class="tt-limited" id="ttLimited"></div>
 </div>
 <script>
 // ========= 全局按钮点击音效 audio/btn.mp3 =========
@@ -864,7 +875,6 @@ const bgMusic = new Audio();
 let bgMusicStarted = false;
 let currentBgIndex = -1;
 
-// 随机选一首，不与当前重复
 function getRandomBgIndex(){
     let idx;
     do {
@@ -882,12 +892,10 @@ function playRandomBgMusic(){
     });
 }
 
-// 一首播完自动随机切下一首
 bgMusic.addEventListener("ended", ()=>{
     playRandomBgMusic();
 });
 
-// 首次点击页面任意位置启动背景音乐（浏览器自动播放策略要求）
 document.body.addEventListener("click", function startBgOnce(){
     if(!bgMusicStarted){
         bgMusicStarted = true;
@@ -904,50 +912,182 @@ document.getElementById("bpBackBtn").onclick = ()=>{
     backpackWin.style.display = "none";
 };
 
-// ========= 钥匙Tooltip数据定义 =========
-const keyTooltipData = {
+// ========= 全部物品Tooltip数据 中英双版本 =========
+const itemData = {
     yellow_key:{
-        title:"YELLOW CRATE KEY",
-        desc:"Used to open locked Tycoon supply crates."
+        icon:"photos/yellow_key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"大亨补给箱钥匙",
+            desc:"用于打开上锁的大亨补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"Tycoon Supply Crate Key",
+            desc:"Used to open locked Tycoon supply crates.",
+            limited:"This is a limited use item. Uses: 1"
+        }
+    },
+    yellow_crate:{
+        icon:"photos/yellow_crate.png",
+        level:"Level 5 Container",
+        zh:{
+            title:"大亨补给箱",
+            desc:"一个装满大亨主题奖励的补给箱，需要大亨钥匙开启。",
+            limited:""
+        },
+        en:{
+            title:"Tycoon Supply Crate",
+            desc:"A crate full of tycoon‑themed rewards. Requires a Tycoon key to open.",
+            limited:""
+        }
     },
     green_key:{
-        title:"GREEN CRATE KEY",
-        desc:"Used to open locked Non‑PVP supply crates."
+        icon:"photos/green_key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"非PVP补给箱钥匙",
+            desc:"用于打开上锁的非PVP补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"Non‑PVP Supply Crate Key",
+            desc:"Used to open locked Non‑PVP supply crates.",
+            limited:"This is a limited use item. Uses: 1"
+        }
+    },
+    green_crate:{
+        icon:"photos/green_crate.png",
+        level:"Level 5 Container",
+        zh:{
+            title:"非PVP补给箱",
+            desc:"装满休闲游玩奖励的补给箱，需要非PVP钥匙开启。",
+            limited:""
+        },
+        en:{
+            title:"Non‑PVP Supply Crate",
+            desc:"A crate full of casual gameplay rewards. Requires Non‑PVP key to open.",
+            limited:""
+        }
     },
     blue_key:{
-        title:"BLUE CRATE KEY",
-        desc:"Used to open locked Parkour supply crates."
+        icon:"photos/blue_key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"跑酷补给箱钥匙",
+            desc:"用于打开上锁的跑酷类补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"Parkour Supply Crate Key",
+            desc:"Used to open locked Parkour supply crates.",
+            limited:"This is a limited use item. Uses: 1"
+        }
+    },
+    blue_crate:{
+        icon:"photos/blue_crate.png",
+        level:"Level 5 Container",
+        zh:{
+            title:"跑酷补给箱",
+            desc:"装满跑酷主题奖励的补给箱，需要跑酷钥匙开启。",
+            limited:""
+        },
+        en:{
+            title:"Parkour Supply Crate",
+            desc:"A crate full of parkour‑themed rewards. Requires Parkour key to open.",
+            limited:""
+        }
     },
     red_key:{
-        title:"RED CRATE KEY",
-        desc:"Used to open locked PVP supply crates."
+        icon:"photos/red_key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"PVP补给箱钥匙",
+            desc:"用于打开上锁的PVP补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"PVP Supply Crate Key",
+            desc:"Used to open locked PVP supply crates.",
+            limited:"This is a limited use item. Uses: 1"
+        }
+    },
+    red_crate:{
+        icon:"photos/red_crate.png",
+        level:"Level 5 Container",
+        zh:{
+            title:"PVP补给箱",
+            desc:"装满对战奖励的补给箱，需要PVP钥匙开启。",
+            limited:""
+        },
+        en:{
+            title:"PVP Supply Crate",
+            desc:"A crate full of combat‑themed rewards. Requires PVP key to open.",
+            limited:""
+        }
     },
     aqua_key:{
-        title:"AQUA CRATE KEY",
-        desc:"Used to open locked Obby supply crates."
+        icon:"photos/aqua_key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"Obby补给箱钥匙",
+            desc:"用于打开上锁的Obby补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"Obby Supply Crate Key",
+            desc:"Used to open locked Obby supply crates.",
+            limited:"This is a limited use item. Uses: 1"
+        }
+    },
+    aqua_crate:{
+        icon:"photos/aqua_crate.png",
+        level:"Level 5 Container",
+        zh:{
+            title:"Obby补给箱",
+            desc:"装满障碍闯关奖励的补给箱，需要Obby钥匙开启。",
+            limited:""
+        },
+        en:{
+            title:"Obby Supply Crate",
+            desc:"A crate full of obstacle‑course rewards. Requires Obby key to open.",
+            limited:""
+        }
     }
 };
+
 const tooltipEl = document.getElementById("itemTooltip");
+const ttIcon = document.getElementById("ttIcon");
 const ttTitle = document.getElementById("ttTitle");
+const ttLevel = document.getElementById("ttLevel");
 const ttDesc = document.getElementById("ttDesc");
+const ttLimited = document.getElementById("ttLimited");
 
 // 绑定格子悬浮事件
-document.querySelectorAll(".bp-slot:not(.empty)").forEach(slot=>{
-    const itemId = slot.dataset.item;
-    const data = keyTooltipData[itemId];
-    slot.addEventListener("mouseenter",(e)=>{
-        ttTitle.innerText = data.title;
-        ttDesc.innerText = data.desc;
-        tooltipEl.style.display = "block";
+function bindSlotTooltip(){
+    document.querySelectorAll(".bp-slot:not(.empty)").forEach(slot=>{
+        const itemId = slot.dataset.item;
+        const data = itemData[itemId];
+        if(!data) return;
+
+        slot.addEventListener("mouseenter",(e)=>{
+            const lang = isZh ? data.zh : data.en;
+            ttIcon.style.backgroundImage = `url(${data.icon})`;
+            ttTitle.innerText = lang.title;
+            ttLevel.innerText = data.level;
+            ttDesc.innerText = lang.desc;
+            ttLimited.innerText = lang.limited;
+            tooltipEl.style.display = "block";
+        });
+        slot.addEventListener("mousemove",(e)=>{
+            tooltipEl.style.left = (e.clientX + 20)+"px";
+            tooltipEl.style.top = (e.clientY + 20)+"px";
+        });
+        slot.addEventListener("mouseleave",()=>{
+            tooltipEl.style.display = "none";
+        });
     });
-    slot.addEventListener("mousemove",(e)=>{
-        tooltipEl.style.left = (e.clientX + 20)+"px";
-        tooltipEl.style.top = (e.clientY + 20)+"px";
-    });
-    slot.addEventListener("mouseleave",()=>{
-        tooltipEl.style.display = "none";
-    });
-});
+}
 
 // ========= 语言切换 =========
 let isZh = true;
@@ -960,6 +1100,8 @@ document.getElementById("btnLang").addEventListener("click",()=>{
     applyLang();
 });
 applyLang();
+bindSlotTooltip();
+
 //成就窗口拖拽
 const achvWin = document.getElementById("achvWin");
 const dragHandle = document.getElementById("achvDragHandle");
