@@ -416,91 +416,146 @@ body{
 }
 .bp-tab-row{
     display:flex;
+    gap:4px;
 }
 .bp-tab{
-    background:#2c2821;
-    color:#f8f0dc;
-    font-size:34px;
+    background:linear-gradient(180deg,#3a342b 0%,#2a2520 100%);
+    color:#c9b99a;
+    font-size:30px;
     font-weight:bold;
-    padding:8px 36px;
-    border:2px solid #706858;
+    padding:10px 40px 14px;
+    border:2px solid #5a5040;
     border-bottom:none;
-    border-radius:6px 6px 0 0;
+    border-radius:12px 12px 0 0;
+    text-shadow:1px 1px 2px #000;
+    letter-spacing:1px;
+}
+.bp-tab:not(.inactive){
+    background:linear-gradient(180deg,#4a4236 0%,#352f26 100%);
+    color:#f0e4c8;
+    border-color:#7a6e58;
 }
 .bp-tab.inactive{
-    background:#443e34;
-    color:#b8b09f;
+    color:#7a7060;
 }
 .backpack-subtop{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin:12px 0;
+    margin:14px 0 10px;
 }
 .bp-subtitle{
-    font-size:28px;
-    color:#f8f0dc;
+    font-size:26px;
+    color:#f0e4c8;
+    font-weight:bold;
+    text-shadow:1px 1px 2px #000;
+    letter-spacing:1px;
+}
+.bp-subtitle::before{
+    content:">> ";
+    color:#cc4433;
     font-weight:bold;
 }
 .bp-sub-right{
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:20px;
+}
+.bp-help-btn{
+    width:32px;height:32px;
+    background:linear-gradient(180deg,#c9b99a,#a89878);
+    border:2px solid #8a7a5a;
+    border-radius:4px;
+    color:#2a2520;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+}
+.bp-help-btn:active{
+    background:linear-gradient(180deg,#a89878,#c9b99a);
 }
 .bp-checkbox-label{
-    color:#f0e9dc;
-    font-size:17px;
+    color:#d0c4a8;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    text-shadow:1px 1px 1px #000;
+}
+.bp-checkbox-label input[type="checkbox"]{
+    width:18px;height:18px;
+    accent-color:#b8a628;
 }
 .bp-sort-select{
-    background:#3b362e;
-    color:#fff;
-    font-size:16px;
-    padding:4px 8px;
+    background:linear-gradient(180deg,#3a342b,#2a2520);
+    color:#d0c4a8;
+    font-size:15px;
+    padding:6px 10px;
+    border:2px solid #5a5040;
+    border-radius:3px;
+    min-width:180px;
 }
 .bp-grid{
     display:grid;
-    grid-template-columns:repeat(9, 96px);
-    grid-template-rows:repeat(5,96px);
-    gap:6px;
-    margin-bottom:20px;
+    grid-template-columns:repeat(9, 92px);
+    grid-template-rows:repeat(5,92px);
+    gap:5px;
+    margin-bottom:16px;
 }
 .bp-slot{
-    width:96px;
-    height:96px;
+    width:92px;
+    height:92px;
     border:3px solid #b8a628;
-    background:#4b452d;
-    border-radius:3px;
-    background-size:76px 76px;
+    background:linear-gradient(135deg,#1e1b16 0%,#2a2620 50%,#1e1b16 100%);
+    border-radius:2px;
+    background-size:72px 72px;
     background-repeat:no-repeat;
     background-position:center;
     position:relative;
     cursor:pointer;
+    box-shadow:inset 0 0 8px rgba(0,0,0,0.8), inset 2px 2px 4px rgba(0,0,0,0.5);
+    transition:border-color 0.1s;
+}
+.bp-slot:hover{
+    border-color:#e0d060;
+}
+.bp-slot.selected{
+    border-color:#ffffff;
+    box-shadow:inset 0 0 8px rgba(0,0,0,0.8), 0 0 6px rgba(255,255,255,0.4);
 }
 .bp-slot.empty{
-    border-color:#38342b;
-    background:#2e2a22;
+    border-color:#3a352c;
+    background:linear-gradient(135deg,#161310 0%,#1e1b16 50%,#161310 100%);
     cursor:default;
+    box-shadow:inset 0 0 6px rgba(0,0,0,0.6);
+}
+.bp-slot.empty:hover{
+    border-color:#3a352c;
 }
 .item-tooltip{
     position:fixed;
-    width:540px;
-    background:#1c1a18;
-    border:3px solid #b89428;
-    border-radius:12px;
-    padding:20px;
+    width:480px;
+    background:#0a0a0a;
+    border:1px solid #333;
+    padding:16px 20px;
     z-index:9999;
     pointer-events:none;
     display:none;
+    box-shadow:0 4px 20px rgba(0,0,0,0.8);
 }
 .tt-header-row{
     display:flex;
-    gap:16px;
+    gap:14px;
     align-items:flex-start;
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 .tt-icon{
-    width:88px;
-    height:88px;
+    width:80px;
+    height:80px;
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
@@ -510,42 +565,88 @@ body{
     flex:1;
 }
 .tt-title{
-    font-size:30px;
-    color:#ffdd00;
+    font-size:24px;
+    color:#e6c200;
     font-weight:bold;
-    margin-bottom:6px;
+    margin-bottom:4px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
 }
 .tt-level{
-    font-size:22px;
-    color:#888888;
+    font-size:16px;
+    color:#7a7a7a;
+    font-style:italic;
 }
 .tt-desc{
-    font-size:22px;
-    color:#e8e8e8;
-    margin-bottom:16px;
+    font-size:17px;
+    color:#d8d8d8;
+    margin-bottom:12px;
+    line-height:1.4;
 }
 .tt-limited{
-    font-size:22px;
-    color:#33dd33;
+    font-size:15px;
+    color:#888;
+    font-style:italic;
+    border-top:1px solid #222;
+    padding-top:8px;
 }
 .backpack-bottom-bar{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    margin-bottom:10px;
 }
 .bp-bottom-btn{
-    background:#c9bea6;
-    color:#222;
-    font-size:17px;
-    padding:9px 26px;
-    border-style:solid;
-    border-color:#e2d9c3 #807662 #807662 #e2d9c3;
+    background:linear-gradient(180deg,#d4c8a8 0%,#b8a882 100%);
+    color:#2a2520;
+    font-size:16px;
+    font-weight:bold;
+    padding:8px 24px;
+    border:2px solid;
+    border-color:#e8dcc0 #8a7a5a #8a7a5a #e8dcc0;
+    border-radius:3px;
     cursor:pointer;
+    text-shadow:0 1px 0 rgba(255,255,255,0.3);
+    letter-spacing:0.5px;
+}
+.bp-bottom-btn:active{
+    border-color:#8a7a5a #e8dcc0 #e8dcc0 #8a7a5a;
+    background:linear-gradient(180deg,#b8a882 0%,#d4c8a8 100%);
+}
+.bp-page-controls{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.bp-page-arrow{
+    width:30px;height:30px;
+    background:linear-gradient(180deg,#d4c8a8,#b8a882);
+    border:2px solid;
+    border-color:#e8dcc0 #8a7a5a #8a7a5a #e8dcc0;
+    border-radius:3px;
+    color:#2a2520;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.bp-page-arrow:active{
+    border-color:#8a7a5a #e8dcc0 #e8dcc0 #8a7a5a;
 }
 .bp-page-num{
-    color:#ff4444;
+    color:#cc3333;
     font-weight:bold;
     font-size:18px;
+    min-width:50px;
+    text-align:center;
+    text-shadow:1px 1px 1px #000;
+}
+.bp-close-row{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:8px;
 }
 .lang-zh{ display:inline-block; }
 .lang-en{ display:none; }
@@ -781,8 +882,9 @@ body{
         <div class="bp-tab inactive">STATS</div>
     </div>
     <div class="backpack-subtop">
-        <div class="bp-subtitle">>> BACKPACK</div>
+        <div class="bp-subtitle">BACKPACK</div>
         <div class="bp-sub-right">
+            <button class="bp-help-btn btn-click-sound">?</button>
             <label class="bp-checkbox-label">
                 <input type="checkbox"> SHOW STOCK ITEMS
             </label>
@@ -844,13 +946,20 @@ body{
     </div>
     <div class="backpack-bottom-bar">
         <button class="bp-bottom-btn btn-click-sound" id="bpBackBtn"><< BACK</button>
-        <div>
+        <div style="display:flex;align-items:center;gap:10px;">
             <button class="bp-bottom-btn btn-click-sound">X DELETE</button>
             <button class="bp-bottom-btn btn-click-sound">NO ACTION</button>
             <button class="bp-bottom-btn btn-click-sound">DETAILS</button>
-            <span class="bp-page-num"> 1/6 </span>
+            <div class="bp-page-controls">
+                <button class="bp-page-arrow btn-click-sound" id="bpPagePrev"><</button>
+                <span class="bp-page-num" id="bpPageNum">1/6</span>
+                <button class="bp-page-arrow btn-click-sound" id="bpPageNext">></button>
+            </div>
         </div>
-        <button class="bp-bottom-btn btn-click-sound">CLOSE</button>
+        <div style="width:100px;"></div>
+    </div>
+    <div class="bp-close-row">
+        <button class="bp-bottom-btn btn-click-sound" id="bpCloseBtn">CLOSE</button>
     </div>
 </div>
 <div class="item-tooltip" id="itemTooltip">
@@ -1090,8 +1199,32 @@ function bindSlotTooltip(){
         slot.addEventListener("mouseleave",()=>{
             tooltipEl.style.display = "none";
         });
+        slot.addEventListener("click",()=>{
+            document.querySelectorAll(".bp-slot.selected").forEach(s=>s.classList.remove("selected"));
+            slot.classList.add("selected");
+        });
     });
 }
+// 背包分页
+let bpCurrentPage = 1;
+const bpTotalPages = 6;
+const bpPageNumEl = document.getElementById("bpPageNum");
+function updateBpPage(){
+    if(bpPageNumEl) bpPageNumEl.textContent = bpCurrentPage + "/" + bpTotalPages;
+}
+const bpPagePrev = document.getElementById("bpPagePrev");
+const bpPageNext = document.getElementById("bpPageNext");
+if(bpPagePrev) bpPagePrev.addEventListener("click",()=>{
+    if(bpCurrentPage > 1){ bpCurrentPage--; updateBpPage(); }
+});
+if(bpPageNext) bpPageNext.addEventListener("click",()=>{
+    if(bpCurrentPage < bpTotalPages){ bpCurrentPage++; updateBpPage(); }
+});
+// CLOSE 按钮关闭背包
+const bpCloseBtn = document.getElementById("bpCloseBtn");
+if(bpCloseBtn) bpCloseBtn.addEventListener("click",()=>{
+    backpackWin.style.display = "none";
+});
 let isZh = true;
 function applyLang(){
     document.querySelectorAll(".lang-zh").forEach(el=> el.style.display = isZh ? "inline-block":"none");
