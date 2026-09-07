@@ -336,7 +336,7 @@ body{
 }
 .table-header{
     display:grid;
-    grid-template-columns:320px 140px 120px 120px 180px;
+    grid-template-columns:1fr 120px 100px 100px 200px;
     background:#4a443a;
     padding:8px 12px;
     font-weight:bold;
@@ -349,11 +349,32 @@ body{
 }
 .table-row{
     display:grid;
-    grid-template-columns:320px 140px 120px 120px 180px;
+    grid-template-columns:1fr 120px 100px 100px 200px;
     padding:7px 12px;
     border-bottom:1px solid #3a352c;
     white-space:nowrap;
     cursor:pointer;
+}
+.table-row > div:first-child{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    padding-right:10px;
+}
+.table-row > div:last-child{
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.famous-badge{
+    display:inline-block;
+    border:1px solid #7a7060;
+    padding:1px 7px;
+    font-size:11px;
+    border-radius:2px;
+    background:#2a2620;
+    color:#c8b890;
+    margin-left:6px;
+    font-weight:normal;
+    vertical-align:middle;
 }
 .table-row:hover{
     background:#484237;
@@ -412,7 +433,7 @@ body{
     background:#221e1a;
     z-index:102;
     display:none;
-    padding:24px;
+    padding:16px 24px;
     overflow-y:auto;
 }
 .bp-tab-row{
@@ -422,12 +443,12 @@ body{
 .bp-tab{
     background:linear-gradient(180deg,#3a342b 0%,#2a2520 100%);
     color:#c9b99a;
-    font-size:30px;
+    font-size:24px;
     font-weight:bold;
-    padding:10px 40px 14px;
+    padding:6px 32px 10px;
     border:2px solid #5a5040;
     border-bottom:none;
-    border-radius:12px 12px 0 0;
+    border-radius:10px 10px 0 0;
     text-shadow:1px 1px 2px #000;
     letter-spacing:1px;
 }
@@ -443,10 +464,10 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin:14px 0 10px;
+    margin:8px 0 6px;
 }
 .bp-subtitle{
-    font-size:26px;
+    font-size:22px;
     color:#f0e4c8;
     font-weight:bold;
     text-shadow:1px 1px 2px #000;
@@ -502,18 +523,18 @@ body{
 }
 .bp-grid{
     display:grid;
-    grid-template-columns:repeat(9, 92px);
-    grid-template-rows:repeat(5,92px);
-    gap:5px;
-    margin-bottom:16px;
+    grid-template-columns:repeat(9, 80px);
+    grid-template-rows:repeat(5,80px);
+    gap:4px;
+    margin-bottom:12px;
 }
 .bp-slot{
-    width:92px;
-    height:92px;
+    width:80px;
+    height:80px;
     border:3px solid #b8a628;
     background:linear-gradient(135deg,#1e1b16 0%,#2a2620 50%,#1e1b16 100%);
     border-radius:2px;
-    background-size:72px 72px;
+    background-size:62px 62px;
     background-repeat:no-repeat;
     background-position:center;
     position:relative;
@@ -595,14 +616,14 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:10px;
+    margin-bottom:6px;
 }
 .bp-bottom-btn{
     background:linear-gradient(180deg,#d4c8a8 0%,#b8a882 100%);
     color:#2a2520;
-    font-size:16px;
+    font-size:14px;
     font-weight:bold;
-    padding:8px 24px;
+    padding:6px 18px;
     border:2px solid;
     border-color:#e8dcc0 #8a7a5a #8a7a5a #e8dcc0;
     border-radius:3px;
@@ -664,6 +685,112 @@ body{
     z-index:9999;
     display:none;
 }
+/* ===== 大厅设置窗口 ===== */
+.settings-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    z-index:200;
+    display:none;
+    align-items:center;
+    justify-content:center;
+}
+.settings-overlay.show{ display:flex; }
+.settings-window{
+    width:480px;
+    background:#3b362e;
+    border-style:solid;
+    border-width:3px;
+    border-color:#7c7362 #27231d #27231d #7c7362;
+    display:flex;
+    flex-direction:column;
+}
+.settings-titlebar{
+    background:#524c41;
+    padding:8px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:move;
+}
+.settings-titlebar span{
+    color:#f0e9dc;
+    font-weight:bold;
+    font-size:16px;
+}
+.settings-close{
+    width:26px;height:26px;
+    background:#4a443a;
+    border:2px solid #645c4f;
+    color:#ddd;
+    font-size:14px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.settings-body{
+    padding:20px;
+    background:#2c2821;
+}
+.settings-section{
+    margin-bottom:20px;
+}
+.settings-section:last-child{ margin-bottom:0; }
+.settings-label{
+    color:#f0e9dc;
+    font-size:15px;
+    font-weight:bold;
+    margin-bottom:8px;
+    display:block;
+}
+.settings-name-input{
+    width:100%;
+    background:#4a443a;
+    border:2px solid #645c4f;
+    padding:8px 10px;
+    color:#fff;
+    font-size:15px;
+    box-sizing:border-box;
+}
+.settings-avatar-grid{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.settings-avatar-option{
+    width:64px;height:64px;
+    border:3px solid #645c4f;
+    background:#4a443a;
+    background-size:cover;
+    background-position:center;
+    cursor:pointer;
+    border-radius:3px;
+}
+.settings-avatar-option:hover{ border-color:#9c927e; }
+.settings-avatar-option.selected{
+    border-color:#ffdd44;
+    box-shadow:0 0 8px rgba(255,221,68,0.5);
+}
+.settings-footer{
+    padding:12px 20px;
+    background:#3b362e;
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    border-top:2px solid #27231d;
+}
+.settings-save-btn{
+    background:#c9bea6;
+    color:#222;
+    font-size:14px;
+    font-weight:bold;
+    padding:7px 22px;
+    border-style:solid;
+    border-width:2px;
+    border-color:#e2d9c3 #807662 #807662 #e2d9c3;
+    cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -672,11 +799,11 @@ body{
         <div class="logo-img"></div>
     </div>
     <div class="top-header">
-        <div class="avatar-box"></div>
+        <div class="avatar-box" id="playerAvatar"></div>
         <div class="welcome-text">
             <h1>
-                <span class="lang-zh">欢迎回来，玩家</span>
-                <span class="lang-en">WELCOME BACK, PLAYER</span>
+                <span class="lang-zh">欢迎回来，<span id="playerNameZh">玩家</span></span>
+                <span class="lang-en">WELCOME BACK, <span id="playerNameEn">PLAYER</span></span>
             </h1>
             <p>
                 <span class="lang-zh">你的成就</span>
@@ -772,7 +899,7 @@ body{
             <div class="bottom-icon btn-click-sound"></div>
             <div class="bottom-icon btn-click-sound"></div>
         </div>
-        <button class="btn-options btn-click-sound">
+        <button class="btn-options btn-click-sound" id="btnOptions">
             <span class="lang-zh">选项</span>
             <span class="lang-en">OPTIONS</span>
         </button>
@@ -871,7 +998,6 @@ body{
                 <button id="btnQuickRefresh" class="btn-click-sound"><span class="lang-zh">快速刷新</span><span class="lang-en">QUICK REFRESH</span></button>
                 <button id="btnRefreshAll" class="btn-click-sound"><span class="lang-zh">全部刷新</span><span class="lang-en">REFRESH ALL</span></button>
                 <button id="btnConnect" class="btn-click-sound"><span class="lang-zh">连接</span><span class="lang-en">CONNECT</span></button>
-                <button id="btnOpenRoblox" class="btn-click-sound"><span class="lang-zh">打开Roblox页面</span><span class="lang-en">OPEN ROBLOX PAGE</span></button>
                 <div class="result-count" id="resultCount">0 / 0</div>
             </div>
         </div>
@@ -977,6 +1103,43 @@ body{
 <div class="loading-hint" id="loadingHint">
     <span class="lang-zh">正在加载游戏数据...</span>
     <span class="lang-en">Loading game data...</span>
+</div>
+<!-- ===== 大厅设置窗口 ===== -->
+<div class="settings-overlay" id="settingsOverlay">
+    <div class="settings-window" id="settingsWindow">
+        <div class="settings-titlebar" id="settingsDragHandle">
+            <span class="lang-zh">设置</span>
+            <span class="lang-en">Settings</span>
+            <div class="settings-close" id="settingsClose">✕</div>
+        </div>
+        <div class="settings-body">
+            <div class="settings-section">
+                <label class="settings-label">
+                    <span class="lang-zh">玩家名字</span>
+                    <span class="lang-en">Player Name</span>
+                </label>
+                <input type="text" class="settings-name-input" id="settingsNameInput" maxlength="20">
+            </div>
+            <div class="settings-section">
+                <label class="settings-label">
+                    <span class="lang-zh">玩家头像</span>
+                    <span class="lang-en">Player Avatar</span>
+                </label>
+                <div class="settings-avatar-grid" id="settingsAvatarGrid">
+                    <div class="settings-avatar-option selected" data-avatar="photos/avatar.png" style="background-image:url('photos/avatar.png')"></div>
+                    <div class="settings-avatar-option" data-avatar="photos/21016.png" style="background-image:url('photos/21016.png')"></div>
+                    <div class="settings-avatar-option" data-avatar="photos/21019.png" style="background-image:url('photos/21019.png')"></div>
+                    <div class="settings-avatar-option" data-avatar="photos/21040.png" style="background-image:url('photos/21040.png')"></div>
+                </div>
+            </div>
+        </div>
+        <div class="settings-footer">
+            <button class="settings-save-btn btn-click-sound" id="settingsSave">
+                <span class="lang-zh">保存</span>
+                <span class="lang-en">Save</span>
+            </button>
+        </div>
+    </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
@@ -1237,6 +1400,75 @@ document.getElementById("btnLang").addEventListener("click",()=>{
 });
 applyLang();
 bindSlotTooltip();
+
+// ===== 大厅设置窗口 =====
+const settingsOverlay = document.getElementById("settingsOverlay");
+const settingsClose = document.getElementById("settingsClose");
+const settingsSave = document.getElementById("settingsSave");
+const settingsNameInput = document.getElementById("settingsNameInput");
+const settingsAvatarGrid = document.getElementById("settingsAvatarGrid");
+const btnOptions = document.getElementById("btnOptions");
+const playerAvatar = document.getElementById("playerAvatar");
+const playerNameZh = document.getElementById("playerNameZh");
+const playerNameEn = document.getElementById("playerNameEn");
+
+let selectedAvatar = "photos/avatar.png";
+
+function openSettings(){
+    // 填入当前名字
+    settingsNameInput.value = playerNameZh.textContent;
+    // 高亮当前头像
+    settingsAvatarGrid.querySelectorAll(".settings-avatar-option").forEach(opt=>{
+        opt.classList.toggle("selected", opt.dataset.avatar === selectedAvatar);
+    });
+    settingsOverlay.classList.add("show");
+}
+function closeSettings(){
+    settingsOverlay.classList.remove("show");
+}
+btnOptions.addEventListener("click", openSettings);
+settingsClose.addEventListener("click", closeSettings);
+settingsOverlay.addEventListener("click", function(e){
+    if(e.target === settingsOverlay) closeSettings();
+});
+
+// 头像选择
+settingsAvatarGrid.querySelectorAll(".settings-avatar-option").forEach(opt=>{
+    opt.addEventListener("click", function(){
+        settingsAvatarGrid.querySelectorAll(".settings-avatar-option").forEach(o=>o.classList.remove("selected"));
+        opt.classList.add("selected");
+        selectedAvatar = opt.dataset.avatar;
+    });
+});
+
+// 保存设置
+settingsSave.addEventListener("click", function(){
+    const newName = settingsNameInput.value.trim();
+    if(newName){
+        playerNameZh.textContent = newName;
+        playerNameEn.textContent = newName.toUpperCase();
+    }
+    playerAvatar.style.backgroundImage = `url('${selectedAvatar}')`;
+    closeSettings();
+});
+
+// 设置窗口拖动
+const settingsDragHandle = document.getElementById("settingsDragHandle");
+const settingsWindow = document.getElementById("settingsWindow");
+let settingsDrag = false, settingsDx, settingsDy;
+settingsDragHandle.addEventListener("mousedown", function(e){
+    settingsDrag = true;
+    settingsDx = e.clientX - settingsWindow.offsetLeft;
+    settingsDy = e.clientY - settingsWindow.offsetTop;
+    e.preventDefault();
+});
+document.addEventListener("mousemove", function(e){
+    if(!settingsDrag) return;
+    settingsWindow.style.position = "relative";
+    settingsWindow.style.left = (e.clientX - settingsDx - settingsOverlay.offsetLeft) + "px";
+    settingsWindow.style.top = (e.clientY - settingsDy - settingsOverlay.offsetTop) + "px";
+});
+document.addEventListener("mouseup", function(){ settingsDrag = false; });
 const achvWin = document.getElementById("achvWin");
 const dragHandle = document.getElementById("achvDragHandle");
 let drag=false,dx,dy;
@@ -1294,7 +1526,7 @@ function renderGameTable(list){
         div.dataset.realIndex = String(idx);
         div.dataset.link = g.link;
         div.dataset.title = g.title;
-        div.innerHTML=`<div>${g.title}</div><div>${g.gametype}</div><div>${g.players}</div><div>${g.year}</div><div>${g.creator} ${g.creatorClass==="famous"?"⭐FAMOUS":""}</div>`;
+        div.innerHTML=`<div>${g.title}</div><div>${g.gametype}</div><div>${g.players}</div><div>${g.year}</div><div>${g.creator}${g.creatorClass==="famous"?'<span class="famous-badge">famous</span>':""}</div>`;
         div.addEventListener("click",()=>{
             document.querySelectorAll(".table-row").forEach(r=>r.classList.remove("selected"));
             div.classList.add("selected");
@@ -1321,7 +1553,7 @@ document.getElementById("btnFilter").addEventListener("click", function(){
 });
 document.getElementById("btnQuickRefresh").addEventListener("click", ()=> renderGameTable(gameDatabase));
 document.getElementById("btnRefreshAll").addEventListener("click", ()=> renderGameTable(gameDatabase));
-document.getElementById("btnOpenRoblox").addEventListener("click",()=>{
+document.getElementById("btnConnect").addEventListener("click",()=>{
     if(!selectedGameLink){
         alert(isZh?"请先选择列表中的游戏":"Please select a game from list first");
         return;
