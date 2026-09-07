@@ -755,22 +755,40 @@ body{
 }
 .settings-avatar-grid{
     display:flex;
-    gap:10px;
+    gap:8px;
     flex-wrap:wrap;
+    max-height:80px;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+}
+.settings-avatar-grid.expanded{
+    max-height:500px;
 }
 .settings-avatar-option{
-    width:64px;height:64px;
+    width:56px;height:56px;
     border:3px solid #645c4f;
     background:#4a443a;
     background-size:cover;
     background-position:center;
     cursor:pointer;
     border-radius:3px;
+    flex-shrink:0;
 }
 .settings-avatar-option:hover{ border-color:#9c927e; }
 .settings-avatar-option.selected{
     border-color:#ffdd44;
     box-shadow:0 0 8px rgba(255,221,68,0.5);
+}
+.settings-avatar-toggle{
+    float:right;
+    background:#7c7362;
+    border:2px solid;
+    border-color:#9c927e #4e483d #4e483d #9c927e;
+    color:#222;
+    font-size:12px;
+    padding:2px 10px;
+    cursor:pointer;
+    font-weight:normal;
 }
 .settings-footer{
     padding:12px 20px;
@@ -1124,13 +1142,12 @@ body{
                 <label class="settings-label">
                     <span class="lang-zh">玩家头像</span>
                     <span class="lang-en">Player Avatar</span>
+                    <button class="settings-avatar-toggle" id="settingsAvatarToggle">
+                        <span class="lang-zh">展开全部</span>
+                        <span class="lang-en">Show All</span>
+                    </button>
                 </label>
-                <div class="settings-avatar-grid" id="settingsAvatarGrid">
-                    <div class="settings-avatar-option selected" data-avatar="photos/avatar.png" style="background-image:url('photos/avatar.png')"></div>
-                    <div class="settings-avatar-option" data-avatar="photos/21016.png" style="background-image:url('photos/21016.png')"></div>
-                    <div class="settings-avatar-option" data-avatar="photos/21019.png" style="background-image:url('photos/21019.png')"></div>
-                    <div class="settings-avatar-option" data-avatar="photos/21040.png" style="background-image:url('photos/21040.png')"></div>
-                </div>
+                <div class="settings-avatar-grid" id="settingsAvatarGrid"></div>
             </div>
         </div>
         <div class="settings-footer">
@@ -1407,20 +1424,82 @@ const settingsClose = document.getElementById("settingsClose");
 const settingsSave = document.getElementById("settingsSave");
 const settingsNameInput = document.getElementById("settingsNameInput");
 const settingsAvatarGrid = document.getElementById("settingsAvatarGrid");
+const settingsAvatarToggle = document.getElementById("settingsAvatarToggle");
 const btnOptions = document.getElementById("btnOptions");
 const playerAvatar = document.getElementById("playerAvatar");
 const playerNameZh = document.getElementById("playerNameZh");
 const playerNameEn = document.getElementById("playerNameEn");
 
+// 全部预设头像（从截图提取，可自行添加）
+const PRESET_AVATARS = [
+    "avatar",
+    "20000","20001","20002","20003","20004","20005","20006","20007","20008","20009",
+    "2000a","2000b","2000c",
+    "21001","21013","21016","21019","21040"
+];
+
 let selectedAvatar = "photos/avatar.png";
+let avatarExpanded = false;
+
+// 动态生成头像选项
+function renderAvatarOptions(){
+    settingsAvatarGrid.innerHTML = "";
+    PRESET_AVATARS.forEach(function(id){
+        const opt = document.createElement("div");
+        opt.className = "settings-avatar-option";
+        opt.dataset.avatar = "photos/" + id + ".png";
+        opt.style.backgroundImage = "url('photos/" + id + ".png')";
+        if(opt.dataset.avatar === selectedAvatar) opt.classList.add("selected");
+        opt.addEventListener("click", function(){
+            settingsAvatarGrid.querySelectorAll(".settings-avatar-option").forEach(function(o){o.classList.remove("selected");});
+            opt.classList.add("selected");
+            selectedAvatar = opt.dataset.avatar;
+        });
+        settingsAvatarGrid.appendChild(opt);
+    });
+}
+
+// 折叠/展开
+settingsAvatarToggle.addEventListener("click", function(){
+    avatarExpanded = !avatarExpanded;
+    settingsAvatarGrid.classList.toggle("expanded", avatarExpanded);
+    const zh = settingsAvatarToggle.querySelector(".lang-zh");
+    const en = settingsAvatarToggle.querySelector(".lang-en");
+    if(avatarExpanded){
+        zh.textContent = "收起";
+        en.textContent = "Collapse";
+    } else {
+        zh.textContent = "展开全部";
+        en.textContent = "Show All";
+    }
+});
+
+// localStorage 保存和恢复
+function saveSettings(){
+    try{
+        localStorage.setItem("tf2_player_name", playerNameZh.textContent);
+        localStorage.setItem("tf2_player_avatar", selectedAvatar);
+    }catch(e){}
+}
+function loadSettings(){
+    try{
+        const savedName = localStorage.getItem("tf2_player_name");
+        const savedAvatar = localStorage.getItem("tf2_player_avatar");
+        if(savedName){
+            playerNameZh.textContent = savedName;
+            playerNameEn.textContent = savedName.toUpperCase();
+        }
+        if(savedAvatar){
+            selectedAvatar = savedAvatar;
+            playerAvatar.style.backgroundImage = "url('" + selectedAvatar + "')";
+        }
+    }catch(e){}
+}
+loadSettings();
 
 function openSettings(){
-    // 填入当前名字
     settingsNameInput.value = playerNameZh.textContent;
-    // 高亮当前头像
-    settingsAvatarGrid.querySelectorAll(".settings-avatar-option").forEach(opt=>{
-        opt.classList.toggle("selected", opt.dataset.avatar === selectedAvatar);
-    });
+    renderAvatarOptions();
     settingsOverlay.classList.add("show");
 }
 function closeSettings(){
@@ -1432,15 +1511,6 @@ settingsOverlay.addEventListener("click", function(e){
     if(e.target === settingsOverlay) closeSettings();
 });
 
-// 头像选择
-settingsAvatarGrid.querySelectorAll(".settings-avatar-option").forEach(opt=>{
-    opt.addEventListener("click", function(){
-        settingsAvatarGrid.querySelectorAll(".settings-avatar-option").forEach(o=>o.classList.remove("selected"));
-        opt.classList.add("selected");
-        selectedAvatar = opt.dataset.avatar;
-    });
-});
-
 // 保存设置
 settingsSave.addEventListener("click", function(){
     const newName = settingsNameInput.value.trim();
@@ -1448,7 +1518,8 @@ settingsSave.addEventListener("click", function(){
         playerNameZh.textContent = newName;
         playerNameEn.textContent = newName.toUpperCase();
     }
-    playerAvatar.style.backgroundImage = `url('${selectedAvatar}')`;
+    playerAvatar.style.backgroundImage = "url('" + selectedAvatar + "')";
+    saveSettings();
     closeSettings();
 });
 
