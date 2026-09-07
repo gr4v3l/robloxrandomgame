@@ -549,6 +549,19 @@ body{
 }
 .lang-zh{ display:inline-block; }
 .lang-en{ display:none; }
+.loading-hint{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:#3b362e;
+    border:2px solid #645c4f;
+    padding:20px 40px;
+    color:#ffdd44;
+    font-size:18px;
+    z-index:9999;
+    display:none;
+}
 </style>
 </head>
 <body>
@@ -663,7 +676,6 @@ body{
         </button>
     </div>
 </div>
-
 <div class="achievement-window" id="achvWin">
     <div class="achv-titlebar" id="achvDragHandle">
         <div>
@@ -682,7 +694,6 @@ body{
         </div>
     </div>
 </div>
-
 <div class="popup-overlay" id="serverPopup">
     <div class="server-browser">
         <div class="browser-tabs">
@@ -764,7 +775,6 @@ body{
         </div>
     </div>
 </div>
-
 <div class="backpack-overlay" id="backpackWin">
     <div class="bp-tab-row">
         <div class="bp-tab">LOADOUT</div>
@@ -791,7 +801,6 @@ body{
         <div class="bp-slot" data-item="red_crate" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler.png')"></div>
         <div class="bp-slot" data-item="red_key" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler_Key.png')"></div>
         <div class="bp-slot" data-item="yellow_crate" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler.png')"></div>
-
         <div class="bp-slot" data-item="yellow_key" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler_Key.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
@@ -802,7 +811,6 @@ body{
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
-
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
@@ -813,7 +821,6 @@ body{
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
-
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
@@ -824,7 +831,6 @@ body{
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
-
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
@@ -847,7 +853,6 @@ body{
         <button class="bp-bottom-btn btn-click-sound">CLOSE</button>
     </div>
 </div>
-
 <div class="item-tooltip" id="itemTooltip">
     <div class="tt-header-row">
         <div class="tt-icon" id="ttIcon"></div>
@@ -859,10 +864,12 @@ body{
     <div class="tt-desc" id="ttDesc"></div>
     <div class="tt-limited" id="ttLimited"></div>
 </div>
-
+<div class="loading-hint" id="loadingHint">
+    <span class="lang-zh">正在加载游戏数据...</span>
+    <span class="lang-en">Loading game data...</span>
+</div>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-
 function playBtnSound(){
     const snd = new Audio("audio/btn.mp3");
     snd.volume = 0.6;
@@ -871,7 +878,6 @@ function playBtnSound(){
 document.querySelectorAll(".btn-click-sound").forEach(el=>{
     el.addEventListener("click", ()=> playBtnSound());
 });
-
 const bgMusicFiles = [
     "audio/gamestartup1.m4a",
     "audio/gamestartup2.m4a",
@@ -883,7 +889,6 @@ const bgMusicFiles = [
 const bgMusic = new Audio();
 let bgMusicStarted = false;
 let currentBgIndex = -1;
-
 function getRandomBgIndex(){
     let idx;
     do {
@@ -891,7 +896,6 @@ function getRandomBgIndex(){
     } while(idx === currentBgIndex && bgMusicFiles.length > 1);
     return idx;
 }
-
 function playRandomBgMusic(){
     currentBgIndex = getRandomBgIndex();
     bgMusic.src = bgMusicFiles[currentBgIndex];
@@ -900,36 +904,23 @@ function playRandomBgMusic(){
         console.log("背景音乐播放失败（可能被浏览器策略拦截）", e);
     });
 }
-
 bgMusic.addEventListener("ended", ()=>{
     playRandomBgMusic();
 });
-
 document.body.addEventListener("click", function startBgOnce(){
     if(!bgMusicStarted){
         bgMusicStarted = true;
         playRandomBgMusic();
     }
 }, {once:true});
-
 const backpackWin = document.getElementById("backpackWin");
 const popup = document.getElementById("serverPopup");
-
 document.getElementById("btnManageItems").addEventListener('click',()=>{
     backpackWin.style.display = "block";
 });
 document.getElementById("bpBackBtn").addEventListener('click',()=>{
     backpackWin.style.display = "none";
 });
-
-document.getElementById("btnStartPlaying").addEventListener('click',()=>{
-    popup.style.display = "flex";
-    renderGameTable(gameDatabase);
-});
-document.getElementById("closePopup").addEventListener('click',()=>{
-    popup.style.display = "none";
-});
-
 const itemData = {
     aqua_crate:{
         icon:"photos/Backpack_Aqua_Summer_2013_Cooler.png",
@@ -1072,14 +1063,12 @@ const itemData = {
         }
     }
 };
-
 const tooltipEl = document.getElementById("itemTooltip");
 const ttIcon = document.getElementById("ttIcon");
 const ttTitle = document.getElementById("ttTitle");
 const ttLevel = document.getElementById("ttLevel");
 const ttDesc = document.getElementById("ttDesc");
 const ttLimited = document.getElementById("ttLimited");
-
 function bindSlotTooltip(){
     document.querySelectorAll(".bp-slot:not(.empty)").forEach(slot=>{
         const itemId = slot.dataset.item;
@@ -1103,7 +1092,6 @@ function bindSlotTooltip(){
         });
     });
 }
-
 let isZh = true;
 function applyLang(){
     document.querySelectorAll(".lang-zh").forEach(el=> el.style.display = isZh ? "inline-block":"none");
@@ -1115,7 +1103,6 @@ document.getElementById("btnLang").addEventListener("click",()=>{
 });
 applyLang();
 bindSlotTooltip();
-
 const achvWin = document.getElementById("achvWin");
 const dragHandle = document.getElementById("achvDragHandle");
 let drag=false,dx,dy;
@@ -1132,115 +1119,33 @@ dragHandle.onmousedown=e=>{
 }
 document.getElementById("btnViewAll").addEventListener('click',()=> achvWin.style.display="flex");
 document.getElementById("closeAchv").addEventListener('click',()=> achvWin.style.display="none");
-
 let selectedGameIndex = -1;
-
-document.getElementById("btnOpenRoblox").addEventListener("click",()=>{
-    if(selectedGameIndex === -1){
-        alert(isZh?"请先选择列表中的游戏":"Please select a game from list first");
-        return;
-    }
-    const g = gameDatabase[selectedGameIndex];
-    window.open(g.link,"_blank");
-});
-
+let gameDatabase = [];
 const famousCreators = new Set([
     "Shedletsky","Stickmasterluke","asimo3089","Defaultio","Koomike","MrDoomBringer",
     "BobBrick","Davidii","Maelstronomer","lemurboy07","Stealth Pilot","lando64000",
     "EricThePianoGuy","Matt Dusek","Takeovertom","Urbanize","ConstructoBridge","Polyhex"
 ]);
-
-// ====================== 完整 1092 游戏数据入口 ======================
-// 说明：这里先放完整结构，你把表格里 1092 条全部替换进 rawGameList 即可。
-// 当前示例为可运行结构，后续替换成你的真实 1092 条。
-
-const rawGameList = [
-    {"title":"The Ant Hill","creator":"ThunderRaptor","year":2015,"link":"https://www.roblox.com/games/4932042/The-Ant-Hill"},
-    {"title":"The Place with the Rockets","creator":"Gamehero","year":2012,"link":"https://www.roblox.com/games/131964/The-Place-with-the-Rockets"},
-    {"title":"[Classic Sword Fighting] [Sky Floors] [BC]","creator":"chrisOmat","year":2012,"link":"https://www.roblox.com/games/40568070/Classic-Sword-Fighting-Sky-Floors-BC"},
-    {"title":"-Statue Of Robloxia-","creator":"ActionBoy321148","year":2014,"link":"https://www.roblox.com/games/557006/Statue-Of-Robloxia"},
-    {"title":"Boat Warz Warz Fast Bomb Is Back(read description)","creator":"wepie11","year":2012,"link":"https://www.roblox.com/games/2304714/Boat-Warz-Warz-Fast-Bomb-Is-Back-read-description"},
-    {"title":"World of Rocraft","creator":"ChazNova","year":2011,"link":"https://www.roblox.com/games/5650164/World-of-Rocraft"},
-    {"title":"Climb Bigfoot Mountain!","creator":"Willy105","year":2019,"link":"https://www.roblox.com/games/1786508/Climb-Bigfoot-Mountain"},
-    {"title":"Underwater Minigames [28] Games (VIP Working)","creator":"sonic3895","year":2011,"link":"https://www.roblox.com/games/3253291/Underwater-Minigames-28-Games-VIP-Working"},
-    {"title":"Sword Training","creator":"Shedletsky","year":2008,"link":"https://www.roblox.com/games/1735820/Sword-Training"},
-    {"title":"Tony's Team Fortress 2","creator":"Tonyface","year":2009,"link":"https://www.roblox.com/games/142897/Tonys-Team-Fortress-2"},
-    {"title":"Wasteland Tycoon","creator":"BobBrick","year":2016,"link":"https://www.roblox.com/games/4982101/Wasteland-Tycoon"},
-    {"title":"The Cave of Untold Secrets [NBC Version]","creator":"iLimitedBuyer","year":2011,"link":"https://www.roblox.com/games/42823537/The-Cave-of-Untold-Secrets-NBC-Version"},
-    {"title":"F.E.A.R. The Camping Trip Of Death...","creator":"Koomike","year":2010,"link":"https://www.roblox.com/games/2523017/F-E-A-R-The-Camping-Trip-Of-Death"},
-    {"title":"The ORIGINAL Fishing Tycoon [2009]","creator":"Zozi","year":2013,"link":"https://www.roblox.com/games/8158239/The-ORIGINAL-Fishing-Tycoon-2009"},
-    {"title":"Push Noobs Into The Sparta Pit","creator":"Feezly","year":2015,"link":"https://www.roblox.com/games/3853527/Push-Noobs-Into-The-Sparta-Pit"},
-    {"title":"Battlefield","creator":"MilitaryMan347355","year":2011,"link":"https://www.roblox.com/games/35887695/Battlefield"},
-    {"title":"Tabula Rasa","creator":"Matt Dusek","year":2010,"link":"https://www.roblox.com/games/47546/Tabula-Rasa"},
-    {"title":"[100] Cool Obby 2","creator":"deadalready","year":2018,"link":"https://www.roblox.com/games/4927387/100-Cool-Obby-2"},
-    {"title":"Wii Sports Resort:Swordplay","creator":"Harleequin","year":2015,"link":"https://www.roblox.com/games/38865234/Wii-Sports-Resort-Swordplay"},
-    {"title":"Knights of the Splintered Skies: Ascendus","creator":"Elrynn","year":2018,"link":"https://www.roblox.com/games/94362509/Knights-of-the-Splintered-Skies-Ascendus"},
-    {"title":"Takeovertom Fabrication","creator":"takeovertom","year":2012,"link":"https://www.roblox.com/games/52426072/Takeovertom-Fabrication"},
-    {"title":"Robloxian Arcade=-= Unlocked Place","creator":"kingaman1234","year":2014,"link":"https://www.roblox.com/games/9169052/Robloxian-Arcade-Unlocked-Place"},
-    {"title":"Mission to the Moon","creator":"Shedletsky","year":2009,"link":"https://www.roblox.com/games/1784/Mission-to-the-Moon"},
-    {"title":"NoobName's house in the mountains","creator":"NoobName","year":2014,"link":"https://www.roblox.com/games/1738853/NoobNames-house-in-the-mountains"},
-    {"title":"Paranormal Events - READ DESCRIPTION","creator":"ElPaca","year":2014,"link":"https://www.roblox.com/games/12959938/Paranormal-Events-READ-DESCRIPTION"},
-    {"title":"• Wizard Hut","creator":"Urbanize","year":2019,"link":"https://www.roblox.com/games/141147056/Wizard-Hut"},
-    {"title":"Spongebob Movie Adventure! Original Edition!","creator":"MrCharlez","year":2014,"link":"https://www.roblox.com/games/11301716/Spongebob-Movie-Adventure-Original-Edition"},
-    {"title":"Utilis Bridge","creator":"ConstructoBridge","year":2009,"link":"https://www.roblox.com/games/12015857/Utilis-Bridge"},
-    {"title":"Halo Wars Tycoon","creator":"dogdog5","year":2012,"link":"https://www.roblox.com/games/5759306/Halo-Wars-Tycoon"},
-    {"title":"Wobbly Brickbattle","creator":"Maelstronomer","year":2014,"link":"https://www.roblox.com/games/2316945/Wobbly-Brickbattle"},
-    {"title":"TurkeyHunt2010's Place","creator":"TurkeyHunt2010","year":2014,"link":"https://www.roblox.com/games/38942295/TurkeyHunt2010s-Place"},
-    {"title":"Sunset Plain","creator":"Schwaabo","year":2006,"link":"https://www.roblox.com/games/15057/Sunset-Plain"},
-    {"title":"Tactical Entry","creator":"MibsPivs","year":2012,"link":"https://www.roblox.com/games/10052086/Tactical-Entry"},
-    {"title":"LOLcaptions","creator":"Stickmasterluke","year":2014,"link":"https://www.roblox.com/games/36068975/LOLcaptions"},
-    {"title":"Swamp Quest","creator":"Nooooooo","year":2015,"link":"https://www.roblox.com/games/12045862/Swamp-Quest"},
-    {"title":"Mining Sector D473A *Classic* Fixed!","creator":"Mark901","year":2017,"link":"https://www.roblox.com/games/3780138/Mining-Sector-D473A-Classic-Fixed"},
-    {"title":"ROBLOX™ Realistic Free Flight","creator":"TonyAir","year":2017,"link":"https://www.roblox.com/games/1994733/ROBLOX-Realistic-Free-Flight"},
-    {"title":"Castle in the Sky Ascension","creator":"BADGRAPHIX Creations","year":2019,"link":"https://www.roblox.com/games/272464319/Castle-in-the-Sky-Ascension"},
-    {"title":"Domino Rally","creator":"Shedletsky","year":2007,"link":"https://www.roblox.com/games/50520/Domino-Rally"},
-    {"title":"GEAR WARS-The Bridge of DOOM![BC] uncopylocked@10k","creator":"CJDJPJ","year":2011,"link":"https://www.roblox.com/games/53191357/GEAR-WARS-The-Bridge-of-DOOM-BC-uncopylocked-10k"},
-    {"title":"The Shaggy Orb of Wisdom","creator":"eJorge","year":2013,"link":"https://www.roblox.com/games/83056120/The-Shaggy-Orb-of-Wisdom"},
-    {"title":"Survival 202 Open Source","creator":"Davidii","year":2009,"link":"https://www.roblox.com/games/8886092/Survival-202-Open-Source"},
-    {"title":"Medieval Robloxia Tycoon *VIP Door Fixed*","creator":"KTJ","year":2009,"link":"https://www.roblox.com/games/2616301/Medieval-Robloxia-Tycoon-VIP-Door-Fixed"},
-    {"title":"Build, Live and Fight 1!","creator":"conqueror99","year":2009,"link":"https://www.roblox.com/games/8536153/Build-Live-and-Fight-1"},
-    {"title":"Hard Day In A Mountain... Build A Camp! :D","creator":"Actolia","year":2012,"link":"https://www.roblox.com/games/2154347/Hard-Day-In-A-Mountain-Build-A-Camp-D"},
-    {"title":"Perilous Plunge - Knotts Berry Farm","creator":"EricThePianoGuy","year":2015,"link":"https://www.roblox.com/games/11970512/Perilous-Plunge-Knotts-Berry-Farm"},
-    {"title":"RASA's Place","creator":"RASA","year":2014,"link":"https://www.roblox.com/games/112546/RASAs-Place"},
-    {"title":"Apartment Life","creator":"Jarnac","year":2017,"link":"https://www.roblox.com/games/2251069/Apartment-Life"},
-    {"title":"☆ VILLAGE LIFE ☆™ (MEGA UPDATES)","creator":"Joseei","year":2017,"link":"https://www.roblox.com/games/13781514/VILLAGE-LIFE-MEGA-UPDATES"},
-    {"title":"[REVAMP]~ Live with friends and Build ~","creator":"Sora9200","year":2015,"link":"https://www.roblox.com/games/10467641/REVAMP-Live-with-friends-and-Build"},
-    {"title":"The Original Indiana Jones and the Lost Temple","creator":"drkill777","year":2012,"link":"https://www.roblox.com/games/146743/The-Original-Indiana-Jones-and-the-Lost-Temple"},
-    {"title":"Castle Seige (Read Description)","creator":"moneys45","year":2011,"link":"https://www.roblox.com/games/9460377/Castle-Seige-Read-Description"},
-    {"title":"Burnout: Crash Canyon [River]","creator":"BurnoutForever","year":2009,"link":"https://www.roblox.com/games/13721550/Burnout-Crash-Canyon-River"},
-    {"title":"Briguy's Point-and-Click Adventure.","creator":"BrianReddus","year":2011,"link":"https://www.roblox.com/games/83838/Briguys-Point-and-Click-Adventure"},
-    {"title":"Zombie Survival V2.75 *Zombie apocalypse!*","creator":"TheBrickMan","year":2009,"link":"https://www.roblox.com/games/12263054/Zombie-Survival-V2-75-Zombie-apocalypse"},
-    {"title":"Flooded Wizards ; (HORSES! SHOP SOON!)","creator":"ClansAndGuilds","year":2012,"link":"https://www.roblox.com/games/12282205/Flooded-Wizards-HORSES-SHOP-SOON"},
-    {"title":"Zoydude's Highland Sniper Rifle Shootout","creator":"zoydude","year":2010,"link":"https://www.roblox.com/games/1823632/Zoydudes-Highland-Sniper-Rifle-Shootout"},
-    {"title":"Kingdom Of Argyll: Preview","creator":"SonOfSevenless","year":2007,"link":"https://www.roblox.com/games/34713/Kingdom-Of-Argyll-Preview"},
-    {"title":"Roleplaying Mountain","creator":"Yuntah, NoobName","year":2008,"link":"https://www.roblox.com/games/2868037/Roleplaying-Mountain"},
-    {"title":"Classic Swordfighting","creator":"ThatBrickWithGlasses","year":2015,"link":"https://www.roblox.com/games/58319809/Classic-Swordfighting"},
-    {"title":"Sword‑Fighting Training Arena","creator":"Deacer","year":2009,"link":"https://www.roblox.com/games/5538808/Sword-Fighting-Training-Arena"},
-    {"title":"Survival Island | Original | Updated","creator":"PizzaMan1000","year":2018,"link":"https://www.roblox.com/games/4432855/Survival-Island-Original-Updated"}
-];
-
-// 自动分类：parkour仅匹配 obby / obstacle course / escape（大小写忽略）；tycoon匹配tycoon；pvp匹配battle/war/sword/combat；其余nonpvp
-let gameDatabase = rawGameList.map(item=>{
-    const titleLow = item.title.toLowerCase();
-    let gametype = "nonpvp";
-    if(/tycoon/.test(titleLow)) gametype="tycoon";
-    else if(/obby|obstacle course|escape/.test(titleLow)) gametype="parkour";
-    else if(/battle|war|sword|combat/.test(titleLow)) gametype="pvp";
-
-    const creatorClass = famousCreators.has(item.creator) ? "famous":"normal";
-    return {
-        title:item.title,
-        creator:item.creator,
-        year:item.year,
-        link:item.link,
-        gametype:gametype,
-        creatorClass:creatorClass,
-        players:"??/??"
-    }
-});
-
+function buildGameDatabase(rawList){
+    return rawList.map(item=>{
+        const titleLow = item.title.toLowerCase();
+        let gametype = "nonpvp";
+        if(/tycoon/.test(titleLow)) gametype="tycoon";
+        else if(/obby|obstacle course|escape/.test(titleLow)) gametype="parkour";
+        else if(/battle|war|sword|combat/.test(titleLow)) gametype="pvp";
+        const creatorClass = famousCreators.has(item.creator) ? "famous":"normal";
+        return {
+            title:item.title,
+            creator:item.creator,
+            year:item.year,
+            link:item.link,
+            gametype:gametype,
+            creatorClass:creatorClass,
+            players:"??/??"
+        }
+    });
+}
 const resultCountEl = document.getElementById("resultCount");
-
 function renderGameTable(list){
     const wrap = document.getElementById("gameTableBody");
     wrap.innerHTML="";
@@ -1259,7 +1164,6 @@ function renderGameTable(list){
     });
     resultCountEl.innerText = `${list.length} / ${gameDatabase.length}`;
 }
-
 document.getElementById("btnFilter").addEventListener("click", function(){
     const ys = Number(document.getElementById("filterYearStart").value)||0;
     const ye = Number(document.getElementById("filterYearEnd").value)||9999;
@@ -1273,10 +1177,46 @@ document.getElementById("btnFilter").addEventListener("click", function(){
     });
     renderGameTable(filtered);
 });
-
 document.getElementById("btnQuickRefresh").addEventListener("click", ()=> renderGameTable(gameDatabase));
 document.getElementById("btnRefreshAll").addEventListener("click", ()=> renderGameTable(gameDatabase));
-
+document.getElementById("btnOpenRoblox").addEventListener("click",()=>{
+    if(selectedGameIndex === -1){
+        alert(isZh?"请先选择列表中的游戏":"Please select a game from list first");
+        return;
+    }
+    const g = gameDatabase[selectedGameIndex];
+    window.open(g.link,"_blank");
+});
+document.getElementById("closePopup").addEventListener('click',()=>{
+    popup.style.display = "none";
+});
+const loadingHint = document.getElementById("loadingHint");
+async function loadGameData(){
+    loadingHint.style.display = "block";
+    try {
+        const response = await fetch('data/games.json');
+        if(!response.ok) throw new Error('HTTP ' + response.status);
+        const rawList = await response.json();
+        gameDatabase = buildGameDatabase(rawList);
+        console.log("已加载 " + gameDatabase.length + " 条游戏数据");
+    } catch(err){
+        console.error("加载 games.json 失败:", err);
+        alert(isZh
+            ? "加载游戏数据失败！请确保通过本地服务器打开页面（如 python -m http.server），且 data/games.json 文件存在。"
+            : "Failed to load game data! Please open via a local server (e.g. python -m http.server) and ensure data/games.json exists.");
+        gameDatabase = [];
+    } finally {
+        loadingHint.style.display = "none";
+    }
+}
+document.getElementById("btnStartPlaying").addEventListener('click', async ()=>{
+    if(gameDatabase.length === 0){
+        await loadGameData();
+    }
+    popup.style.display = "flex";
+    renderGameTable(gameDatabase);
+});
+loadGameData();
 });
 </script>
 </body>
