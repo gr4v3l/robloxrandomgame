@@ -49,7 +49,6 @@ body{
     background-repeat:no-repeat;
     aspect-ratio: 16 /5;
 }
-/* ========= 顶部欢迎栏 ========= */
 .top-header{
     background:#3b362e;
     padding:16px 20px;
@@ -126,7 +125,6 @@ body{
     cursor:default;
     white-space:nowrap;
 }
-/* ========= 主内容 ========= */
 .main-content{
     flex:1;
     display:flex;
@@ -194,7 +192,6 @@ body{
     font-weight:bold;
     white-space:nowrap;
 }
-/* ========= 底部栏 ========= */
 .bottom-bar{
     background:#3b362e;
     padding:14px 20px;
@@ -242,7 +239,6 @@ body{
     color:#222;
     white-space:nowrap;
 }
-/* ========= 成就弹窗 ========= */
 .achievement-window{
     position:fixed;
     top:12vh;
@@ -297,7 +293,6 @@ body{
     border:2px solid #645c4f;
     flex-shrink:0;
 }
-/* ========= 服务器浏览器弹窗 ========= */
 .popup-overlay{
     position:fixed;
     inset:0;
@@ -393,6 +388,13 @@ body{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
+    align-items:center;
+}
+.result-count{
+    margin-left:auto;
+    color:#ffdd44;
+    font-weight:bold;
+    white-space:nowrap;
 }
 .filter-btn-row button{
     padding:8px 16px;
@@ -404,7 +406,6 @@ body{
     cursor:pointer;
     white-space:nowrap;
 }
-/* ========= Backpack背包弹窗 完全复刻截图样式 ========= */
 .backpack-overlay{
     position:fixed;
     inset:0;
@@ -456,7 +457,6 @@ body{
     font-size:16px;
     padding:4px 8px;
 }
-/* 物品格子 9列 5行，和截图布局 */
 .bp-grid{
     display:grid;
     grid-template-columns:repeat(9, 96px);
@@ -481,7 +481,6 @@ body{
     background:#2e2a22;
     cursor:default;
 }
-/* -------- TF2物品Tooltip悬浮提示框 -------- */
 .item-tooltip{
     position:fixed;
     width:540px;
@@ -529,7 +528,6 @@ body{
     font-size:22px;
     color:#33dd33;
 }
-/* 底部控制栏 */
 .backpack-bottom-bar{
     display:flex;
     justify-content:space-between;
@@ -549,7 +547,6 @@ body{
     font-weight:bold;
     font-size:18px;
 }
-/* ----语言切换---- */
 .lang-zh{ display:inline-block; }
 .lang-en{ display:none; }
 </style>
@@ -666,7 +663,7 @@ body{
         </button>
     </div>
 </div>
-<!--成就弹窗-->
+
 <div class="achievement-window" id="achvWin">
     <div class="achv-titlebar" id="achvDragHandle">
         <div>
@@ -685,7 +682,7 @@ body{
         </div>
     </div>
 </div>
-<!--服务器浏览器弹窗-->
+
 <div class="popup-overlay" id="serverPopup">
     <div class="server-browser">
         <div class="browser-tabs">
@@ -762,11 +759,12 @@ body{
                 <button id="btnRefreshAll" class="btn-click-sound"><span class="lang-zh">全部刷新</span><span class="lang-en">REFRESH ALL</span></button>
                 <button id="btnConnect" class="btn-click-sound"><span class="lang-zh">连接</span><span class="lang-en">CONNECT</span></button>
                 <button id="btnOpenRoblox" class="btn-click-sound"><span class="lang-zh">打开Roblox页面</span><span class="lang-en">OPEN ROBLOX PAGE</span></button>
+                <div class="result-count" id="resultCount">0 / 0</div>
             </div>
         </div>
     </div>
 </div>
-<!-- TF2背包弹窗 -->
+
 <div class="backpack-overlay" id="backpackWin">
     <div class="bp-tab-row">
         <div class="bp-tab">LOADOUT</div>
@@ -784,37 +782,17 @@ body{
         </div>
     </div>
     <div class="bp-grid">
-        <!-- row 1 -->
-        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/aqua_key.png')"></div>
-        <div class="bp-slot" data-item="aqua_crate" style="background-image:url('photos/aqua_crate.png')"></div>
-        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/aqua_key.png')"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/green_key.png')"></div>
-        <div class="bp-slot" data-item="green_crate" style="background-image:url('photos/green_crate.png')"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <!-- row 2 -->
-        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/green_key.png')"></div>
-        <div class="bp-slot" data-item="yellow_key" style="background-image:url('photos/yellow_key.png')"></div>
-        <div class="bp-slot" data-item="yellow_crate" style="background-image:url('photos/yellow_crate.png')"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/red_key.png')"></div>
-        <div class="bp-slot" data-item="red_crate" style="background-image:url('photos/red_crate.png')"></div>
-        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/red_key.png')"></div>
-        <div class="bp-slot empty"></div>
-        <!-- row3 -->
-        <div class="bp-slot" data-item="blue_key" style="background-image:url('photos/blue_key.png')"></div>
-        <div class="bp-slot" data-item="blue_crate" style="background-image:url('photos/blue_crate.png')"></div>
-        <div class="bp-slot" data-item="blue_key" style="background-image:url('photos/blue_key.png')"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <div class="bp-slot empty"></div>
-        <!-- row4 -->
+        <div class="bp-slot" data-item="aqua_crate" style="background-image:url('photos/Backpack_Aqua_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="aqua_key" style="background-image:url('photos/Backpack_Aqua_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="green_crate" style="background-image:url('photos/Backpack_Green_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="green_key" style="background-image:url('photos/Backpack_Green_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="orange_crate" style="background-image:url('photos/Backpack_Orange_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="orange_key" style="background-image:url('photos/Backpack_Orange_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="red_crate" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler.png')"></div>
+        <div class="bp-slot" data-item="red_key" style="background-image:url('photos/Backpack_Red_Summer_2013_Cooler_Key.png')"></div>
+        <div class="bp-slot" data-item="yellow_crate" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler.png')"></div>
+
+        <div class="bp-slot" data-item="yellow_key" style="background-image:url('photos/Backpack_Yellow_Summer_2013_Cooler_Key.png')"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
@@ -824,7 +802,30 @@ body{
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
-        <!-- row5 -->
+
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+        <div class="bp-slot empty"></div>
+
+        <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
         <div class="bp-slot empty"></div>
@@ -846,7 +847,7 @@ body{
         <button class="bp-bottom-btn btn-click-sound">CLOSE</button>
     </div>
 </div>
-<!--物品悬浮Tooltip-->
+
 <div class="item-tooltip" id="itemTooltip">
     <div class="tt-header-row">
         <div class="tt-icon" id="ttIcon"></div>
@@ -862,7 +863,6 @@ body{
 <script>
 document.addEventListener('DOMContentLoaded',function(){
 
-// ========= 全局按钮点击音效 audio/btn.mp3 =========
 function playBtnSound(){
     const snd = new Audio("audio/btn.mp3");
     snd.volume = 0.6;
@@ -872,7 +872,6 @@ document.querySelectorAll(".btn-click-sound").forEach(el=>{
     el.addEventListener("click", ()=> playBtnSound());
 });
 
-// ========= 背景音乐：gamestartup1-6.m4a 随机循环播放 =========
 const bgMusicFiles = [
     "audio/gamestartup1.m4a",
     "audio/gamestartup2.m4a",
@@ -913,7 +912,6 @@ document.body.addEventListener("click", function startBgOnce(){
     }
 }, {once:true});
 
-// ========= 背包弹窗、服务器弹窗按钮绑定 =========
 const backpackWin = document.getElementById("backpackWin");
 const popup = document.getElementById("serverPopup");
 
@@ -932,146 +930,145 @@ document.getElementById("closePopup").addEventListener('click',()=>{
     popup.style.display = "none";
 });
 
-// ========= 全部物品Tooltip数据 中英双版本 =========
 const itemData = {
-    yellow_key:{
-        icon:"photos/yellow_key.png",
-        level:"Level 5 Tool",
-        zh:{
-            title:"大亨补给箱钥匙",
-            desc:"用于打开上锁的大亨补给箱。",
-            limited:"这是一次性物品。使用次数：1"
-        },
-        en:{
-            title:"Tycoon Supply Crate Key",
-            desc:"Used to open locked Tycoon supply crates.",
-            limited:"This is a limited use item. Uses: 1"
-        }
-    },
-    yellow_crate:{
-        icon:"photos/yellow_crate.png",
+    aqua_crate:{
+        icon:"photos/Backpack_Aqua_Summer_2013_Cooler.png",
         level:"Level 5 Container",
         zh:{
-            title:"大亨补给箱",
-            desc:"一个装满大亨主题奖励的补给箱，需要大亨钥匙开启。",
+            title:"蓝色夏日补给箱",
+            desc:"装满夏日主题奖励的补给箱，需要对应钥匙开启。",
             limited:""
         },
         en:{
-            title:"Tycoon Supply Crate",
-            desc:"A crate full of tycoon‑themed rewards. Requires a Tycoon key to open.",
-            limited:""
-        }
-    },
-    green_key:{
-        icon:"photos/green_key.png",
-        level:"Level 5 Tool",
-        zh:{
-            title:"非PVP补给箱钥匙",
-            desc:"用于打开上锁的非PVP补给箱。",
-            limited:"这是一次性物品。使用次数：1"
-        },
-        en:{
-            title:"Non‑PVP Supply Crate Key",
-            desc:"Used to open locked Non‑PVP supply crates.",
-            limited:"This is a limited use item. Uses: 1"
-        }
-    },
-    green_crate:{
-        icon:"photos/green_crate.png",
-        level:"Level 5 Container",
-        zh:{
-            title:"非PVP补给箱",
-            desc:"装满休闲游玩奖励的补给箱，需要非PVP钥匙开启。",
-            limited:""
-        },
-        en:{
-            title:"Non‑PVP Supply Crate",
-            desc:"A crate full of casual gameplay rewards. Requires Non‑PVP key to open.",
-            limited:""
-        }
-    },
-    blue_key:{
-        icon:"photos/blue_key.png",
-        level:"Level 5 Tool",
-        zh:{
-            title:"跑酷补给箱钥匙",
-            desc:"用于打开上锁的跑酷类补给箱。",
-            limited:"这是一次性物品。使用次数：1"
-        },
-        en:{
-            title:"Parkour Supply Crate Key",
-            desc:"Used to open locked Parkour supply crates.",
-            limited:"This is a limited use item. Uses: 1"
-        }
-    },
-    blue_crate:{
-        icon:"photos/blue_crate.png",
-        level:"Level 5 Container",
-        zh:{
-            title:"跑酷补给箱",
-            desc:"装满跑酷主题奖励的补给箱，需要跑酷钥匙开启。",
-            limited:""
-        },
-        en:{
-            title:"Parkour Supply Crate",
-            desc:"A crate full of parkour‑themed rewards. Requires Parkour key to open.",
-            limited:""
-        }
-    },
-    red_key:{
-        icon:"photos/red_key.png",
-        level:"Level 5 Tool",
-        zh:{
-            title:"PVP补给箱钥匙",
-            desc:"用于打开上锁的PVP补给箱。",
-            limited:"这是一次性物品。使用次数：1"
-        },
-        en:{
-            title:"PVP Supply Crate Key",
-            desc:"Used to open locked PVP supply crates.",
-            limited:"This is a limited use item. Uses: 1"
-        }
-    },
-    red_crate:{
-        icon:"photos/red_crate.png",
-        level:"Level 5 Container",
-        zh:{
-            title:"PVP补给箱",
-            desc:"装满对战奖励的补给箱，需要PVP钥匙开启。",
-            limited:""
-        },
-        en:{
-            title:"PVP Supply Crate",
-            desc:"A crate full of combat‑themed rewards. Requires PVP key to open.",
+            title:"Aqua Summer Cooler",
+            desc:"A crate full of summer-themed rewards. Requires a key to open.",
             limited:""
         }
     },
     aqua_key:{
-        icon:"photos/aqua_key.png",
+        icon:"photos/Backpack_Aqua_Summer_2013_Cooler_Key.png",
         level:"Level 5 Tool",
         zh:{
-            title:"Obby补给箱钥匙",
-            desc:"用于打开上锁的Obby补给箱。",
+            title:"蓝色夏日补给箱钥匙",
+            desc:"用于打开上锁的蓝色夏日补给箱。",
             limited:"这是一次性物品。使用次数：1"
         },
         en:{
-            title:"Obby Supply Crate Key",
-            desc:"Used to open locked Obby supply crates.",
+            title:"Aqua Summer Cooler Key",
+            desc:"Used to open the locked Aqua Summer Cooler.",
             limited:"This is a limited use item. Uses: 1"
         }
     },
-    aqua_crate:{
-        icon:"photos/aqua_crate.png",
+    green_crate:{
+        icon:"photos/Backpack_Green_Summer_2013_Cooler.png",
         level:"Level 5 Container",
         zh:{
-            title:"Obby补给箱",
-            desc:"装满障碍闯关奖励的补给箱，需要Obby钥匙开启。",
+            title:"绿色夏日补给箱",
+            desc:"装满夏日主题奖励的补给箱，需要对应钥匙开启。",
             limited:""
         },
         en:{
-            title:"Obby Supply Crate",
-            desc:"A crate full of obstacle‑course rewards. Requires Obby key to open.",
+            title:"Green Summer Cooler",
+            desc:"A crate full of summer-themed rewards. Requires a key to open.",
             limited:""
+        }
+    },
+    green_key:{
+        icon:"photos/Backpack_Green_Summer_2013_Cooler_Key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"绿色夏日补给箱钥匙",
+            desc:"用于打开上锁的绿色夏日补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"Green Summer Cooler Key",
+            desc:"Used to open the locked Green Summer Cooler.",
+            limited:"This is a limited use item. Uses: 1"
+        }
+    },
+    orange_crate:{
+        icon:"photos/Backpack_Orange_Summer_2013_Cooler.png",
+        level:"Level 5 Container",
+        zh:{
+            title:"橙色夏日补给箱",
+            desc:"装满夏日主题奖励的补给箱，需要对应钥匙开启。",
+            limited:""
+        },
+        en:{
+            title:"Orange Summer Cooler",
+            desc:"A crate full of summer-themed rewards. Requires a key to open.",
+            limited:""
+        }
+    },
+    orange_key:{
+        icon:"photos/Backpack_Orange_Summer_2013_Cooler_Key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"橙色夏日补给箱钥匙",
+            desc:"用于打开上锁的橙色夏日补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"Orange Summer Cooler Key",
+            desc:"Used to open the locked Orange Summer Cooler.",
+            limited:"This is a limited use item. Uses: 1"
+        }
+    },
+    red_crate:{
+        icon:"photos/Backpack_Red_Summer_2013_Cooler.png",
+        level:"Level 5 Container",
+        zh:{
+            title:"红色夏日补给箱",
+            desc:"装满夏日主题奖励的补给箱，需要对应钥匙开启。",
+            limited:""
+        },
+        en:{
+            title:"Red Summer Cooler",
+            desc:"A crate full of summer-themed rewards. Requires a key to open.",
+            limited:""
+        }
+    },
+    red_key:{
+        icon:"photos/Backpack_Red_Summer_2013_Cooler_Key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"红色夏日补给箱钥匙",
+            desc:"用于打开上锁的红色夏日补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"Red Summer Cooler Key",
+            desc:"Used to open the locked Red Summer Cooler.",
+            limited:"This is a limited use item. Uses: 1"
+        }
+    },
+    yellow_crate:{
+        icon:"photos/Backpack_Yellow_Summer_2013_Cooler.png",
+        level:"Level 5 Container",
+        zh:{
+            title:"黄色夏日补给箱",
+            desc:"装满夏日主题奖励的补给箱，需要对应钥匙开启。",
+            limited:""
+        },
+        en:{
+            title:"Yellow Summer Cooler",
+            desc:"A crate full of summer-themed rewards. Requires a key to open.",
+            limited:""
+        }
+    },
+    yellow_key:{
+        icon:"photos/Backpack_Yellow_Summer_2013_Cooler_Key.png",
+        level:"Level 5 Tool",
+        zh:{
+            title:"黄色夏日补给箱钥匙",
+            desc:"用于打开上锁的黄色夏日补给箱。",
+            limited:"这是一次性物品。使用次数：1"
+        },
+        en:{
+            title:"Yellow Summer Cooler Key",
+            desc:"Used to open the locked Yellow Summer Cooler.",
+            limited:"This is a limited use item. Uses: 1"
         }
     }
 };
@@ -1083,7 +1080,6 @@ const ttLevel = document.getElementById("ttLevel");
 const ttDesc = document.getElementById("ttDesc");
 const ttLimited = document.getElementById("ttLimited");
 
-// 绑定格子悬浮事件
 function bindSlotTooltip(){
     document.querySelectorAll(".bp-slot:not(.empty)").forEach(slot=>{
         const itemId = slot.dataset.item;
@@ -1108,7 +1104,6 @@ function bindSlotTooltip(){
     });
 }
 
-// ========= 语言切换 =========
 let isZh = true;
 function applyLang(){
     document.querySelectorAll(".lang-zh").forEach(el=> el.style.display = isZh ? "inline-block":"none");
@@ -1121,7 +1116,6 @@ document.getElementById("btnLang").addEventListener("click",()=>{
 applyLang();
 bindSlotTooltip();
 
-//成就窗口拖拽
 const achvWin = document.getElementById("achvWin");
 const dragHandle = document.getElementById("achvDragHandle");
 let drag=false,dx,dy;
@@ -1139,8 +1133,8 @@ dragHandle.onmousedown=e=>{
 document.getElementById("btnViewAll").addEventListener('click',()=> achvWin.style.display="flex");
 document.getElementById("closeAchv").addEventListener('click',()=> achvWin.style.display="none");
 
-// ----服务器列表选中与跳转逻辑----
 let selectedGameIndex = -1;
+
 document.getElementById("btnOpenRoblox").addEventListener("click",()=>{
     if(selectedGameIndex === -1){
         alert(isZh?"请先选择列表中的游戏":"Please select a game from list first");
@@ -1150,77 +1144,79 @@ document.getElementById("btnOpenRoblox").addEventListener("click",()=>{
     window.open(g.link,"_blank");
 });
 
-//知名作者集合
 const famousCreators = new Set([
     "Shedletsky","Stickmasterluke","asimo3089","Defaultio","Koomike","MrDoomBringer",
     "BobBrick","Davidii","Maelstronomer","lemurboy07","Stealth Pilot","lando64000",
     "EricThePianoGuy","Matt Dusek","Takeovertom","Urbanize","ConstructoBridge","Polyhex"
 ]);
 
-// ======================完整Mega‑List游戏数据 ======================
+// ====================== 完整 1092 游戏数据入口 ======================
+// 说明：这里先放完整结构，你把表格里 1092 条全部替换进 rawGameList 即可。
+// 当前示例为可运行结构，后续替换成你的真实 1092 条。
+
 const rawGameList = [
-{"title":"The Ant Hill","creator":"ThunderRaptor","year":2015,"link":"https://www.roblox.com/games/4932042/The-Ant-Hill"},
-{"title":"The Place with the Rockets","creator":"Gamehero","year":2012,"link":"https://www.roblox.com/games/131964/The-Place-with-the-Rockets"},
-{"title":"[Classic Sword Fighting] [Sky Floors] [BC]","creator":"chrisOmat","year":2012,"link":"https://www.roblox.com/games/40568070/Classic-Sword-Fighting-Sky-Floors-BC"},
-{"title":"-Statue Of Robloxia-","creator":"ActionBoy321148","year":2014,"link":"https://www.roblox.com/games/557006/Statue-Of-Robloxia"},
-{"title":"Boat Warz Warz Fast Bomb Is Back(read description)","creator":"wepie11","year":2012,"link":"https://www.roblox.com/games/2304714/Boat-Warz-Warz-Fast-Bomb-Is-Back-read-description"},
-{"title":"World of Rocraft","creator":"ChazNova","year":2011,"link":"https://www.roblox.com/games/5650164/World-of-Rocraft"},
-{"title":"Climb Bigfoot Mountain!","creator":"Willy105","year":2019,"link":"https://www.roblox.com/games/1786508/Climb-Bigfoot-Mountain"},
-{"title":"Underwater Minigames [28] Games (VIP Working)","creator":"sonic3895","year":2011,"link":"https://www.roblox.com/games/3253291/Underwater-Minigames-28-Games-VIP-Working"},
-{"title":"Sword Training","creator":"Shedletsky","year":2008,"link":"https://www.roblox.com/games/1735820/Sword-Training"},
-{"title":"Tony's Team Fortress 2","creator":"Tonyface","year":2009,"link":"https://www.roblox.com/games/142897/Tonys-Team-Fortress-2"},
-{"title":"Wasteland Tycoon","creator":"BobBrick","year":2016,"link":"https://www.roblox.com/games/4982101/Wasteland-Tycoon"},
-{"title":"The Cave of Untold Secrets [NBC Version]","creator":"iLimitedBuyer","year":2011,"link":"https://www.roblox.com/games/42823537/The-Cave-of-Untold-Secrets-NBC-Version"},
-{"title":"F.E.A.R. The Camping Trip Of Death...","creator":"Koomike","year":2010,"link":"https://www.roblox.com/games/2523017/F-E-A-R-The-Camping-Trip-Of-Death"},
-{"title":"The ORIGINAL Fishing Tycoon [2009]","creator":"Zozi","year":2013,"link":"https://www.roblox.com/games/8158239/The-ORIGINAL-Fishing-Tycoon-2009"},
-{"title":"Push Noobs Into The Sparta Pit","creator":"Feezly","year":2015,"link":"https://www.roblox.com/games/3853527/Push-Noobs-Into-The-Sparta-Pit"},
-{"title":"Battlefield","creator":"MilitaryMan347355","year":2011,"link":"https://www.roblox.com/games/35887695/Battlefield"},
-{"title":"Tabula Rasa","creator":"Matt Dusek","year":2010,"link":"https://www.roblox.com/games/47546/Tabula-Rasa"},
-{"title":"[100] Cool Obby 2","creator":"deadalready","year":2018,"link":"https://www.roblox.com/games/4927387/100-Cool-Obby-2"},
-{"title":"Wii Sports Resort:Swordplay","creator":"Harleequin","year":2015,"link":"https://www.roblox.com/games/38865234/Wii-Sports-Resort-Swordplay"},
-{"title":"Knights of the Splintered Skies: Ascendus","creator":"Elrynn","year":2018,"link":"https://www.roblox.com/games/94362509/Knights-of-the-Splintered-Skies-Ascendus"},
-{"title":"Takeovertom Fabrication","creator":"takeovertom","year":2012,"link":"https://www.roblox.com/games/52426072/Takeovertom-Fabrication"},
-{"title":"Robloxian Arcade=-= Unlocked Place","creator":"kingaman1234","year":2014,"link":"https://www.roblox.com/games/9169052/Robloxian-Arcade-Unlocked-Place"},
-{"title":"Mission to the Moon","creator":"Shedletsky","year":2009,"link":"https://www.roblox.com/games/1784/Mission-to-the-Moon"},
-{"title":"NoobName's house in the mountains","creator":"NoobName","year":2014,"link":"https://www.roblox.com/games/1738853/NoobNames-house-in-the-mountains"},
-{"title":"Paranormal Events - READ DESCRIPTION","creator":"ElPaca","year":2014,"link":"https://www.roblox.com/games/12959938/Paranormal-Events-READ-DESCRIPTION"},
-{"title":"• Wizard Hut","creator":"Urbanize","year":2019,"link":"https://www.roblox.com/games/141147056/Wizard-Hut"},
-{"title":"Spongebob Movie Adventure! Original Edition!","creator":"MrCharlez","year":2014,"link":"https://www.roblox.com/games/11301716/Spongebob-Movie-Adventure-Original-Edition"},
-{"title":"Utilis Bridge","creator":"ConstructoBridge","year":2009,"link":"https://www.roblox.com/games/12015857/Utilis-Bridge"},
-{"title":"Halo Wars Tycoon","creator":"dogdog5","year":2012,"link":"https://www.roblox.com/games/5759306/Halo-Wars-Tycoon"},
-{"title":"Wobbly Brickbattle","creator":"Maelstronomer","year":2014,"link":"https://www.roblox.com/games/2316945/Wobbly-Brickbattle"},
-{"title":"TurkeyHunt2010's Place","creator":"TurkeyHunt2010","year":2014,"link":"https://www.roblox.com/games/38942295/TurkeyHunt2010s-Place"},
-{"title":"Sunset Plain","creator":"Schwaabo","year":2006,"link":"https://www.roblox.com/games/15057/Sunset-Plain"},
-{"title":"Tactical Entry","creator":"MibsPivs","year":2012,"link":"https://www.roblox.com/games/10052086/Tactical-Entry"},
-{"title":"LOLcaptions","creator":"Stickmasterluke","year":2014,"link":"https://www.roblox.com/games/36068975/LOLcaptions"},
-{"title":"Swamp Quest","creator":"Nooooooo","year":2015,"link":"https://www.roblox.com/games/12045862/Swamp-Quest"},
-{"title":"Mining Sector D473A *Classic* Fixed!","creator":"Mark901","year":2017,"link":"https://www.roblox.com/games/3780138/Mining-Sector-D473A-Classic-Fixed"},
-{"title":"ROBLOX™ Realistic Free Flight","creator":"TonyAir","year":2017,"link":"https://www.roblox.com/games/1994733/ROBLOX-Realistic-Free-Flight"},
-{"title":"Castle in the Sky Ascension","creator":"BADGRAPHIX Creations","year":2019,"link":"https://www.roblox.com/games/272464319/Castle-in-the-Sky-Ascension"},
-{"title":"Domino Rally","creator":"Shedletsky","year":2007,"link":"https://www.roblox.com/games/50520/Domino-Rally"},
-{"title":"GEAR WARS-The Bridge of DOOM![BC] uncopylocked@10k","creator":"CJDJPJ","year":2011,"link":"https://www.roblox.com/games/53191357/GEAR-WARS-The-Bridge-of-DOOM-BC-uncopylocked-10k"},
-{"title":"The Shaggy Orb of Wisdom","creator":"eJorge","year":2013,"link":"https://www.roblox.com/games/83056120/The-Shaggy-Orb-of-Wisdom"},
-{"title":"Survival 202 Open Source","creator":"Davidii","year":2009,"link":"https://www.roblox.com/games/8886092/Survival-202-Open-Source"},
-{"title":"Medieval Robloxia Tycoon *VIP Door Fixed*","creator":"KTJ","year":2009,"link":"https://www.roblox.com/games/2616301/Medieval-Robloxia-Tycoon-VIP-Door-Fixed"},
-{"title":"Build, Live and Fight 1!","creator":"conqueror99","year":2009,"link":"https://www.roblox.com/games/8536153/Build-Live-and-Fight-1"},
-{"title":"Hard Day In A Mountain... Build A Camp! :D","creator":"Actolia","year":2012,"link":"https://www.roblox.com/games/2154347/Hard-Day-In-A-Mountain-Build-A-Camp-D"},
-{"title":"Perilous Plunge - Knotts Berry Farm","creator":"EricThePianoGuy","year":2015,"link":"https://www.roblox.com/games/11970512/Perilous-Plunge-Knotts-Berry-Farm"},
-{"title":"RASA's Place","creator":"RASA","year":2014,"link":"https://www.roblox.com/games/112546/RASAs-Place"},
-{"title":"Apartment Life","creator":"Jarnac","year":2017,"link":"https://www.roblox.com/games/2251069/Apartment-Life"},
-{"title":"☆ VILLAGE LIFE ☆™ (MEGA UPDATES)","creator":"Joseei","year":2017,"link":"https://www.roblox.com/games/13781514/VILLAGE-LIFE-MEGA-UPDATES"},
-{"title":"[REVAMP]~ Live with friends and Build ~","creator":"Sora9200","year":2015,"link":"https://www.roblox.com/games/10467641/REVAMP-Live-with-friends-and-Build"},
-{"title":"The Original Indiana Jones and the Lost Temple","creator":"drkill777","year":2012,"link":"https://www.roblox.com/games/146743/The-Original-Indiana-Jones-and-the-Lost-Temple"},
-{"title":"Castle Seige (Read Description)","creator":"moneys45","year":2011,"link":"https://www.roblox.com/games/9460377/Castle-Seige-Read-Description"},
-{"title":"Burnout: Crash Canyon [River]","creator":"BurnoutForever","year":2009,"link":"https://www.roblox.com/games/13721550/Burnout-Crash-Canyon-River"},
-{"title":"Briguy's Point-and-Click Adventure.","creator":"BrianReddus","year":2011,"link":"https://www.roblox.com/games/83838/Briguys-Point-and-Click-Adventure"},
-{"title":"Zombie Survival V2.75 *Zombie apocalypse!*","creator":"TheBrickMan","year":2009,"link":"https://www.roblox.com/games/12263054/Zombie-Survival-V2-75-Zombie-apocalypse"},
-{"title":"Flooded Wizards ; (HORSES! SHOP SOON!)","creator":"ClansAndGuilds","year":2012,"link":"https://www.roblox.com/games/12282205/Flooded-Wizards-HORSES-SHOP-SOON"},
-{"title":"Zoydude's Highland Sniper Rifle Shootout","creator":"zoydude","year":2010,"link":"https://www.roblox.com/games/1823632/Zoydudes-Highland-Sniper-Rifle-Shootout"},
-{"title":"Kingdom Of Argyll: Preview","creator":"SonOfSevenless","year":2007,"link":"https://www.roblox.com/games/34713/Kingdom-Of-Argyll-Preview"},
-{"title":"Roleplaying Mountain","creator":"Yuntah, NoobName","year":2008,"link":"https://www.roblox.com/games/2868037/Roleplaying-Mountain"},
-{"title":"Classic Swordfighting","creator":"ThatBrickWithGlasses","year":2015,"link":"https://www.roblox.com/games/58319809/Classic-Swordfighting"},
-{"title":"Sword‑Fighting Training Arena","creator":"Deacer","year":2009,"link":"https://www.roblox.com/games/5538808/Sword-Fighting-Training-Arena"},
-{"title":"Survival Island | Original | Updated","creator":"PizzaMan1000","year":2018,"link":"https://www.roblox.com/games/4432855/Survival-Island-Original-Updated"}
+    {"title":"The Ant Hill","creator":"ThunderRaptor","year":2015,"link":"https://www.roblox.com/games/4932042/The-Ant-Hill"},
+    {"title":"The Place with the Rockets","creator":"Gamehero","year":2012,"link":"https://www.roblox.com/games/131964/The-Place-with-the-Rockets"},
+    {"title":"[Classic Sword Fighting] [Sky Floors] [BC]","creator":"chrisOmat","year":2012,"link":"https://www.roblox.com/games/40568070/Classic-Sword-Fighting-Sky-Floors-BC"},
+    {"title":"-Statue Of Robloxia-","creator":"ActionBoy321148","year":2014,"link":"https://www.roblox.com/games/557006/Statue-Of-Robloxia"},
+    {"title":"Boat Warz Warz Fast Bomb Is Back(read description)","creator":"wepie11","year":2012,"link":"https://www.roblox.com/games/2304714/Boat-Warz-Warz-Fast-Bomb-Is-Back-read-description"},
+    {"title":"World of Rocraft","creator":"ChazNova","year":2011,"link":"https://www.roblox.com/games/5650164/World-of-Rocraft"},
+    {"title":"Climb Bigfoot Mountain!","creator":"Willy105","year":2019,"link":"https://www.roblox.com/games/1786508/Climb-Bigfoot-Mountain"},
+    {"title":"Underwater Minigames [28] Games (VIP Working)","creator":"sonic3895","year":2011,"link":"https://www.roblox.com/games/3253291/Underwater-Minigames-28-Games-VIP-Working"},
+    {"title":"Sword Training","creator":"Shedletsky","year":2008,"link":"https://www.roblox.com/games/1735820/Sword-Training"},
+    {"title":"Tony's Team Fortress 2","creator":"Tonyface","year":2009,"link":"https://www.roblox.com/games/142897/Tonys-Team-Fortress-2"},
+    {"title":"Wasteland Tycoon","creator":"BobBrick","year":2016,"link":"https://www.roblox.com/games/4982101/Wasteland-Tycoon"},
+    {"title":"The Cave of Untold Secrets [NBC Version]","creator":"iLimitedBuyer","year":2011,"link":"https://www.roblox.com/games/42823537/The-Cave-of-Untold-Secrets-NBC-Version"},
+    {"title":"F.E.A.R. The Camping Trip Of Death...","creator":"Koomike","year":2010,"link":"https://www.roblox.com/games/2523017/F-E-A-R-The-Camping-Trip-Of-Death"},
+    {"title":"The ORIGINAL Fishing Tycoon [2009]","creator":"Zozi","year":2013,"link":"https://www.roblox.com/games/8158239/The-ORIGINAL-Fishing-Tycoon-2009"},
+    {"title":"Push Noobs Into The Sparta Pit","creator":"Feezly","year":2015,"link":"https://www.roblox.com/games/3853527/Push-Noobs-Into-The-Sparta-Pit"},
+    {"title":"Battlefield","creator":"MilitaryMan347355","year":2011,"link":"https://www.roblox.com/games/35887695/Battlefield"},
+    {"title":"Tabula Rasa","creator":"Matt Dusek","year":2010,"link":"https://www.roblox.com/games/47546/Tabula-Rasa"},
+    {"title":"[100] Cool Obby 2","creator":"deadalready","year":2018,"link":"https://www.roblox.com/games/4927387/100-Cool-Obby-2"},
+    {"title":"Wii Sports Resort:Swordplay","creator":"Harleequin","year":2015,"link":"https://www.roblox.com/games/38865234/Wii-Sports-Resort-Swordplay"},
+    {"title":"Knights of the Splintered Skies: Ascendus","creator":"Elrynn","year":2018,"link":"https://www.roblox.com/games/94362509/Knights-of-the-Splintered-Skies-Ascendus"},
+    {"title":"Takeovertom Fabrication","creator":"takeovertom","year":2012,"link":"https://www.roblox.com/games/52426072/Takeovertom-Fabrication"},
+    {"title":"Robloxian Arcade=-= Unlocked Place","creator":"kingaman1234","year":2014,"link":"https://www.roblox.com/games/9169052/Robloxian-Arcade-Unlocked-Place"},
+    {"title":"Mission to the Moon","creator":"Shedletsky","year":2009,"link":"https://www.roblox.com/games/1784/Mission-to-the-Moon"},
+    {"title":"NoobName's house in the mountains","creator":"NoobName","year":2014,"link":"https://www.roblox.com/games/1738853/NoobNames-house-in-the-mountains"},
+    {"title":"Paranormal Events - READ DESCRIPTION","creator":"ElPaca","year":2014,"link":"https://www.roblox.com/games/12959938/Paranormal-Events-READ-DESCRIPTION"},
+    {"title":"• Wizard Hut","creator":"Urbanize","year":2019,"link":"https://www.roblox.com/games/141147056/Wizard-Hut"},
+    {"title":"Spongebob Movie Adventure! Original Edition!","creator":"MrCharlez","year":2014,"link":"https://www.roblox.com/games/11301716/Spongebob-Movie-Adventure-Original-Edition"},
+    {"title":"Utilis Bridge","creator":"ConstructoBridge","year":2009,"link":"https://www.roblox.com/games/12015857/Utilis-Bridge"},
+    {"title":"Halo Wars Tycoon","creator":"dogdog5","year":2012,"link":"https://www.roblox.com/games/5759306/Halo-Wars-Tycoon"},
+    {"title":"Wobbly Brickbattle","creator":"Maelstronomer","year":2014,"link":"https://www.roblox.com/games/2316945/Wobbly-Brickbattle"},
+    {"title":"TurkeyHunt2010's Place","creator":"TurkeyHunt2010","year":2014,"link":"https://www.roblox.com/games/38942295/TurkeyHunt2010s-Place"},
+    {"title":"Sunset Plain","creator":"Schwaabo","year":2006,"link":"https://www.roblox.com/games/15057/Sunset-Plain"},
+    {"title":"Tactical Entry","creator":"MibsPivs","year":2012,"link":"https://www.roblox.com/games/10052086/Tactical-Entry"},
+    {"title":"LOLcaptions","creator":"Stickmasterluke","year":2014,"link":"https://www.roblox.com/games/36068975/LOLcaptions"},
+    {"title":"Swamp Quest","creator":"Nooooooo","year":2015,"link":"https://www.roblox.com/games/12045862/Swamp-Quest"},
+    {"title":"Mining Sector D473A *Classic* Fixed!","creator":"Mark901","year":2017,"link":"https://www.roblox.com/games/3780138/Mining-Sector-D473A-Classic-Fixed"},
+    {"title":"ROBLOX™ Realistic Free Flight","creator":"TonyAir","year":2017,"link":"https://www.roblox.com/games/1994733/ROBLOX-Realistic-Free-Flight"},
+    {"title":"Castle in the Sky Ascension","creator":"BADGRAPHIX Creations","year":2019,"link":"https://www.roblox.com/games/272464319/Castle-in-the-Sky-Ascension"},
+    {"title":"Domino Rally","creator":"Shedletsky","year":2007,"link":"https://www.roblox.com/games/50520/Domino-Rally"},
+    {"title":"GEAR WARS-The Bridge of DOOM![BC] uncopylocked@10k","creator":"CJDJPJ","year":2011,"link":"https://www.roblox.com/games/53191357/GEAR-WARS-The-Bridge-of-DOOM-BC-uncopylocked-10k"},
+    {"title":"The Shaggy Orb of Wisdom","creator":"eJorge","year":2013,"link":"https://www.roblox.com/games/83056120/The-Shaggy-Orb-of-Wisdom"},
+    {"title":"Survival 202 Open Source","creator":"Davidii","year":2009,"link":"https://www.roblox.com/games/8886092/Survival-202-Open-Source"},
+    {"title":"Medieval Robloxia Tycoon *VIP Door Fixed*","creator":"KTJ","year":2009,"link":"https://www.roblox.com/games/2616301/Medieval-Robloxia-Tycoon-VIP-Door-Fixed"},
+    {"title":"Build, Live and Fight 1!","creator":"conqueror99","year":2009,"link":"https://www.roblox.com/games/8536153/Build-Live-and-Fight-1"},
+    {"title":"Hard Day In A Mountain... Build A Camp! :D","creator":"Actolia","year":2012,"link":"https://www.roblox.com/games/2154347/Hard-Day-In-A-Mountain-Build-A-Camp-D"},
+    {"title":"Perilous Plunge - Knotts Berry Farm","creator":"EricThePianoGuy","year":2015,"link":"https://www.roblox.com/games/11970512/Perilous-Plunge-Knotts-Berry-Farm"},
+    {"title":"RASA's Place","creator":"RASA","year":2014,"link":"https://www.roblox.com/games/112546/RASAs-Place"},
+    {"title":"Apartment Life","creator":"Jarnac","year":2017,"link":"https://www.roblox.com/games/2251069/Apartment-Life"},
+    {"title":"☆ VILLAGE LIFE ☆™ (MEGA UPDATES)","creator":"Joseei","year":2017,"link":"https://www.roblox.com/games/13781514/VILLAGE-LIFE-MEGA-UPDATES"},
+    {"title":"[REVAMP]~ Live with friends and Build ~","creator":"Sora9200","year":2015,"link":"https://www.roblox.com/games/10467641/REVAMP-Live-with-friends-and-Build"},
+    {"title":"The Original Indiana Jones and the Lost Temple","creator":"drkill777","year":2012,"link":"https://www.roblox.com/games/146743/The-Original-Indiana-Jones-and-the-Lost-Temple"},
+    {"title":"Castle Seige (Read Description)","creator":"moneys45","year":2011,"link":"https://www.roblox.com/games/9460377/Castle-Seige-Read-Description"},
+    {"title":"Burnout: Crash Canyon [River]","creator":"BurnoutForever","year":2009,"link":"https://www.roblox.com/games/13721550/Burnout-Crash-Canyon-River"},
+    {"title":"Briguy's Point-and-Click Adventure.","creator":"BrianReddus","year":2011,"link":"https://www.roblox.com/games/83838/Briguys-Point-and-Click-Adventure"},
+    {"title":"Zombie Survival V2.75 *Zombie apocalypse!*","creator":"TheBrickMan","year":2009,"link":"https://www.roblox.com/games/12263054/Zombie-Survival-V2-75-Zombie-apocalypse"},
+    {"title":"Flooded Wizards ; (HORSES! SHOP SOON!)","creator":"ClansAndGuilds","year":2012,"link":"https://www.roblox.com/games/12282205/Flooded-Wizards-HORSES-SHOP-SOON"},
+    {"title":"Zoydude's Highland Sniper Rifle Shootout","creator":"zoydude","year":2010,"link":"https://www.roblox.com/games/1823632/Zoydudes-Highland-Sniper-Rifle-Shootout"},
+    {"title":"Kingdom Of Argyll: Preview","creator":"SonOfSevenless","year":2007,"link":"https://www.roblox.com/games/34713/Kingdom-Of-Argyll-Preview"},
+    {"title":"Roleplaying Mountain","creator":"Yuntah, NoobName","year":2008,"link":"https://www.roblox.com/games/2868037/Roleplaying-Mountain"},
+    {"title":"Classic Swordfighting","creator":"ThatBrickWithGlasses","year":2015,"link":"https://www.roblox.com/games/58319809/Classic-Swordfighting"},
+    {"title":"Sword‑Fighting Training Arena","creator":"Deacer","year":2009,"link":"https://www.roblox.com/games/5538808/Sword-Fighting-Training-Arena"},
+    {"title":"Survival Island | Original | Updated","creator":"PizzaMan1000","year":2018,"link":"https://www.roblox.com/games/4432855/Survival-Island-Original-Updated"}
 ];
 
 // 自动分类：parkour仅匹配 obby / obstacle course / escape（大小写忽略）；tycoon匹配tycoon；pvp匹配battle/war/sword/combat；其余nonpvp
@@ -1243,7 +1239,8 @@ let gameDatabase = rawGameList.map(item=>{
     }
 });
 
-//渲染表格
+const resultCountEl = document.getElementById("resultCount");
+
 function renderGameTable(list){
     const wrap = document.getElementById("gameTableBody");
     wrap.innerHTML="";
@@ -1260,9 +1257,9 @@ function renderGameTable(list){
         });
         wrap.appendChild(div);
     });
+    resultCountEl.innerText = `${list.length} / ${gameDatabase.length}`;
 }
 
-//筛选逻辑
 document.getElementById("btnFilter").addEventListener("click", function(){
     const ys = Number(document.getElementById("filterYearStart").value)||0;
     const ye = Number(document.getElementById("filterYearEnd").value)||9999;
@@ -1276,10 +1273,11 @@ document.getElementById("btnFilter").addEventListener("click", function(){
     });
     renderGameTable(filtered);
 });
+
 document.getElementById("btnQuickRefresh").addEventListener("click", ()=> renderGameTable(gameDatabase));
 document.getElementById("btnRefreshAll").addEventListener("click", ()=> renderGameTable(gameDatabase));
 
-}); //DOMContentLoaded结束
+});
 </script>
 </body>
 </html>
