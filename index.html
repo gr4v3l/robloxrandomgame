@@ -915,6 +915,19 @@ body{
     margin-left:8px;
     font-size:12px;
 }
+.unbox-game-type{
+    display:inline-block;
+    padding:3px 14px;
+    border-radius:3px;
+    font-size:14px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin-bottom:4px;
+}
+.unbox-game-type.pvp{ background:#8b2020; color:#ff8080; border:1px solid #aa3030; }
+.unbox-game-type.tycoon{ background:#206040; color:#80e0a0; border:1px solid #308050; }
+.unbox-game-type.parkour{ background:#204080; color:#80a0ff; border:1px solid #3050a0; }
+.unbox-game-type.nonpvp{ background:#4a443a; color:#b8a888; border:1px solid #645c4f; }
 .unbox-quality-label{
     font-size:18px;
     font-weight:bold;
@@ -1393,6 +1406,7 @@ body{
     <div class="unbox-crate-area" id="unboxCrateArea"></div>
     <div class="unbox-result-area" id="unboxResultArea">
         <div class="unbox-quality-label" id="unboxQualityLabel"></div>
+        <div class="unbox-game-type" id="unboxGameType"></div>
         <div class="unbox-game-thumb" id="unboxGameThumb">Loading...</div>
         <div class="unbox-game-name" id="unboxGameName"></div>
         <div class="unbox-game-creator" id="unboxGameCreator"></div>
@@ -1979,10 +1993,21 @@ function startUnbox(count){
 
 // 显示开箱结果
 async function showUnboxResult(){
-    // 随机选一个游戏
+    // 随机选一个游戏（名字和链接来自同一个对象，保证匹配）
+    if(!gameDatabase || gameDatabase.length === 0){
+        unboxGameName.textContent = "游戏数据未加载";
+        unboxBottomBar.style.display = "flex";
+        return;
+    }
     const game = gameDatabase[Math.floor(Math.random() * gameDatabase.length)];
+    if(!game){
+        unboxGameName.textContent = "随机抽取失败";
+        unboxBottomBar.style.display = "flex";
+        return;
+    }
     currentUnboxGame = game;
     const isFamous = game.creatorClass === "famous";
+    console.log("开箱结果:", game.title, "| link:", game.link, "| placeId:", extractPlaceId(game.link));
 
     // 播放出现音效（知名创作者用特殊音效）
     if(isFamous){
@@ -1994,6 +2019,12 @@ async function showUnboxResult(){
     // 设置品质标签
     unboxQualityLabel.textContent = isFamous ? "★ UNUSUAL ★" : "NORMAL";
     unboxQualityLabel.className = "unbox-quality-label " + (isFamous ? "unusual" : "normal");
+
+    // 设置游戏类型标签（和服务器浏览器一致）
+    const typeLabels = { pvp:"PVP", tycoon:"TYCOON", parkour:"PARKOUR", nonpvp:"NON-PVP" };
+    const unboxGameType = document.getElementById("unboxGameType");
+    unboxGameType.textContent = typeLabels[game.gametype] || game.gametype.toUpperCase();
+    unboxGameType.className = "unbox-game-type " + game.gametype;
 
     // 设置游戏名
     unboxGameName.textContent = game.title;
