@@ -413,6 +413,7 @@ body{
     z-index:102;
     display:none;
     padding:24px;
+    overflow-y:auto;
 }
 .bp-tab-row{
     display:flex;
@@ -585,7 +586,7 @@ body{
 }
 .tt-limited{
     font-size:15px;
-    color:#888;
+    color:#7ec850;
     font-style:italic;
     border-top:1px solid #222;
     padding-top:8px;
@@ -945,18 +946,18 @@ body{
         <div class="bp-slot empty"></div>
     </div>
     <div class="backpack-bottom-bar">
-        <button class="bp-bottom-btn btn-click-sound" id="bpBackBtn"><< BACK</button>
-        <div style="display:flex;align-items:center;gap:10px;">
+        <button class="bp-bottom-btn btn-click-sound" id="bpBackBtn">&lt;&lt; BACK</button>
+        <div class="bp-center-controls">
             <button class="bp-bottom-btn btn-click-sound">X DELETE</button>
             <button class="bp-bottom-btn btn-click-sound">NO ACTION</button>
             <button class="bp-bottom-btn btn-click-sound">DETAILS</button>
             <div class="bp-page-controls">
-                <button class="bp-page-arrow btn-click-sound" id="bpPagePrev"><</button>
+                <button class="bp-page-arrow btn-click-sound" id="bpPagePrev">&lt;</button>
                 <span class="bp-page-num" id="bpPageNum">1/6</span>
-                <button class="bp-page-arrow btn-click-sound" id="bpPageNext">></button>
+                <button class="bp-page-arrow btn-click-sound" id="bpPageNext">&gt;</button>
             </div>
         </div>
-        <div style="width:100px;"></div>
+        <div class="bp-bottom-spacer"></div>
     </div>
     <div class="bp-close-row">
         <button class="bp-bottom-btn btn-click-sound" id="bpCloseBtn">CLOSE</button>
@@ -1253,6 +1254,8 @@ dragHandle.onmousedown=e=>{
 document.getElementById("btnViewAll").addEventListener('click',()=> achvWin.style.display="flex");
 document.getElementById("closeAchv").addEventListener('click',()=> achvWin.style.display="none");
 let selectedGameIndex = -1;
+let selectedGameLink = "";
+let selectedGameTitle = "";
 let gameDatabase = [];
 const famousCreators = new Set([
     "Shedletsky","Stickmasterluke","asimo3089","Defaultio","Koomike","MrDoomBringer",
@@ -1283,15 +1286,21 @@ function renderGameTable(list){
     const wrap = document.getElementById("gameTableBody");
     wrap.innerHTML="";
     selectedGameIndex=-1;
+    selectedGameLink="";
+    selectedGameTitle="";
     list.forEach((g,idx)=>{
         const div=document.createElement("div");
         div.className="table-row";
         div.dataset.realIndex = String(idx);
+        div.dataset.link = g.link;
+        div.dataset.title = g.title;
         div.innerHTML=`<div>${g.title}</div><div>${g.gametype}</div><div>${g.players}</div><div>${g.year}</div><div>${g.creator} ${g.creatorClass==="famous"?"⭐FAMOUS":""}</div>`;
         div.addEventListener("click",()=>{
             document.querySelectorAll(".table-row").forEach(r=>r.classList.remove("selected"));
             div.classList.add("selected");
             selectedGameIndex = Number(div.dataset.realIndex);
+            selectedGameLink = div.dataset.link;
+            selectedGameTitle = div.dataset.title;
         });
         wrap.appendChild(div);
     });
@@ -1313,12 +1322,11 @@ document.getElementById("btnFilter").addEventListener("click", function(){
 document.getElementById("btnQuickRefresh").addEventListener("click", ()=> renderGameTable(gameDatabase));
 document.getElementById("btnRefreshAll").addEventListener("click", ()=> renderGameTable(gameDatabase));
 document.getElementById("btnOpenRoblox").addEventListener("click",()=>{
-    if(selectedGameIndex === -1){
+    if(!selectedGameLink){
         alert(isZh?"请先选择列表中的游戏":"Please select a game from list first");
         return;
     }
-    const g = gameDatabase[selectedGameIndex];
-    window.open(g.link,"_blank");
+    window.open(selectedGameLink,"_blank");
 });
 document.getElementById("closePopup").addEventListener('click',()=>{
     popup.style.display = "none";
