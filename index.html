@@ -809,6 +809,236 @@ body{
     border-color:#e2d9c3 #807662 #807662 #e2d9c3;
     cursor:pointer;
 }
+/* ===== 开箱页面 ===== */
+.unbox-overlay{
+    position:fixed;
+    inset:0;
+    background:#1a1712;
+    z-index:150;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+.unbox-overlay.show{ display:flex; }
+.unbox-crate-area{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    min-height:200px;
+    margin-bottom:30px;
+}
+.unbox-crate{
+    width:140px;
+    height:140px;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+    transition:all 0.5s ease;
+    animation:crateShake 0.6s ease-in-out infinite;
+}
+.unbox-crate.opening{
+    animation:crateOpen 0.8s ease-out forwards;
+}
+.unbox-crate.gone{
+    opacity:0;
+    transform:scale(0.3) rotate(180deg);
+}
+@keyframes crateShake{
+    0%,100%{ transform:rotate(-3deg); }
+    50%{ transform:rotate(3deg); }
+}
+@keyframes crateOpen{
+    0%{ transform:scale(1) rotate(0); }
+    30%{ transform:scale(1.2) rotate(-10deg); }
+    60%{ transform:scale(1.3) rotate(10deg); filter:brightness(2); }
+    100%{ transform:scale(0) rotate(360deg); opacity:0; filter:brightness(3); }
+}
+.unbox-result-area{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+    animation:resultFadeIn 0.6s ease-out;
+}
+.unbox-result-area.show{ display:flex; }
+@keyframes resultFadeIn{
+    from{ opacity:0; transform:translateY(30px) scale(0.9); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+}
+.unbox-game-thumb{
+    width:512px;
+    max-width:90vw;
+    height:288px;
+    background:#2a2620;
+    border:3px solid #b8a628;
+    border-radius:4px;
+    background-size:cover;
+    background-position:center;
+    box-shadow:0 0 30px rgba(184,166,40,0.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#666;
+    font-size:14px;
+}
+.unbox-game-thumb.unusual{
+    border-color:#b84da0;
+    box-shadow:0 0 40px rgba(184,77,160,0.5);
+    animation:unusualGlow 1.5s ease-in-out infinite;
+}
+@keyframes unusualGlow{
+    0%,100%{ box-shadow:0 0 30px rgba(184,77,160,0.4); }
+    50%{ box-shadow:0 0 60px rgba(184,77,160,0.8); }
+}
+.unbox-game-name{
+    font-size:24px;
+    color:#f0e4c8;
+    font-weight:bold;
+    text-align:center;
+    max-width:600px;
+    text-shadow:2px 2px 4px #000;
+}
+.unbox-game-creator{
+    font-size:15px;
+    color:#a89878;
+}
+.unbox-game-creator .famous-tag{
+    display:inline-block;
+    border:1px solid #b84da0;
+    color:#e080c8;
+    padding:1px 8px;
+    border-radius:2px;
+    margin-left:8px;
+    font-size:12px;
+}
+.unbox-quality-label{
+    font-size:18px;
+    font-weight:bold;
+    padding:4px 16px;
+    border-radius:3px;
+}
+.unbox-quality-label.normal{
+    color:#b8a628;
+    border:1px solid #b8a628;
+}
+.unbox-quality-label.unusual{
+    color:#e080c8;
+    border:1px solid #b84da0;
+    background:rgba(184,77,160,0.1);
+}
+.unbox-bottom-bar{
+    display:flex;
+    gap:16px;
+    margin-top:24px;
+}
+.unbox-btn{
+    background:linear-gradient(180deg,#d4c8a8,#b8a882);
+    color:#2a2520;
+    font-size:16px;
+    font-weight:bold;
+    padding:10px 30px;
+    border:2px solid;
+    border-color:#e8dcc0 #8a7a5a #8a7a5a #e8dcc0;
+    border-radius:3px;
+    cursor:pointer;
+    text-shadow:0 1px 0 rgba(255,255,255,0.3);
+}
+.unbox-btn:active{
+    border-color:#8a7a5a #e8dcc0 #e8dcc0 #8a7a5a;
+}
+.unbox-btn.primary{
+    background:linear-gradient(180deg,#c9a828,#a88820);
+    border-color:#e8c840 #8a6810 #8a6810 #e8c840;
+}
+/* ===== 开箱设置弹窗 ===== */
+.unbox-setup-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    z-index:160;
+    display:none;
+    align-items:center;
+    justify-content:center;
+}
+.unbox-setup-overlay.show{ display:flex; }
+.unbox-setup-window{
+    width:360px;
+    background:#3b362e;
+    border:3px solid;
+    border-color:#7c7362 #27231d #27231d #7c7362;
+    padding:20px;
+}
+.unbox-setup-title{
+    color:#f0e9dc;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:16px;
+    text-align:center;
+}
+.unbox-setup-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:16px;
+}
+.unbox-setup-mode{
+    flex:1;
+    padding:12px;
+    background:#4a443a;
+    border:2px solid #645c4f;
+    color:#b8b09f;
+    text-align:center;
+    cursor:pointer;
+    font-size:14px;
+    border-radius:3px;
+}
+.unbox-setup-mode.active{
+    background:#5a5244;
+    border-color:#b8a628;
+    color:#f0e4c8;
+}
+.unbox-setup-count{
+    display:none;
+    margin-bottom:16px;
+}
+.unbox-setup-count.show{ display:block; }
+.unbox-setup-count label{
+    color:#b8b09f;
+    font-size:13px;
+    display:block;
+    margin-bottom:6px;
+}
+.unbox-setup-count input{
+    width:100%;
+    background:#2c2821;
+    border:2px solid #645c4f;
+    padding:8px;
+    color:#fff;
+    font-size:15px;
+    box-sizing:border-box;
+}
+.unbox-setup-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+}
+.unbox-setup-buttons button{
+    padding:8px 20px;
+    background:#c9bea6;
+    color:#222;
+    border:2px solid;
+    border-color:#e2d9c3 #807662 #807662 #e2d9c3;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+}
+.unbox-setup-buttons button.primary{
+    background:#b8a628;
+    border-color:#d8c648 #8a7810 #8a7810 #d8c648;
+}
 </style>
 </head>
 <body>
@@ -1093,7 +1323,7 @@ body{
         <button class="bp-bottom-btn btn-click-sound" id="bpBackBtn">&lt;&lt; BACK</button>
         <div class="bp-center-controls">
             <button class="bp-bottom-btn btn-click-sound">X DELETE</button>
-            <button class="bp-bottom-btn btn-click-sound">NO ACTION</button>
+            <button class="bp-bottom-btn btn-click-sound" id="bpActionBtn">NO ACTION</button>
             <button class="bp-bottom-btn btn-click-sound">DETAILS</button>
             <div class="bp-page-controls">
                 <button class="bp-page-arrow btn-click-sound" id="bpPagePrev">&lt;</button>
@@ -1154,6 +1384,62 @@ body{
             <button class="settings-save-btn btn-click-sound" id="settingsSave">
                 <span class="lang-zh">保存</span>
                 <span class="lang-en">Save</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- ===== 开箱页面 ===== -->
+<div class="unbox-overlay" id="unboxOverlay">
+    <div class="unbox-crate-area" id="unboxCrateArea"></div>
+    <div class="unbox-result-area" id="unboxResultArea">
+        <div class="unbox-quality-label" id="unboxQualityLabel"></div>
+        <div class="unbox-game-thumb" id="unboxGameThumb">Loading...</div>
+        <div class="unbox-game-name" id="unboxGameName"></div>
+        <div class="unbox-game-creator" id="unboxGameCreator"></div>
+    </div>
+    <div class="unbox-bottom-bar" id="unboxBottomBar" style="display:none;">
+        <button class="unbox-btn" id="unboxBackBtn">
+            <span class="lang-zh"><< 返回背包</span>
+            <span class="lang-en"><< BACK</span>
+        </button>
+        <button class="unbox-btn primary" id="unboxEnterBtn">
+            <span class="lang-zh">进入游戏</span>
+            <span class="lang-en">ENTER GAME</span>
+        </button>
+    </div>
+</div>
+<!-- ===== 开箱设置弹窗 ===== -->
+<div class="unbox-setup-overlay" id="unboxSetupOverlay">
+    <div class="unbox-setup-window">
+        <div class="unbox-setup-title">
+            <span class="lang-zh">选择开箱方式</span>
+            <span class="lang-en">Unbox Mode</span>
+        </div>
+        <div class="unbox-setup-row">
+            <div class="unbox-setup-mode active" data-mode="single">
+                <span class="lang-zh">单次开箱</span>
+                <span class="lang-en">Single</span>
+            </div>
+            <div class="unbox-setup-mode" data-mode="batch">
+                <span class="lang-zh">批量开箱</span>
+                <span class="lang-en">Batch</span>
+            </div>
+        </div>
+        <div class="unbox-setup-count" id="unboxBatchCount">
+            <label>
+                <span class="lang-zh">开箱数量</span>
+                <span class="lang-en">Count</span>
+            </label>
+            <input type="number" id="unboxCountInput" value="3" min="2" max="10">
+        </div>
+        <div class="unbox-setup-buttons">
+            <button id="unboxSetupCancel">
+                <span class="lang-zh">取消</span>
+                <span class="lang-en">Cancel</span>
+            </button>
+            <button class="primary" id="unboxSetupConfirm">
+                <span class="lang-zh">开始开箱</span>
+                <span class="lang-en">UNBOX</span>
             </button>
         </div>
     </div>
@@ -1383,6 +1669,7 @@ function bindSlotTooltip(){
         slot.addEventListener("click",()=>{
             document.querySelectorAll(".bp-slot.selected").forEach(s=>s.classList.remove("selected"));
             slot.classList.add("selected");
+            updateActionButton(itemId);
         });
     });
 }
@@ -1540,6 +1827,220 @@ document.addEventListener("mousemove", function(e){
     settingsWindow.style.top = (e.clientY - settingsDy - settingsOverlay.offsetTop) + "px";
 });
 document.addEventListener("mouseup", function(){ settingsDrag = false; });
+
+// ===== 开箱系统 =====
+const bpActionBtn = document.getElementById("bpActionBtn");
+const unboxOverlay = document.getElementById("unboxOverlay");
+const unboxCrateArea = document.getElementById("unboxCrateArea");
+const unboxResultArea = document.getElementById("unboxResultArea");
+const unboxGameThumb = document.getElementById("unboxGameThumb");
+const unboxGameName = document.getElementById("unboxGameName");
+const unboxGameCreator = document.getElementById("unboxGameCreator");
+const unboxQualityLabel = document.getElementById("unboxQualityLabel");
+const unboxBottomBar = document.getElementById("unboxBottomBar");
+const unboxBackBtn = document.getElementById("unboxBackBtn");
+const unboxEnterBtn = document.getElementById("unboxEnterBtn");
+const unboxSetupOverlay = document.getElementById("unboxSetupOverlay");
+const unboxSetupCancel = document.getElementById("unboxSetupCancel");
+const unboxSetupConfirm = document.getElementById("unboxSetupConfirm");
+const unboxBatchCount = document.getElementById("unboxBatchCount");
+const unboxCountInput = document.getElementById("unboxCountInput");
+
+// 钥匙→箱子对应关系
+const KEY_TO_CRATE = {
+    aqua_key: { crateId:"aqua_crate", crateIcon:"photos/Backpack_Aqua_Summer_2013_Cooler.png" },
+    green_key: { crateId:"green_crate", crateIcon:"photos/Backpack_Green_Summer_2013_Cooler.png" },
+    orange_key: { crateId:"orange_crate", crateIcon:"photos/Backpack_Orange_Summer_2013_Cooler.png" },
+    red_key: { crateId:"red_crate", crateIcon:"photos/Backpack_Red_Summer_2013_Cooler.png" },
+    yellow_key: { crateId:"yellow_crate", crateIcon:"photos/Backpack_Yellow_Summer_2013_Cooler.png" }
+};
+
+let selectedKeyItem = null;
+let currentUnboxGame = null;
+let unboxMode = "single";
+
+// 更新 ACTION 按钮状态
+function updateActionButton(itemId){
+    if(KEY_TO_CRATE[itemId]){
+        selectedKeyItem = itemId;
+        bpActionBtn.textContent = "ACTION";
+        bpActionBtn.style.background = "linear-gradient(180deg,#c9a828,#a88820)";
+    } else {
+        selectedKeyItem = null;
+        bpActionBtn.textContent = "NO ACTION";
+        bpActionBtn.style.background = "";
+    }
+}
+
+// ACTION 按钮点击 → 弹出开箱设置
+bpActionBtn.addEventListener("click", function(){
+    if(!selectedKeyItem) return;
+    unboxSetupOverlay.classList.add("show");
+});
+
+// 开箱设置：单次/批量切换
+document.querySelectorAll(".unbox-setup-mode").forEach(function(mode){
+    mode.addEventListener("click", function(){
+        document.querySelectorAll(".unbox-setup-mode").forEach(function(m){m.classList.remove("active");});
+        mode.classList.add("active");
+        unboxMode = mode.dataset.mode;
+        unboxBatchCount.classList.toggle("show", unboxMode === "batch");
+    });
+});
+
+unboxSetupCancel.addEventListener("click", function(){
+    unboxSetupOverlay.classList.remove("show");
+});
+
+// 开始开箱
+unboxSetupConfirm.addEventListener("click", function(){
+    unboxSetupOverlay.classList.remove("show");
+    const count = unboxMode === "batch" ? Math.min(10, Math.max(2, parseInt(unboxCountInput.value)||3)) : 1;
+    startUnbox(count);
+});
+
+// 播放音效
+function playSound(src, vol){
+    try{
+        const snd = new Audio(src);
+        snd.volume = vol || 0.8;
+        snd.play().catch(function(e){console.log("音效播放失败",e);});
+    }catch(e){}
+}
+
+// 从 Roblox 链接提取 placeId
+function extractPlaceId(link){
+    const m = link.match(/\/games\/(\d+)\//);
+    return m ? m[1] : null;
+}
+
+// 获取游戏封面图（通过 Roblox API）
+async function fetchGameThumbnail(placeId){
+    try{
+        // 第一步：通过 placeId 获取 universeId
+        const uniRes = await fetch("https://apis.roblox.com/universes/v1/places/" + placeId + "/universe");
+        const uniData = await uniRes.json();
+        const universeId = uniData.universeId;
+        if(!universeId) return null;
+        // 第二步：通过 universeId 获取封面图
+        const thumbRes = await fetch("https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=" + universeId + "&countPerUniverse=1&size=768x432&format=Png");
+        const thumbData = await thumbRes.json();
+        if(thumbData.data && thumbData.data[0] && thumbData.data[0].thumbnails && thumbData.data[0].thumbnails[0]){
+            return thumbData.data[0].thumbnails[0].imageUrl;
+        }
+        return null;
+    }catch(e){
+        console.log("获取游戏封面失败", e);
+        return null;
+    }
+}
+
+// 开始开箱流程
+function startUnbox(count){
+    if(!selectedKeyItem || !KEY_TO_CRATE[selectedKeyItem]) return;
+    const crateInfo = KEY_TO_CRATE[selectedKeyItem];
+
+    // 隐藏背包，显示开箱页面
+    backpackWin.style.display = "none";
+    unboxOverlay.classList.add("show");
+    unboxResultArea.classList.remove("show");
+    unboxBottomBar.style.display = "none";
+    unboxCrateArea.innerHTML = "";
+
+    // 生成箱子
+    const crates = [];
+    for(let i=0;i<count;i++){
+        const crate = document.createElement("div");
+        crate.className = "unbox-crate";
+        crate.style.backgroundImage = "url('" + crateInfo.crateIcon + "')";
+        unboxCrateArea.appendChild(crate);
+        crates.push(crate);
+    }
+
+    // 播放开箱音效
+    playSound("audio/crateopen.d9d71160.mp3", 0.9);
+
+    // 箱子打开动画
+    setTimeout(function(){
+        crates.forEach(function(c, i){
+            setTimeout(function(){
+                c.classList.add("opening");
+                setTimeout(function(){ c.classList.add("gone"); }, 800);
+            }, i * 200);
+        });
+
+        // 全部箱子消失后显示结果
+        setTimeout(function(){
+            unboxCrateArea.style.display = "none";
+            showUnboxResult();
+        }, count * 200 + 1000);
+    }, 800);
+}
+
+// 显示开箱结果
+async function showUnboxResult(){
+    // 随机选一个游戏
+    const game = gameDatabase[Math.floor(Math.random() * gameDatabase.length)];
+    currentUnboxGame = game;
+    const isFamous = game.creatorClass === "famous";
+
+    // 播放出现音效（知名创作者用特殊音效）
+    if(isFamous){
+        playSound("audio/unusualunboxed.291c861e.mp3", 0.9);
+    } else {
+        playSound("audio/unboxed.f0fee4ce.mp3", 0.9);
+    }
+
+    // 设置品质标签
+    unboxQualityLabel.textContent = isFamous ? "★ UNUSUAL ★" : "NORMAL";
+    unboxQualityLabel.className = "unbox-quality-label " + (isFamous ? "unusual" : "normal");
+
+    // 设置游戏名
+    unboxGameName.textContent = game.title;
+
+    // 设置创作者
+    unboxGameCreator.innerHTML = "by " + game.creator + (isFamous ? '<span class="famous-tag">famous</span>' : "");
+
+    // 设置封面图样式
+    unboxGameThumb.className = "unbox-game-thumb" + (isFamous ? " unusual" : "");
+    unboxGameThumb.textContent = "Loading...";
+    unboxGameThumb.style.backgroundImage = "";
+
+    // 显示结果区域
+    unboxResultArea.classList.add("show");
+
+    // 获取游戏封面图
+    const placeId = extractPlaceId(game.link);
+    if(placeId){
+        const thumbUrl = await fetchGameThumbnail(placeId);
+        if(thumbUrl){
+            unboxGameThumb.style.backgroundImage = "url('" + thumbUrl + "')";
+            unboxGameThumb.textContent = "";
+        } else {
+            unboxGameThumb.textContent = "封面加载失败";
+        }
+    } else {
+        unboxGameThumb.textContent = "无封面";
+    }
+
+    // 显示底部按钮
+    unboxBottomBar.style.display = "flex";
+}
+
+// 返回背包
+unboxBackBtn.addEventListener("click", function(){
+    unboxOverlay.classList.remove("show");
+    unboxCrateArea.style.display = "";
+    backpackWin.style.display = "block";
+});
+
+// 进入游戏
+unboxEnterBtn.addEventListener("click", function(){
+    if(currentUnboxGame && currentUnboxGame.link){
+        window.open(currentUnboxGame.link, "_blank");
+    }
+});
+
 const achvWin = document.getElementById("achvWin");
 const dragHandle = document.getElementById("achvDragHandle");
 let drag=false,dx,dy;
